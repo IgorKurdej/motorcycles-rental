@@ -18,7 +18,7 @@ function App() {
           <GlobalStyle />
           <Navbar />
           <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="motorcycles-rental/" element={<Home />} />
               <Route path='/oferta' element={<Offer />}/>
               <Route path='/rezerwacja' element={<Booking />}/>
               <Route path='/konto' element={<Account />}/>
