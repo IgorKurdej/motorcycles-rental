@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/motorcycles-rental/static/css/main.dbaf8d3b.css",
+    "main.js": "/motorcycles-rental/static/js/main.5fb1328c.js",
+    "static/media/KTM.png": "/motorcycles-rental/static/media/KTM.3fae9596ecdb4112f5ac.png",
+    "index.html": "/motorcycles-rental/index.html",
+    "main.dbaf8d3b.css.map": "/motorcycles-rental/static/css/main.dbaf8d3b.css.map",
+    "main.5fb1328c.js.map": "/motorcycles-rental/static/js/main.5fb1328c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dbaf8d3b.css",
+    "static/js/main.5fb1328c.js"
+  ]
+}
