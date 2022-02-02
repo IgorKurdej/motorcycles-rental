@@ -1,24 +1,31 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import './App.css';
+import GlobalStyle from "./theme/GlobalStyle";
+import Home from "./views/Home";
+import Offer from "./views/Offer";
+import Navbar from "./components/Navbar/Navbar";
+import Login from "./views/Login";
+import Booking from "./views/Booking";
+import Account from "./views/Account";
+import AppContext from "./context";
+
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Router>
+          <GlobalStyle />
+          <Navbar />
+          <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path='/oferta' element={<Offer />}/>
+              <Route path='/rezerwacja' element={<Booking />}/>
+              <Route path='/konto' element={<Account />}/>
+              <Route path='/logowanie' element={<Login />}/>
+          </Routes>
+      </Router>
+
   );
 }
 
