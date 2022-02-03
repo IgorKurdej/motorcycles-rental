@@ -18,7 +18,7 @@ function App() {
           <GlobalStyle />
           <Navbar />
           <Routes>
-              <Route path="/" element={<Home />} />
+              <Route exact path="/" element={<Home />} />
               <Route path="/oferta" element={<Offer />}/>
               <Route path="/rezerwacja" element={<Booking />}/>
               <Route path="/konto" element={<Account />}/>
