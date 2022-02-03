@@ -14,8 +14,8 @@ import AppContext from "./context";
 function App() {
 
   return (
-      // <Router basename={window.location.pathname || ''} >
-      <Router >
+      <Router basename={process.env.PUBLIC_URL} >
+      {/*<Router >*/}
           <GlobalStyle />
           <Navbar />
           <Switch>
