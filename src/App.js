@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import './App.css';
 import GlobalStyle from "./theme/GlobalStyle";
 import Home from "./views/Home";
@@ -17,13 +17,13 @@ function App() {
       <Router basename={window.location.pathname || ''} >
           <GlobalStyle />
           <Navbar />
-          <Routes>
+          <Switch>
               <Route exact path="/" element={<Home />} />
               <Route path="/oferta" element={<Offer />}/>
               <Route path="/rezerwacja" element={<Booking />}/>
               <Route path="/konto" element={<Account />}/>
               <Route path="/logowanie" element={<Login />}/>
-          </Routes>
+          </Switch>
       </Router>
 
   );
