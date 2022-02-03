@@ -22,7 +22,7 @@ export const motorcycles = [
     {
         id: 3,
         marka: 'Honda',
-        model: 'DUPA',
+        model: 'Honda',
         pojemność: 546,
         moc: 236,
         rok: 2015,
