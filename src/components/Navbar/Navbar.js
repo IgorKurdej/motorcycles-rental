@@ -10,11 +10,11 @@ const Navbar = () => {
             <S.NavbarInnerContainer>
                 <S.LeftContainer>
                     <S.NavbarLinkContainer>
-                        <S.NavbarLink to="/motorcycles-rental">Home</S.NavbarLink>
-                        <S.NavbarLink to="/motorcycles-rental/oferta">Oferta</S.NavbarLink>
-                        <S.NavbarLink to="/motorcycles-rental/kontakt">Kontakt</S.NavbarLink>
-                        <S.NavbarLink to="/motorcycles-rental/konto">Twoje konto</S.NavbarLink>
-                        <S.NavbarLink to="/motorcycles-rental/logowanie">Zaloguj się</S.NavbarLink>
+                        <S.NavbarLink to="/">Home</S.NavbarLink>
+                        <S.NavbarLink to="/oferta">Oferta</S.NavbarLink>
+                        <S.NavbarLink to="/kontakt">Kontakt</S.NavbarLink>
+                        <S.NavbarLink to="/konto">Twoje konto</S.NavbarLink>
+                        <S.NavbarLink to="/logowanie">Zaloguj się</S.NavbarLink>
                         <S.OpenLinksButton
                             onClick={() => setExtendNavbar(curr => !curr)}
                         >

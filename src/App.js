@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
 import './App.css';
 import GlobalStyle from "./theme/GlobalStyle";
 import Home from "./views/Home";
@@ -14,17 +14,17 @@ import AppContext from "./context";
 function App() {
 
   return (
-      <Router basename={process.env.PUBLIC_URL} >
-      {/*<Router >*/}
+      // <Router basename={process.env.PUBLIC_URL} >
+      <Router >
           <GlobalStyle />
           <Navbar />
-          <Switch>
+          <Routes>
               <Route exact path="/" element={<Home />} />
               <Route path="/oferta" element={<Offer />}/>
               <Route path="/rezerwacja" element={<Booking />}/>
               <Route path="/konto" element={<Account />}/>
               <Route path="/logowanie" element={<Login />}/>
-          </Switch>
+          </Routes>
       </Router>
 
   );
