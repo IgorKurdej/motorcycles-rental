@@ -14,7 +14,7 @@ import AppContext from "./context";
 function App() {
 
   return (
-      <Router basename="/">
+      <Router basename={window.location.pathname || ''} >
           <GlobalStyle />
           <Navbar />
           <Routes>
