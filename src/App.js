@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
 import './App.css';
 import GlobalStyle from "./theme/GlobalStyle";
 import Home from "./views/Home";
@@ -14,11 +14,12 @@ import AppContext from "./context";
 function App() {
 
   return (
-      <Router basename={window.location.pathname || ''} >
+      // <Router basename={window.location.pathname || ''} >
+      <Router >
           <GlobalStyle />
           <Navbar />
           <Switch>
-              <Route exact path="/motorcycles-rental" element={<Home />} />
+              <Route exact path="/" element={<Home />} />
               {/*<Route path="/motorcycles-rental/oferta" element={<Offer />}/>*/}
               {/*<Route path="/motorcycles-rental/rezerwacja" element={<Booking />}/>*/}
               {/*<Route path="/motorcycles-rental/konto" element={<Account />}/>*/}
