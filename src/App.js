@@ -19,10 +19,10 @@ function App() {
           <Navbar />
           <Switch>
               <Route exact path="/motorcycles-rental" element={<Home />} />
-              <Route path="/motorcycles-rental/oferta" element={<Offer />}/>
-              <Route path="/motorcycles-rental/rezerwacja" element={<Booking />}/>
-              <Route path="/motorcycles-rental/konto" element={<Account />}/>
-              <Route path="/motorcycles-rental/logowanie" element={<Login />}/>
+              {/*<Route path="/motorcycles-rental/oferta" element={<Offer />}/>*/}
+              {/*<Route path="/motorcycles-rental/rezerwacja" element={<Booking />}/>*/}
+              {/*<Route path="/motorcycles-rental/konto" element={<Account />}/>*/}
+              {/*<Route path="/motorcycles-rental/logowanie" element={<Login />}/>*/}
           </Switch>
       </Router>
 
