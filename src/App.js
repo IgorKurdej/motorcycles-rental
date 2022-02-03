@@ -14,11 +14,11 @@ import AppContext from "./context";
 function App() {
 
   return (
-      <Router>
+      <Router basename="/">
           <GlobalStyle />
           <Navbar />
           <Routes>
-              <Route path="" element={<Home />} />
+              <Route path="/" element={<Home />} />
               <Route path="/oferta" element={<Offer />}/>
               <Route path="/rezerwacja" element={<Booking />}/>
               <Route path="/konto" element={<Account />}/>
