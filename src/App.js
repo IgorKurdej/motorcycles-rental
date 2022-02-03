@@ -18,11 +18,11 @@ function App() {
           <GlobalStyle />
           <Navbar />
           <Routes>
-              <Route path="https://igorkurdej.github.io/motorcycles-rental/" element={<Home />} />
-              <Route path='motorcycles-rental/oferta' element={<Offer />}/>
-              <Route path='motorcycles-rental/rezerwacja' element={<Booking />}/>
-              <Route path='motorcycles-rental/konto' element={<Account />}/>
-              <Route path='motorcycles-rental/logowanie' element={<Login />}/>
+              <Route path="" element={<Home />} />
+              <Route path="/oferta" element={<Offer />}/>
+              <Route path="/rezerwacja" element={<Booking />}/>
+              <Route path="/konto" element={<Account />}/>
+              <Route path="/logowanie" element={<Login />}/>
           </Routes>
       </Router>
 
