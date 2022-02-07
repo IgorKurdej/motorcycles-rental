@@ -6,12 +6,13 @@ const Container = styled.div`
   flex-direction: ${props => props.offer && 'column'};
   margin: ${(props) => props.reservation ? '1.5px' : '10px'};
   align-items: center;
-  justify-content: space-between;
+  //justify-content: center;
 `;
 
 const Wrapper = styled.div`
   flex: 1;
-  text-align: ${props => props.right ? 'right' : 'left'};
+  text-align: ${props => props.offer ? 'center' : props.right ? 'right' : 'left'};
+  margin-bottom: ${props => props.offer && '5px'};
 `
 
 const DescriptionItem = ({children, value, hr, unit, offer, reservation}) => {
@@ -30,10 +31,10 @@ const DescriptionItem = ({children, value, hr, unit, offer, reservation}) => {
                     ) : (
                         offer ? (
                             <Container offer>
-                                <Wrapper>
+                                <Wrapper offer>
                                     <p>{children}</p>
                                 </Wrapper>
-                                <Wrapper right>
+                                <Wrapper>
                                     <p>{value}{unit}</p>
                                 </Wrapper>
                             </Container>

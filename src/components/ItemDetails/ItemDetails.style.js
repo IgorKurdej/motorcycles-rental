@@ -11,10 +11,12 @@ export const DetailsWrapper = styled.div`
 
 export const ModelWrapper = styled.div`
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    margin: 30px 0;
     
     h1 {
-      margin: 30px 10px;
+      margin: 0 10px;
       font-weight: 500;
     }
 `
