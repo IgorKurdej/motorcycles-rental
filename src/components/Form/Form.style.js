@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 export const FormWrapper = styled.div`
   margin-top: 100px;
-  width: 25vw;
+  width: 550px;
   height: 650px;
   display: flex;
   flex-direction: column;

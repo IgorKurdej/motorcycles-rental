@@ -4,6 +4,7 @@ import * as S from './Form.style';
 import LoginFormInputs from "./LoginFormInputs/LoginFormInputs";
 import SignUpFormInputs from "./SignUpFormInputs/SignUpFormInputs";
 import ReservationFormInputs from "./ReservationFormInputs/ReservationFormInputs";
+import ContactFormInputs from "./ContactFormInputs/ContactFormInputs";
 
 const initialLoginValues = {
     email: '',
@@ -27,30 +28,43 @@ const initialReservationValues = {
     endDate: ''
 };
 
-const Form = ({booking, onChange}) => {
+const initialContactValues = {
+    email: 'jan.kowalski@gmail.com',
+    title: '',
+    message: ''
+};
+
+const Form = ({booking, contact, onChange}) => {
     const [toggleChoice, setToggleChoice] = useState(true);
     const [loginValues, setLoginValues] = useState(initialLoginValues);
     const [signUpValues, setSignUpValues] = useState(initialSignUpValues);
     const [reservationValues, setReservationValues] = useState(initialReservationValues);
+    const [contactValues, setContactValues] = useState(initialContactValues);
 
     const handleInputChange = e => {
-        !booking ? (
-            toggleChoice ?
-                setLoginValues({
-                    ...loginValues,
+        contact ? (
+                setContactValues({
+                    ...contactValues,
                     [e.target.name]: e.target.value
-                }) : (
-                    setSignUpValues({
-                        ...signUpValues,
+                })
+            ) :
+            !booking ? (
+                toggleChoice ?
+                    setLoginValues({
+                        ...loginValues,
                         [e.target.name]: e.target.value
-                    })
-                )
-        ) : (
-            setReservationValues({
-                ...reservationValues,
-                [e.target.name]: e.target.value
-            })
-        )
+                    }) : (
+                        setSignUpValues({
+                            ...signUpValues,
+                            [e.target.name]: e.target.value
+                        })
+                    )
+            ) : (
+                setReservationValues({
+                    ...reservationValues,
+                    [e.target.name]: e.target.value
+                })
+            )
     }
 
     const clearInputs = () => {
@@ -73,60 +87,76 @@ const Form = ({booking, onChange}) => {
         <S.FormWrapper>
             <S.FormTitle>
                 {
-                    !booking ? (
-                            toggleChoice ? 'Logowanie' : 'Rejestracja'
-                        ) : (
-                            'Rezerwacja'
-                        )
+                    contact ? (
+                            'Napisz do nas'
+                        ) :
+                        !booking ? (
+                                toggleChoice ? 'Logowanie' : 'Rejestracja'
+                            ) : (
+                                'Rezerwacja'
+                            )
                 }
             </S.FormTitle>
             <S.Form onSubmit={handleSubmit}>
                 {
-                    !booking ? (
-                            toggleChoice ?
-                                <LoginFormInputs
-                                    loginValues={loginValues}
-                                    onChange={handleInputChange} /> :
-                                <SignUpFormInputs
-                                    signUpValues={signUpValues}
+                    contact ? (
+                            <ContactFormInputs
+                                contactValues={contactValues}
+                                onChange={handleInputChange}
+                            />
+                        ) :
+                        !booking ? (
+                                toggleChoice ?
+                                    <LoginFormInputs
+                                        loginValues={loginValues}
+                                        onChange={handleInputChange} /> :
+                                    <SignUpFormInputs
+                                        signUpValues={signUpValues}
+                                        onChange={handleInputChange} />
+                            ) : (
+                                <ReservationFormInputs
+                                    reservationValues={reservationValues}
                                     onChange={handleInputChange} />
-                        ) : (
-                            <ReservationFormInputs
-                                reservationValues={reservationValues}
-                                onChange={handleInputChange} />
-                        )
+                            )
                 }
                 {
-                    !booking ? (
-                        <S.ButtonWrapper>
-                            <S.NavLink to='/'>
-                                <S.Button name='submit' type='submit' onChange={() => onChange} >
-                                    { toggleChoice ? 'Zaloguj' : 'Zarejestruj' }
+                    contact ? (
+                            <S.ButtonWrapper>
+                                <S.Button>
+                                    Wyślij
                                 </S.Button>
-                            </S.NavLink>
-                        </S.ButtonWrapper>
-                    ) : (
-                        <S.ButtonsContainer>
+                            </S.ButtonWrapper>
+                        ) :
+                        !booking ? (
                             <S.ButtonWrapper>
-                                <S.NavLink to='/konto' >
-                                    <S.Button confirm >
-                                        Zarezerwuj
+                                <S.NavLink to='/'>
+                                    <S.Button name='submit' type='submit' onChange={() => onChange} >
+                                        { toggleChoice ? 'Zaloguj' : 'Zarejestruj' }
                                     </S.Button>
                                 </S.NavLink>
                             </S.ButtonWrapper>
-                            <S.ButtonWrapper>
-                                <S.NavLink to='/oferta' >
-                                    <S.Button cancel >
-                                        Anuluj
-                                    </S.Button>
-                                </S.NavLink>
-                            </S.ButtonWrapper>
-                        </S.ButtonsContainer>
-                    )
+                        ) : (
+                            <S.ButtonsContainer>
+                                <S.ButtonWrapper>
+                                    <S.NavLink to='/konto' >
+                                        <S.Button confirm >
+                                            Zarezerwuj
+                                        </S.Button>
+                                    </S.NavLink>
+                                </S.ButtonWrapper>
+                                <S.ButtonWrapper>
+                                    <S.NavLink to='/oferta' >
+                                        <S.Button cancel >
+                                            Anuluj
+                                        </S.Button>
+                                    </S.NavLink>
+                                </S.ButtonWrapper>
+                            </S.ButtonsContainer>
+                        )
                 }
             </S.Form>
             {
-                !booking &&
+                !booking && !contact &&
                     <S.ChangeFormWrapper>
                         <p>
                             { toggleChoice ? 'Nie masz jeszcze konta?' : 'Masz juz konto?' }
