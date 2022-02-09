@@ -43,13 +43,7 @@ const Form = ({login, booking, contact, onChange}) => {
 
     const sendEmail = e => {
         e.preventDefault();
-
-        emailjs.sendForm('service_ci7ya81', 'template_5b8jfeg', e.target, 'user_pBO8DUUY9cNNcg33wDKAk')
-            .then((result) => {
-                console.log(result.text);
-            }, (error) => {
-                console.log(error.text);
-            });
+        console.log('SEND')
     }
 
     const handleContactInputsChange = e => (
@@ -106,7 +100,7 @@ const Form = ({login, booking, contact, onChange}) => {
                     )
                 }
             </S.FormTitle>
-            <S.Form onSubmit={sendEmail}>
+            <S.Form onSubmit={ contact ? sendEmail : handleSubmit}>
                 {
                     contact &&
                         <>
