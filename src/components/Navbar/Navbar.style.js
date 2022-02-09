@@ -38,14 +38,14 @@ export const NavbarLinkContainer = styled.div`
 `;
 
 export const NavbarLink = styled(Link)`
-  color: ${props => props.activeClassName === 'active' ? 'forestgreen' : 'white'};
+  color: ${props => props.className === 'active' ? 'forestgreen' : 'white'};
   font-size: 18px;
   font-weight: 500;
   text-decoration: none;
   margin: 10px;
 
   :hover {
-    color: ${props => props.activeClassName === 'active' ? '' : '#8f8e8e'};
+    color: ${props => props.className === 'active' ? '' : '#8f8e8e'};
   }
   
   @media (max-width: 700px) {

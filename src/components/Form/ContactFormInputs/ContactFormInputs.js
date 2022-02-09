@@ -17,7 +17,6 @@ const ContactFormInputs = ({contactValues, onChange}) => {
                 name='email'
                 value={contactValues.email}
                 onChange={onChange}
-                disabled
             />
             <Input
                 placeholder='tytuł'

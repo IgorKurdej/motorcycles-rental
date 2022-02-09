@@ -15,19 +15,19 @@ const Navbar = () => {
                 <S.LeftContainer>
                     <S.NavbarLinkContainer>
                         <S.NavbarLink
-                            activeClassName={splitPathname[1] === '' && 'active'}
+                            className={splitPathname[1] === '' && 'active'}
                             to="/">Home</S.NavbarLink>
                         <S.NavbarLink
-                            activeClassName={splitPathname[1] === 'oferta' && 'active'}
+                            className={splitPathname[1] === 'oferta' && 'active'}
                             to="/oferta">Oferta</S.NavbarLink>
                         <S.NavbarLink
-                            activeClassName={splitPathname[1] === 'kontakt' && 'active'}
+                            className={splitPathname[1] === 'kontakt' && 'active'}
                             to="/kontakt">Kontakt</S.NavbarLink>
                         <S.NavbarLink
-                            activeClassName={splitPathname[1] === 'konto' && 'active'}
+                            className={splitPathname[1] === 'konto' && 'active'}
                             to="/konto">Twoje konto</S.NavbarLink>
                         <S.NavbarLink
-                            activeClassName={splitPathname[1] === 'logowanie' && 'active'}
+                            className={splitPathname[1] === 'logowanie' && 'active'}
                             to="/logowanie">Zaloguj się</S.NavbarLink>
                         <S.OpenLinksButton
                             onClick={() => setExtendNavbar(curr => !curr)}

@@ -7,13 +7,12 @@ const Wrapper = styled.div`
   width: 100vw;
   display: flex;
   justify-content: center;
-  //background-color: black;
 `
 
 const Login = () => {
     return (
         <Wrapper>
-            <Form />
+            <Form login />
         </Wrapper>
     );
 };
