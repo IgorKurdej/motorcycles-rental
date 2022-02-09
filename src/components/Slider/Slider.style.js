@@ -30,7 +30,7 @@ export const ArrowWrapper = styled.div`
   align-items: center;
   justify-content:center;
   border-radius: 50%;
-  color: lightgray;
+  color: white;
   margin: 50px;
   cursor: pointer;
 `

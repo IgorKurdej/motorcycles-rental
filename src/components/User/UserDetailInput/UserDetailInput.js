@@ -1,7 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
 import * as S from "./UserDetailInput.style";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import EditIcon from '@mui/icons-material/Edit';
+import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
-// const UserDetailInput = ({firstname, children}) => {
 const UserDetailInput = (props) => {
     const inputEl = useRef(null);
     const [isPasswordHidden, setIsPasswordHidden] = useState(true);
@@ -14,7 +19,7 @@ const UserDetailInput = (props) => {
         Hasło: false
     })
 
-    const [userDate, setUserData] = useState({
+    const [userData, setUserData] = useState({
         Imię: '',
         Nazwisko: '',
         Wiek: '',
@@ -37,6 +42,7 @@ const UserDetailInput = (props) => {
         // inputEl.current.disabled = false;
         inputEl.current.type = 'text';
         inputEl.current.disabled = false;
+        setIsPasswordHidden(false);
         inputEl.current.focus();
         setIsInputUpdate({
             ...isInputUpdate,
@@ -53,7 +59,7 @@ const UserDetailInput = (props) => {
         // const initialInputState = ;
         // inputEl.current.value = props.initialValue;
         // console.log(inputEl.current.value);
-
+        setIsPasswordHidden(true);
         inputEl.current.name === 'Hasło' ?
             inputEl.current.type = 'password' :
             inputEl.current.type = 'text';
@@ -67,6 +73,7 @@ const UserDetailInput = (props) => {
 
     const handleAcceptButton = () => {
         console.log(inputEl.current);
+        setIsPasswordHidden(true);
         inputEl.current.name === 'Hasło' ?
             inputEl.current.type = 'password' :
             inputEl.current.type = 'text';
@@ -85,11 +92,11 @@ const UserDetailInput = (props) => {
                 <S.Label htmlFor={props.children}>{props.children}</S.Label>
                 {
                     !isInputUpdate[props.children] ?
-                        <S.Button onClick={handleButtonChange}><>&#9998;</></S.Button> :
-                        <div>
-                             <S.Button onClick={handleAcceptButton}><>&#10003;</></S.Button>
-                             <S.Button onClick={handleCancelButton}><>&#10005;</></S.Button>
-                        </div>
+                        <S.Button onClick={handleButtonChange}><EditIcon /></S.Button> :
+                        <S.SavingButtons>
+                             <S.Button onClick={handleAcceptButton}><CheckIcon/></S.Button>
+                             <S.Button onClick={handleCancelButton}><ClearIcon/></S.Button>
+                        </S.SavingButtons>
                 }
             </S.LabelWrapper>
             {
@@ -105,7 +112,11 @@ const UserDetailInput = (props) => {
                             onChange={props.handleInputChange}
                             disabled
                         />
-                        <S.Button onClick={handlePasswordVisibility}>X</S.Button>
+                        <S.Button onClick={handlePasswordVisibility} visibility='true' >
+                            {
+                                isPasswordHidden ? <VisibilityIcon /> : <VisibilityOffIcon />
+                            }
+                        </S.Button>
                     </S.InputWrapper>
                 ) : (
                     <S.Input

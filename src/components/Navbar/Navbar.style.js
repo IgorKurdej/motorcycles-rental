@@ -3,16 +3,15 @@ import {Link} from "react-router-dom";
 
 export const NavbarContainer = styled.nav`
     width: 100%;
-    height: ${({extendNavbar}) => extendNavbar ? "100vh" : "0"};
-    background-color: #000;
+    height: ${({extendNavbar}) => extendNavbar ? "100vh" : "80px"};
+    background-color: black;
     display: flex;
     flex-direction: column;
-    z-index: 10;
-    
-    @media (min-width: 700px) {
-      height: 80px;
-    }
+    position: sticky;
+    top: 0;
+    z-index: 3;
 `;
+
 
 export const LeftContainer = styled.div`
   flex: 70%;
@@ -39,12 +38,15 @@ export const NavbarLinkContainer = styled.div`
 `;
 
 export const NavbarLink = styled(Link)`
-  color: #fff;
+  color: ${props => props.activeClassName === 'active' ? 'forestgreen' : 'white'};
   font-size: 18px;
   font-weight: 500;
-  font-family: Arial, sans-serif;
   text-decoration: none;
   margin: 10px;
+
+  :hover {
+    color: ${props => props.activeClassName === 'active' ? '' : '#8f8e8e'};
+  }
   
   @media (max-width: 700px) {
     display: none;
@@ -54,9 +56,9 @@ export const NavbarLink = styled(Link)`
 export const NavbarLinkExtended = styled(Link)`
   color: #fff;
   font-size: x-large;
-  font-family: Arial, sans-serif;
   text-decoration: none;
   margin: 10px;
+  
 `;
 
 export const Logo = styled.img`

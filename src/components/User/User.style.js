@@ -4,7 +4,6 @@ export const Wrapper = styled.div`
   width: 100vw;
   height: calc(100vh - 80px);
   display: flex;
-  //justify-content: space-between;
   align-items: center;
 `;
 
@@ -18,24 +17,22 @@ export const Wrapper = styled.div`
 
 export const LeftSide = styled.div`
   flex: 1;
-  height: 100%;
   display: flex;
-  align-items: center;
-  position: sticky;
-  top: 20px;
-  //height: 50vh;
+  height: 100%;
 `
-
 
 export const ReservationList = styled.div`
     flex: 1;
     height: 100%;
+    //height: calc(100vh - 80px);
     margin-right: 20px; 
     display: flex;
-    justify-content: center;
+    //justify-content: center;
     flex-direction: column;
     //align-items: flex-end;
     align-items: center;
+    overflow: hidden scroll;
+    
   
   h2 {
     margin: 60px 0 40px;

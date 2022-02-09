@@ -1,25 +1,39 @@
 import React, {useState} from 'react';
+import {useLocation} from "react-router";
 import * as S from './Navbar.style';
-import { GiHamburgerMenu } from "react-icons/gi";
-import { GrClose } from "react-icons/gr";
+import MenuIcon from '@mui/icons-material/Menu';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 
 const Navbar = () => {
     const [extendNavbar, setExtendNavbar] = useState(false);
+    const {pathname} = useLocation();
+    const splitPathname = pathname.split('/');
+
     return (
         <S.NavbarContainer extendNavbar={extendNavbar}>
             <S.NavbarInnerContainer>
                 <S.LeftContainer>
                     <S.NavbarLinkContainer>
-                        <S.NavbarLink to="/">Home</S.NavbarLink>
-                        <S.NavbarLink to="/oferta">Oferta</S.NavbarLink>
-                        <S.NavbarLink to="/kontakt">Kontakt</S.NavbarLink>
-                        <S.NavbarLink to="/konto">Twoje konto</S.NavbarLink>
-                        <S.NavbarLink to="/logowanie">Zaloguj się</S.NavbarLink>
+                        <S.NavbarLink
+                            activeClassName={splitPathname[1] === '' && 'active'}
+                            to="/">Home</S.NavbarLink>
+                        <S.NavbarLink
+                            activeClassName={splitPathname[1] === 'oferta' && 'active'}
+                            to="/oferta">Oferta</S.NavbarLink>
+                        <S.NavbarLink
+                            activeClassName={splitPathname[1] === 'kontakt' && 'active'}
+                            to="/kontakt">Kontakt</S.NavbarLink>
+                        <S.NavbarLink
+                            activeClassName={splitPathname[1] === 'konto' && 'active'}
+                            to="/konto">Twoje konto</S.NavbarLink>
+                        <S.NavbarLink
+                            activeClassName={splitPathname[1] === 'logowanie' && 'active'}
+                            to="/logowanie">Zaloguj się</S.NavbarLink>
                         <S.OpenLinksButton
                             onClick={() => setExtendNavbar(curr => !curr)}
                         >
                             {
-                                extendNavbar ? <>&#10005;</> : <>&#8801;</>
+                                extendNavbar ? <MenuOpenIcon fontSize={"large"} /> : <MenuIcon fontSize={"large"} />
                             }
                         </S.OpenLinksButton>
                     </S.NavbarLinkContainer>
@@ -30,12 +44,14 @@ const Navbar = () => {
             </S.NavbarInnerContainer>
             {
                 extendNavbar && (
-                    <S.NavbarExtendedContainer>
-                        <S.NavbarLinkExtended to="/">Home</S.NavbarLinkExtended>
-                        <S.NavbarLinkExtended to="/products">Products</S.NavbarLinkExtended>
-                        <S.NavbarLinkExtended to="/contact">Contact us</S.NavbarLinkExtended>
-                        <S.NavbarLinkExtended to="/about">About</S.NavbarLinkExtended>
-                    </S.NavbarExtendedContainer>
+                    <S.NavbarContainer>
+                        <S.NavbarExtendedContainer>
+                            <S.NavbarLinkExtended to="/">Home</S.NavbarLinkExtended>
+                            <S.NavbarLinkExtended to="/products">Products</S.NavbarLinkExtended>
+                            <S.NavbarLinkExtended to="/contact">Contact us</S.NavbarLinkExtended>
+                            <S.NavbarLinkExtended to="/about">About</S.NavbarLinkExtended>
+                        </S.NavbarExtendedContainer>
+                    </S.NavbarContainer>
                 )
             }
         </S.NavbarContainer>

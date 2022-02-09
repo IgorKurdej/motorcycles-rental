@@ -27,25 +27,27 @@ const UserDetails = () => {
 
     return (
         <S.Wrapper>
-            <S.UserImage src='https://img.myloview.pl/fototapety/user-icon-human-person-symbol-avatar-login-sign-700-258992656.jpg' />
-            <UserDetailInput initialValue={user.Imię} value={userData.Imię} handleInputChange={handleInputChange}>
-                Imię
-            </UserDetailInput>
-            <UserDetailInput value={userData.Nazwisko} handleInputChange={handleInputChange}>
-                Nazwisko
-            </UserDetailInput>
-            <UserDetailInput value={userData.Wiek} handleInputChange={handleInputChange}>
-                Wiek
-            </UserDetailInput>
-            <UserDetailInput value={userData.Telefon} handleInputChange={handleInputChange}>
-                Telefon
-            </UserDetailInput>
-            <UserDetailInput value={userData.Email} handleInputChange={handleInputChange}>
-                Email
-            </UserDetailInput>
-            <UserDetailInput protected value={userData.Hasło} handleInputChange={handleInputChange}>
-                Hasło
-            </UserDetailInput>
+            {/*<S.ContentWrapper>*/}
+                <S.UserImage src='https://img.myloview.pl/fototapety/user-icon-human-person-symbol-avatar-login-sign-700-258992656.jpg' />
+                <UserDetailInput initialValue={user.Imię} value={userData.Imię} handleInputChange={handleInputChange}>
+                    Imię
+                </UserDetailInput>
+                <UserDetailInput value={userData.Nazwisko} handleInputChange={handleInputChange}>
+                    Nazwisko
+                </UserDetailInput>
+                <UserDetailInput value={userData.Wiek} handleInputChange={handleInputChange}>
+                    Wiek
+                </UserDetailInput>
+                <UserDetailInput value={userData.Telefon} handleInputChange={handleInputChange}>
+                    Telefon
+                </UserDetailInput>
+                <UserDetailInput value={userData.Email} handleInputChange={handleInputChange}>
+                    Email
+                </UserDetailInput>
+                <UserDetailInput protected value={userData.Hasło} handleInputChange={handleInputChange}>
+                    Hasło
+                </UserDetailInput>
+            {/*</S.ContentWrapper>*/}
         </S.Wrapper>
     );
 };
