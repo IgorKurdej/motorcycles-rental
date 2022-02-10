@@ -45,7 +45,7 @@ export const NavLink = styled(Link)`
 `;
 
 export const Button = styled.button`
-  width: 100%;
+  width: ${props => props.modal ? '50%' : '100%'};
   margin: ${props => props.confirm ? '10px 0 0 0' : '15px 0 30px'};
   padding: 7px 0;
   border: ${props => props.cancel ? '3px solid #be2020' : '3px solid forestgreen'};
@@ -78,3 +78,36 @@ export const ChangeFormButton = styled.button`
   color: forestgreen;
 `;
 
+export const ContactModal = styled.div`
+  width: 500px;
+  height: 80px;
+  background-color: #caf6cb;
+  border: 3px solid forestgreen;
+  border-radius: 5px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+  
+  p {
+    color: forestgreen;
+    font-size: 18px;
+  }
+  
+  @keyframes slide {
+    0% {
+      opacity: 0;
+    }
+    70% {
+      transform: translateY(120px);
+    }
+    100% {
+      transform: translateY(110px);
+      opacity: 1;
+    }
+  }
+  
+  top: 0;
+  animation: slide 0.75s ease forwards;
+`

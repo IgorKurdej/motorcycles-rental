@@ -8,7 +8,7 @@ const MotorcyclesList = () => {
 
     return (
         <S.Container>
-            { motorcyclesData.map(motorcycle => <MotorcycleItem key={motorcycle.id} {...motorcycle} />) }
+            { motorcyclesData.map(motorcycle => <MotorcycleItem key={motorcycle.id} {...motorcycle} offer />) }
         </S.Container>
     );
 };

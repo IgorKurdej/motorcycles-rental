@@ -4,29 +4,28 @@ export const Wrapper = styled.div`
   width: 100%;
   height: calc(100vh - 80px);
   display: flex;
-  padding: 50px;
 `;
 
 export const MotorcycleWrapper = styled.div`
-  flex: 1;
+  width: 50%;
   height: 100%;
   display: flex;
   //align-items: center;
-  justify-content: flex-end;
-  margin-right: 100px;
+  justify-content: center;
+  //flex-direction: column;
+  padding-top: 100px;
 `
 
 export const FormWrapper = styled.div`
   height: 100%;
-  flex: 1;
+  width: 50%;
   display: flex;
-  justify-content: flex-start;
-  margin-left: 50px;
+  justify-content: center;
   //align-items: center;
-  //background-color: forestgreen;
+  padding-top: 80px;
 `
 export const Hr = styled.hr`
-    height: 650px;
+    height: 90%;
     text-align: justify-all;
     margin-top: 70px;
 `

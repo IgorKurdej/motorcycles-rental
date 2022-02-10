@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 60%;
   align-items: center;
 `
 
@@ -29,6 +29,12 @@ const SignUpFormInputs = ({signUpValues, onChange}) => {
                 placeholder='email'
                 name='email'
                 value={signUpValues.email}
+                onChange={onChange}
+            />
+            <Input
+                placeholder='telefon'
+                name='phone'
+                value={signUpValues.phone}
                 onChange={onChange}
             />
             <Input

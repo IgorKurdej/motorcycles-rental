@@ -84,9 +84,9 @@ export const Select = styled.select`
   margin-top: 10px;
   outline: 0;
   border-width: 0 0 2px;
+  background-color: white;
   
-  
-  
+ 
   :focus {
     border-bottom-color: forestgreen;
   }

@@ -1,5 +1,4 @@
 import React from 'react';
-import ContactForm from "../components/ContactForm/ContactForm";
 import Form from "../components/Form/Form";
 import styled from "styled-components";
 

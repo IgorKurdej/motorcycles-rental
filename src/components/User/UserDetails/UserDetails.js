@@ -35,14 +35,11 @@ const UserDetails = () => {
                 <UserDetailInput value={userData.Nazwisko} handleInputChange={handleInputChange}>
                     Nazwisko
                 </UserDetailInput>
-                <UserDetailInput value={userData.Wiek} handleInputChange={handleInputChange}>
-                    Wiek
+                <UserDetailInput value={userData.Email} handleInputChange={handleInputChange}>
+                    Email
                 </UserDetailInput>
                 <UserDetailInput value={userData.Telefon} handleInputChange={handleInputChange}>
                     Telefon
-                </UserDetailInput>
-                <UserDetailInput value={userData.Email} handleInputChange={handleInputChange}>
-                    Email
                 </UserDetailInput>
                 <UserDetailInput protected value={userData.Hasło} handleInputChange={handleInputChange}>
                     Hasło

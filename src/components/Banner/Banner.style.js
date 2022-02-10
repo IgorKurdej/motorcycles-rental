@@ -21,11 +21,12 @@ export const LeftSide = styled.div`
 `
 
 export const Circle = styled.div`
-  width: 550px;
-  height: 550px;
+  width: 450px;
+  height: 450px;
   background-color: forestgreen;
   transition: 1s ease;
   border-radius: 50%;
+  //display: none;
 `;
 
 export const ImageContainer = styled.div`
@@ -33,7 +34,6 @@ export const ImageContainer = styled.div`
   height: 485px;
   width: 850px;
   position: absolute;
-  margin-bottom: 20px;
   animation: appear 1s ease;
   
   @keyframes appear {

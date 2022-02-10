@@ -92,10 +92,10 @@ const UserDetailInput = (props) => {
                 <S.Label htmlFor={props.children}>{props.children}</S.Label>
                 {
                     !isInputUpdate[props.children] ?
-                        <S.Button onClick={handleButtonChange}><EditIcon /></S.Button> :
+                        <S.Button onClick={handleButtonChange}><EditIcon fontSize={"small"} /></S.Button> :
                         <S.SavingButtons>
-                             <S.Button onClick={handleAcceptButton}><CheckIcon/></S.Button>
-                             <S.Button onClick={handleCancelButton}><ClearIcon/></S.Button>
+                             <S.Button onClick={handleAcceptButton}><CheckIcon fontSize={"small"} /></S.Button>
+                             <S.Button onClick={handleCancelButton}><ClearIcon fontSize={"small"} /></S.Button>
                         </S.SavingButtons>
                 }
             </S.LabelWrapper>
@@ -114,7 +114,7 @@ const UserDetailInput = (props) => {
                         />
                         <S.Button onClick={handlePasswordVisibility} visibility='true' >
                             {
-                                isPasswordHidden ? <VisibilityIcon /> : <VisibilityOffIcon />
+                                isPasswordHidden ? <VisibilityIcon fontSize={"small"} /> : <VisibilityOffIcon fontSize={"small"} />
                             }
                         </S.Button>
                     </S.InputWrapper>

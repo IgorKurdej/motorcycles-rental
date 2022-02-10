@@ -8,7 +8,7 @@ const Booking = () => {
 
     return (
         <div>
-            <BookingForm motorcycle={motorcycle}/>
+            <BookingForm motorcycle={motorcycle} />
         </div>
     );
 };

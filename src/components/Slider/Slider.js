@@ -79,7 +79,7 @@ const Slider = () => {
             <S.ContentWrapper>
                 <S.MotorcycleWrapper>
                     {
-                        moto.map((item, idx) => idx === currentItem && <MotorcycleItem {...item} key={idx} />)
+                        moto.map((item, idx) => idx === currentItem && <MotorcycleItem {...item} key={idx} offer />)
                     }
                 </S.MotorcycleWrapper>
                 <S.DotsWrapper>
