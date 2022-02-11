@@ -10,25 +10,27 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
-const LoginFormInputs = ({loginValues, onChange}) => {
+const LoginFormInputs = ({loginValues, onChange, register, errors}) => {
     return (
         <Wrapper>
             <Input
                 type='email'
                 placeholder='email'
                 name='email'
-                value={loginValues.name}
-                onChange={onChange}
+                register={register}
+                // value={loginValues.name}
+                // onChange={onChange}
             />
-            <ErrorMessage />
+            <ErrorMessage message={errors.email?.message}/>
             <Input
                 type='password'
                 placeholder='hasło'
                 name='password'
-                value={loginValues.name}
-                onChange={onChange}
+                register={register}
+                // value={loginValues.name}
+                // onChange={onChange}
             />
-            <ErrorMessage />
+            <ErrorMessage message={errors.password?.message}/>
         </Wrapper>
     );
 };

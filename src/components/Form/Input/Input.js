@@ -12,22 +12,23 @@ const InputField = styled.input`
     font-size: 16px;
     background-color: white;
     
-  
   :focus {
     border-bottom-color: forestgreen;
   }
 `
 
-const Input = ({type, placeholder, name, value, onChange, disabled, as}) => {
+const Input = ({type, placeholder, name, value, onChange, disabled, as, register}) => {
     return (
         <InputField
             type={type ? type : 'text'}
             placeholder={placeholder}
             name={name}
-            value={value}
-            onChange={onChange}
+            // value={value}
+            // onChange={onChange}
             disabled={disabled}
             as={as}
+            autoComplete="nope"
+            {...register(name)}
         />
     );
 };

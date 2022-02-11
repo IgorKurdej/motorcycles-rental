@@ -10,54 +10,59 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
-const SignUpFormInputs = ({signUpValues, onChange}) => {
+const SignUpFormInputs = ({signUpValues, onChange, register, errors}) => {
     return (
         <Wrapper>
             <Input
                 placeholder='imię'
                 name='firstname'
-                value={signUpValues.firstname}
-                onChange={onChange}
+                register={register}
+                // value={signUpValues.firstname}
+                // onChange={onChange}
             />
-            <ErrorMessage />
+            <ErrorMessage message={errors.firstname?.message}/>
             <Input
                 placeholder='nazwisko'
                 name='lastname'
-                value={signUpValues.lastname}
-                onChange={onChange}
+                register={register}
+                // value={signUpValues.lastname}
+                // onChange={onChange}
             />
-            <ErrorMessage />
+            <ErrorMessage message={errors.lastname?.message}/>
             <Input
-                type='email'
                 placeholder='email'
                 name='email'
-                value={signUpValues.email}
-                onChange={onChange}
+                register={register}
+                // value={signUpValues.email}
+                // onChange={onChange}
             />
-            <ErrorMessage />
+            <ErrorMessage message={errors.email?.message}/>
             <Input
                 placeholder='telefon'
                 name='phone'
-                value={signUpValues.phone}
-                onChange={onChange}
+                register={register}
+                // value={signUpValues.phone}
+                // onChange={onChange}
             />
-            <ErrorMessage />
+            <ErrorMessage message={errors.phone?.message}/>
             <Input
                 type='password'
                 placeholder='hasło'
                 name='password'
-                value={signUpValues.password}
-                onChange={onChange}
+                register={register}
+                // value={signUpValues.password}
+                // onChange={onChange}
             />
-            <ErrorMessage />
+            <ErrorMessage message={errors.password?.message}/>
             <Input
                 type='password'
                 placeholder='powtórz hasło'
                 name='passwordConfirmation'
-                value={signUpValues.passwordConfirmation}
-                onChange={onChange}
+                register={register}
+                // value={signUpValues.passwordConfirmation}
+                // onChange={onChange}
             />
-            <ErrorMessage />
+            <ErrorMessage message={errors.passwordConfirmation?.message}/>
         </Wrapper>
     );
 };

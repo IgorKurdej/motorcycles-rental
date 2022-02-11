@@ -84,7 +84,7 @@ const ReservationFormInputs = ({
             startDate={startDate}
             endDate={endDate}
         />
-        <ErrorMessage />
+        {/*<ErrorMessage />*/}
     </Wrapper>
 )
 
