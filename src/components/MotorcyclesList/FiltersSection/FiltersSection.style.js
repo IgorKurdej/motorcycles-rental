@@ -24,7 +24,7 @@ export const SearchSection = styled.div`
     padding: 5px;
     margin: 10px 0;
     outline: 0;
-    border-width: 0 0 2px;
+    border-width: 0 0 1px;
   }
   
   input:focus {
@@ -83,7 +83,7 @@ export const Select = styled.select`
   height: 32px;
   margin-top: 10px;
   outline: 0;
-  border-width: 0 0 2px;
+  border-width: 0 0 1px;
   background-color: white;
   
  

@@ -11,25 +11,20 @@ const Wrapper = styled.div`
 `
 
 const DateInput = styled(DatePicker)`
-  //background-color: forestgreen;
   width: 100%;
   min-height: ${props => props.as && '250px'};
   resize: none;
   margin-bottom: 10px;
   padding: 5px;
   outline: 0;
-  border-width: 0 0 2px;
+  border-width: 0 0 1px;
   font-size: 16px;
   background-color: white;
-  //height: 200px;
-  
-  //align-items: center;
   
   :focus {
     border-bottom-color: forestgreen;
   }
 `
-let days;
 
 const ReservationFormInputs = ({
         reservationValues,
@@ -75,12 +70,6 @@ const ReservationFormInputs = ({
             startDate={startDate}
             endDate={endDate}
         />
-        {/*{*/}
-        {/*    days = new Date('02/10/2022').getTime() - new Date('02/8/2022').getTime()*/}
-        {/*}*/}
-        {/*{*/}
-        {/*    console.log(days/(1000*60*60*24))*/}
-        {/*}*/}
         <DateInput
             selected={endDate}
             onChange={date => setEndDate(date)}

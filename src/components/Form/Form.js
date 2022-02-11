@@ -16,6 +16,7 @@ const initialSignUpValues = {
     firstname: '',
     lastname: '',
     email: '',
+    phone: '',
     password: '',
     passwordConfirmation: ''
 };
@@ -26,7 +27,10 @@ const initialReservationValues = {
     email: '',
     phone: '',
     startDate: '',
-    endDate: ''
+    endDate: '',
+    motorcycle: '',
+    price: ''
+    // dodatkowo id motocykla, cena za wypozycznie
 };
 
 const initialContactValues = {
@@ -35,7 +39,7 @@ const initialContactValues = {
     message: ''
 };
 
-const Form = ({login, booking, price, contact, onChange}) => {
+const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
     const [toggleChoice, setToggleChoice] = useState(true);
     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
@@ -53,14 +57,23 @@ const Form = ({login, booking, price, contact, onChange}) => {
         setReservationValues({
             ...reservationValues,
             startDate: selectedStartDate
-        })
+        });
+
+        setNumberOfDays((selectedEndDate - selectedStartDate) / (1000 * 3600 * 24));
+        setFinalPrice(numberOfDays * finalPrice);
+    }, [selectedStartDate])
+
+    useEffect(() => {
         setReservationValues({
             ...reservationValues,
             endDate: selectedEndDate
-        })
-        setNumberOfDays((selectedEndDate - selectedStartDate) / (1000*3600*24))
+        });
+
+        setNumberOfDays((selectedEndDate - selectedStartDate) / (1000 * 3600 * 24));
         setFinalPrice(numberOfDays * finalPrice);
-    }, [selectedStartDate, selectedEndDate]);
+    }, [selectedEndDate]);
+
+
 
     const handleCheckoutChange = () => {
         return (
@@ -81,7 +94,7 @@ const Form = ({login, booking, price, contact, onChange}) => {
     const sendEmail = e => {
         e.preventDefault();
         console.log('SEND');
-        console.log(contactValues);
+        // console.log(contactValues);
 
         //sprawdzam czy ok, jezeli tak to iscontactmodalopen ustawiam na true
         // po zamknieciu modala ustawic contactvalues na initial
@@ -123,8 +136,17 @@ const Form = ({login, booking, price, contact, onChange}) => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        // console.log(reservationValues);
-        console.log(signUpValues);
+        console.log(reservationValues);
+        // console.log(signUpValues);
+
+
+        //-------------------------------------------------------------------
+        // przypisanie pozostalych wartosci, ktore nie sa pobierane z formularza
+
+        // initialReservationValues.motorcycle = motorcycle;
+        // initialReservationValues.price = finalPrice;
+        //-------------------------------------------------------------------
+        // TO SAMO Z MAILEM W CONTACT FORM!!!
     }
 
     const handleModal = () => {

@@ -8,7 +8,7 @@ const InputField = styled.input`
     margin-bottom: 10px;
     padding: 5px;
     outline: 0;
-    border-width: 0 0 2px;
+    border-width: 0 0 1px;
     font-size: 16px;
     background-color: white;
     
