@@ -5,8 +5,8 @@ const InputField = styled.input`
     width: 100%;
     min-height: ${props => props.as && '250px'};
     resize: none;
-    margin-bottom: 10px;
-    padding: 5px;
+    //margin-bottom: 20px;
+    padding: 2px 5px;
     outline: 0;
     border-width: 0 0 1px;
     font-size: 16px;

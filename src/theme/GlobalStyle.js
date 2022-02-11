@@ -4,6 +4,7 @@ const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Urbanist:wght@300;500;700&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Allura&display=swap');
+  
   *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;

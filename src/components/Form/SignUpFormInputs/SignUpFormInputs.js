@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from "../Input/Input";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -18,12 +19,14 @@ const SignUpFormInputs = ({signUpValues, onChange}) => {
                 value={signUpValues.firstname}
                 onChange={onChange}
             />
+            <ErrorMessage />
             <Input
                 placeholder='nazwisko'
                 name='lastname'
                 value={signUpValues.lastname}
                 onChange={onChange}
             />
+            <ErrorMessage />
             <Input
                 type='email'
                 placeholder='email'
@@ -31,12 +34,14 @@ const SignUpFormInputs = ({signUpValues, onChange}) => {
                 value={signUpValues.email}
                 onChange={onChange}
             />
+            <ErrorMessage />
             <Input
                 placeholder='telefon'
                 name='phone'
                 value={signUpValues.phone}
                 onChange={onChange}
             />
+            <ErrorMessage />
             <Input
                 type='password'
                 placeholder='hasło'
@@ -44,6 +49,7 @@ const SignUpFormInputs = ({signUpValues, onChange}) => {
                 value={signUpValues.password}
                 onChange={onChange}
             />
+            <ErrorMessage />
             <Input
                 type='password'
                 placeholder='powtórz hasło'
@@ -51,6 +57,7 @@ const SignUpFormInputs = ({signUpValues, onChange}) => {
                 value={signUpValues.passwordConfirmation}
                 onChange={onChange}
             />
+            <ErrorMessage />
         </Wrapper>
     );
 };

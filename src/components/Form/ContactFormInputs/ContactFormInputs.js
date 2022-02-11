@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from "../Input/Input";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -19,12 +20,14 @@ const ContactFormInputs = ({contactValues, onChange}) => {
                 value={contactValues.email}
                 onChange={onChange}
             />
+            <ErrorMessage />
             <Input
                 placeholder='tytuł'
                 name='title'
                 value={contactValues.title}
                 onChange={onChange}
             />
+            <ErrorMessage/>
             <Input
                 as='textarea'
                 placeholder='wiadomość'
@@ -32,6 +35,7 @@ const ContactFormInputs = ({contactValues, onChange}) => {
                 value={contactValues.message}
                 onChange={onChange}
             />
+            <ErrorMessage />
         </Wrapper>
     );
 };

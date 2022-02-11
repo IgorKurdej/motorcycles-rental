@@ -18,6 +18,7 @@ export const LeftContainer = styled.div`
   display: flex;
   align-items: center;
   padding-left: 5%;
+  
 `;
 
 export const RightContainer = styled.div`
@@ -43,6 +44,7 @@ export const NavbarLink = styled(Link)`
   font-weight: 500;
   text-decoration: none;
   margin: 10px;
+  //color: red;
 
   :hover {
     color: ${props => props.className === 'active' ? '' : '#8f8e8e'};

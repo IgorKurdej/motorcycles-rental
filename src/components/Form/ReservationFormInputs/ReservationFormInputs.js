@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import DatePicker from 'react-datepicker';
 import Input from "../Input/Input";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import styled from 'styled-components';
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -14,7 +15,6 @@ const DateInput = styled(DatePicker)`
   width: 100%;
   min-height: ${props => props.as && '250px'};
   resize: none;
-  margin-bottom: 10px;
   padding: 5px;
   outline: 0;
   border-width: 0 0 1px;
@@ -41,12 +41,14 @@ const ReservationFormInputs = ({
             value={reservationValues.firstname}
             onChange={onChange}
         />
+        <ErrorMessage />
         <Input
             placeholder='Nazwisko'
             name='lastname'
             value={reservationValues.lastname}
             onChange={onChange}
         />
+        <ErrorMessage />
         <Input
             type='email'
             placeholder='Email'
@@ -54,12 +56,14 @@ const ReservationFormInputs = ({
             value={reservationValues.email}
             onChange={onChange}
         />
+        <ErrorMessage />
         <Input
             placeholder='Telefon'
             name='phone'
             value={reservationValues.phone}
             onChange={onChange}
         />
+        <ErrorMessage />
         <DateInput
             selected={startDate}
             onChange={date => setStartDate(date)}
@@ -70,6 +74,7 @@ const ReservationFormInputs = ({
             startDate={startDate}
             endDate={endDate}
         />
+        <ErrorMessage />
         <DateInput
             selected={endDate}
             onChange={date => setEndDate(date)}
@@ -79,6 +84,7 @@ const ReservationFormInputs = ({
             startDate={startDate}
             endDate={endDate}
         />
+        <ErrorMessage />
     </Wrapper>
 )
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from "../Input/Input";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -19,6 +20,7 @@ const LoginFormInputs = ({loginValues, onChange}) => {
                 value={loginValues.name}
                 onChange={onChange}
             />
+            <ErrorMessage />
             <Input
                 type='password'
                 placeholder='hasło'
@@ -26,6 +28,7 @@ const LoginFormInputs = ({loginValues, onChange}) => {
                 value={loginValues.name}
                 onChange={onChange}
             />
+            <ErrorMessage />
         </Wrapper>
     );
 };
