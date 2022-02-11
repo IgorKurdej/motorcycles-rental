@@ -26,6 +26,19 @@ export const Form = styled.form`
   align-items: center;
 `;
 
+export const Checkout = styled.div`
+  width: 60%;
+  height: 50px;
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  p {
+    font-size: 18px;
+    font-weight: ${props => props.price && '700'};
+  }
+`
+
 export const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: column;

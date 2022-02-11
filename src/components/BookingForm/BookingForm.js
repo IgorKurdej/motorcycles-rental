@@ -10,7 +10,7 @@ const BookingForm = ({motorcycle}) => (
         </S.MotorcycleWrapper>
         <S.Hr />
         <S.FormWrapper>
-            <Form booking />
+            <Form booking price={motorcycle.cena} />
         </S.FormWrapper>
     </S.Wrapper>
 );

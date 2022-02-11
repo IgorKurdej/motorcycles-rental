@@ -35,7 +35,7 @@ const initialContactValues = {
     message: ''
 };
 
-const Form = ({login, booking, contact, onChange}) => {
+const Form = ({login, booking, price, contact, onChange}) => {
     const [toggleChoice, setToggleChoice] = useState(true);
     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
@@ -46,21 +46,37 @@ const Form = ({login, booking, contact, onChange}) => {
 
     const [selectedStartDate, setSelectedStartDate] = useState(null);
     const [selectedEndDate, setSelectedEndDate] = useState(null);
+    const [numberOfDays, setNumberOfDays] = useState(1);
+    const [finalPrice, setFinalPrice] = useState(price);
 
     useEffect(() => {
         setReservationValues({
             ...reservationValues,
             startDate: selectedStartDate
         })
-    }, [selectedStartDate])
-
-    useEffect(() => {
         setReservationValues({
             ...reservationValues,
             endDate: selectedEndDate
         })
-    }, [selectedEndDate])
+        setNumberOfDays((selectedEndDate - selectedStartDate) / (1000*3600*24))
+        setFinalPrice(numberOfDays * finalPrice);
+    }, [selectedStartDate, selectedEndDate]);
 
+    const handleCheckoutChange = () => {
+        return (
+            (selectedStartDate === null || selectedEndDate === null) ||
+            (numberOfDays === 0 || numberOfDays === 1) ?
+                <S.Checkout>
+                    <p>Cena za dzień</p>
+                    <p>{price} zł</p>
+                </S.Checkout>
+                :
+                <S.Checkout>
+                    <p>Cena za {numberOfDays} dni</p>
+                    <p>{price * numberOfDays} zł</p>
+                </S.Checkout>
+        )
+    };
 
     const sendEmail = e => {
         e.preventDefault();
@@ -158,6 +174,9 @@ const Form = ({login, booking, contact, onChange}) => {
                                 endDate={selectedEndDate}
                                 setEndDate={setSelectedEndDate}
                             />
+                            {
+                                handleCheckoutChange()
+                            }
                             <S.ButtonsContainer>
                                 <S.ButtonWrapper>
                                     {/*<S.NavLink to='/konto' >*/}
