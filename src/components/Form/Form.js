@@ -66,25 +66,25 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
 
 
 
-    useEffect(() => {
-        setReservationValues({
-            ...reservationValues,
-            startDate: selectedStartDate
-        });
-
-        setNumberOfDays((selectedEndDate - selectedStartDate) / (1000 * 3600 * 24));
-        setFinalPrice(numberOfDays * finalPrice);
-    }, [selectedStartDate])
-
-    useEffect(() => {
-        setReservationValues({
-            ...reservationValues,
-            endDate: selectedEndDate
-        });
-
-        setNumberOfDays((selectedEndDate - selectedStartDate) / (1000 * 3600 * 24));
-        setFinalPrice(numberOfDays * finalPrice);
-    }, [selectedEndDate]);
+    // useEffect(() => {
+    //     setReservationValues({
+    //         ...reservationValues,
+    //         startDate: selectedStartDate
+    //     });
+    //
+    //     setNumberOfDays((selectedEndDate - selectedStartDate) / (1000 * 3600 * 24));
+    //     setFinalPrice(numberOfDays * finalPrice);
+    // }, [selectedStartDate])
+    //
+    // useEffect(() => {
+    //     setReservationValues({
+    //         ...reservationValues,
+    //         endDate: selectedEndDate
+    //     });
+    //
+    //     setNumberOfDays((selectedEndDate - selectedStartDate) / (1000 * 3600 * 24));
+    //     setFinalPrice(numberOfDays * finalPrice);
+    // }, [selectedEndDate]);
 
 
     const handleCheckoutChange = () => {
@@ -104,38 +104,21 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
     };
 
     const sendEmail = e => {
-        e.preventDefault();
+        // e.preventDefault();
+        console.log(e);
+
+        emailjs.sendForm('service_ci7ya81', 'template_5b8jfeg', e, 'user_pBO8DUUY9cNNcg33wDKAk')
+            .then((result) => {
+                // handleModal();
+                console.log(result);
+            }, (error) => {
+                // handleModal();
+                console.log(error.text);
+            });
 
         //sprawdzam czy ok, jezeli tak to iscontactmodalopen ustawiam na true
         // po zamknieciu modala ustawic contactvalues na initial
     }
-
-    const handleContactInputsChange = e => (
-        setContactValues({
-            ...contactValues,
-            [e.target.name]: e.target.value
-        })
-    );
-
-    const handleReservationInputsChange = e => (
-        setReservationValues({
-            ...reservationValues,
-            [e.target.name]: e.target.value
-        })
-    )
-
-    const handleLoginInputsChange = e => (
-        toggleChoice ?
-            setLoginValues({
-                ...loginValues,
-                [e.target.name]: e.target.value
-            }) : (
-                setSignUpValues({
-                    ...signUpValues,
-                    [e.target.name]: e.target.value
-                })
-            )
-    )
 
     const clearLoginInputs = () => {
         setToggleChoice(!toggleChoice);
@@ -168,7 +151,7 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
         resolver: yupResolver(contactSchema)
     });
 
-    const {register: reservationRegister, formState: {errors: reservationErrors}, handleSubmit: handleReservationSubmit} = useForm({
+    const {register: reservationRegister, formState: {errors: reservationErrors}, handleSubmit: handleReservationSubmit, control} = useForm({
         resolver: yupResolver(reservationSchema)
     });
 
@@ -180,25 +163,14 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
         resolver: yupResolver(signUpSchema)
     });
 
-    const onContactSubmit = (data) => {
-        setContactValues(data);
-        handleModal();
-        console.log(contactValues);
-    };
-
-    const onReservationSubmit = (data) => {
+    const onSubmit = data => {
         console.log(data);
-        setReservationValues(data);
-    };
 
-    const onLoginSubmit = (data) => {
-        console.log(data);
-        setLoginValues(data);
-    };
-
-    const onSignupSubmit = (data) => {
-        console.log(data);
-        setSignUpValues(data);
+        contact && sendEmail();
+        // setNumberOfDays((data.endDate - data.startDate) / (1000 * 3600 * 24));
+        // console.log(numberOfDays);
+        // setFinalPrice(numberOfDays * motorcycle.price);
+        // console.log(finalPrice);
     };
 
     return (
@@ -216,14 +188,18 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
                     )
                 }
             </S.FormTitle>
-            {/*<S.Form onSubmit={ contact ? sendEmail : handleSubmitForm } autocomplete="off" >*/}
-            <S.Form onSubmit={ handleSignupSubmit(onSignupSubmit) } >
-                {
-                    contact &&
+            <S.Form
+                onSubmit={
+                    booking ? handleReservationSubmit(onSubmit) :
+                    contact ? handleContactSubmit(sendEmail) :
+                    login && toggleChoice ?
+                        handleLoginSubmit(onSubmit) :
+                        handleSignupSubmit(onSubmit)
+                }>
+                    {
+                        contact &&
                         <>
                             <ContactFormInputs
-                                // contactValues={contactValues}
-                                // onChange={handleContactInputsChange}
                                 register={contactRegister}
                                 errors={contactErrors}
                             />
@@ -233,19 +209,14 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
                                 </S.Button>
                             </S.ButtonWrapper>
                         </>
-                }
-                {
-                    booking &&
+                    }
+                    {
+                        booking &&
                         <>
                             <ReservationFormInputs
-                                reservationValues={reservationValues}
-                                onChange={handleReservationInputsChange}
-                                startDate={selectedStartDate}
-                                setStartDate={setSelectedStartDate}
-                                endDate={selectedEndDate}
-                                setEndDate={setSelectedEndDate}
                                 register={reservationRegister}
                                 errors={reservationErrors}
+                                control={control}
                             />
                             {
                                 handleCheckoutChange()
@@ -253,9 +224,9 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
                             <S.ButtonsContainer>
                                 <S.ButtonWrapper>
                                     {/*<S.NavLink to='/konto' >*/}
-                                        <S.Button type='submit' confirm >
-                                            Zarezerwuj
-                                        </S.Button>
+                                    <S.Button type="submit" confirm >
+                                        Zarezerwuj
+                                    </S.Button>
                                     {/*</S.NavLink>*/}
                                 </S.ButtonWrapper>
                                 <S.ButtonWrapper>
@@ -267,32 +238,28 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
                                 </S.ButtonWrapper>
                             </S.ButtonsContainer>
                         </>
-                }
-                {
-                    login && (
-                        toggleChoice ?
-                            <LoginFormInputs
-                                loginValues={loginValues}
-                                onChange={handleLoginInputsChange}
-                                register={loginRegister}
-                                errors={loginErrors}
-                            /> :
-                            <SignUpFormInputs
-                                signUpValues={signUpValues}
-                                onChange={handleLoginInputsChange}
-                                register={signupRegister}
-                                errors={signupErrors}
-                            />
-                    )
-                }
-                {
-                    login &&
+                    }
+                    {
+                        login && (
+                            toggleChoice ?
+                                <LoginFormInputs
+                                    register={loginRegister}
+                                    errors={loginErrors}
+                                /> :
+                                <SignUpFormInputs
+                                    register={signupRegister}
+                                    errors={signupErrors}
+                                />
+                        )
+                    }
+                    {
+                        login &&
                         <>
                             <S.ButtonWrapper>
                                 {/*<S.NavLink to='/'>*/}
-                                    <S.Button name='submit' type='submit' onChange={() => onChange} >
-                                        { toggleChoice ? 'Zaloguj' : 'Zarejestruj' }
-                                    </S.Button>
+                                <S.Button name='submit' type='submit' onChange={() => onChange} >
+                                    { toggleChoice ? 'Zaloguj' : 'Zarejestruj' }
+                                </S.Button>
                                 {/*</S.NavLink>*/}
                             </S.ButtonWrapper>
                             <S.ChangeFormWrapper>
@@ -304,17 +271,44 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
                                 </S.ChangeFormButton>
                             </S.ChangeFormWrapper>
                         </>
-                }
-                {
-                    // Contact modal do osobnego componentu
-                    isContactModalOpen &&
+                    }
+                    {
+                        // Contact modal do osobnego componentu
+                        isContactModalOpen &&
                         <S.ContactModal>
                             <p>Wiadomość wysłana</p>
                         </S.ContactModal>
-                }
-            </S.Form>
+                    }
+                </S.Form>
         </S.FormWrapper>
     );
 };
 
 export default Form;
+
+// const handleContactInputsChange = e => (
+//     setContactValues({
+//         ...contactValues,
+//         [e.target.name]: e.target.value
+//     })
+// );
+//
+// const handleReservationInputsChange = e => (
+//     setReservationValues({
+//         ...reservationValues,
+//         [e.target.name]: e.target.value
+//     })
+// )
+//
+// const handleLoginInputsChange = e => (
+//     toggleChoice ?
+//         setLoginValues({
+//             ...loginValues,
+//             [e.target.name]: e.target.value
+//         }) : (
+//             setSignUpValues({
+//                 ...signUpValues,
+//                 [e.target.name]: e.target.value
+//             })
+//         )
+// )

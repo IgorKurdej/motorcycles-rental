@@ -15,12 +15,12 @@ export const logInSchema = yup.object().shape({
 });
 
 export const contactSchema = yup.object().shape({
-    // email: yup.string().email().required(),
-    // title: yup.string().max(50).required(),
-    // message: yup.string().required()
-    email: yup.string().email(),
-    title: yup.string().max(50),
-    message: yup.string()
+    email: yup.string().email().required(),
+    title: yup.string().max(50).required(),
+    message: yup.string().required()
+    // email: yup.string().email(),
+    // title: yup.string().max(50),
+    // message: yup.string()
 })
 
 export const reservationSchema = yup.object().shape({
@@ -28,6 +28,6 @@ export const reservationSchema = yup.object().shape({
     lastname: yup.string().required(),
     email: yup.string().email().required(),
     phone: yup.string().length(9),
-    startDate: yup.date().required(),
+    startDate: yup.date().required('wymagane'),
     endDate: yup.date().required(),
 })

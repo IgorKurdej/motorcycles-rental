@@ -10,22 +10,18 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
-const ContactFormInputs = ({contactValues, onChange, register, errors}) => {
+const ContactFormInputs = ({register, errors}) => {
     return (
         <Wrapper>
             <Input
                 placeholder='email'
                 name='email'
-                // value={contactValues.email}
-                // onChange={onChange}
                 register={register}
             />
             <ErrorMessage message={errors.email?.message} />
             <Input
                 placeholder='tytuł'
                 name='title'
-                // value={contactValues.title}
-                // onChange={onChange}
                 register={register}
             />
             <ErrorMessage message={errors.title?.message} />
@@ -33,8 +29,6 @@ const ContactFormInputs = ({contactValues, onChange, register, errors}) => {
                 as='textarea'
                 placeholder='wiadomość'
                 name='message'
-                // value={contactValues.message}
-                // onChange={onChange}
                 register={register}
             />
             <ErrorMessage message={errors.message?.message} />
