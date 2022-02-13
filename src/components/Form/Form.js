@@ -10,82 +10,32 @@ import { signUpSchema, contactSchema, logInSchema, reservationSchema } from '../
 import ClearIcon from '@mui/icons-material/Clear';
 import emailjs from 'emailjs-com'
 import Input from "./Input/Input";
-
-const initialLoginValues = {
-    email: '',
-    password: ''
-};
-
-const initialSignUpValues = {
-    firstname: '',
-    lastname: '',
-    email: '',
-    phone: '',
-    password: '',
-    passwordConfirmation: ''
-};
-
-const initialReservationValues = {
-    firstname: '',
-    lastname: '',
-    email: '',
-    phone: '',
-    startDate: '',
-    endDate: '',
-    motorcycle: '',
-    price: ''
-    // dodatkowo id motocykla, cena za wypozycznie
-};
-
-const initialContactValues = {
-    // email: 'jan.kowalski@gmail.com',
-    email: '',
-    title: '',
-    message: ''
-};
+import * as yup from "yup";
 
 const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
     const [toggleChoice, setToggleChoice] = useState(true);
     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
-    const [loginValues, setLoginValues] = useState(initialLoginValues);
-    const [signUpValues, setSignUpValues] = useState(initialSignUpValues);
-    const [reservationValues, setReservationValues] = useState(initialReservationValues);
-    const [contactValues, setContactValues] = useState(initialContactValues);
-
     const [selectedStartDate, setSelectedStartDate] = useState(null);
     const [selectedEndDate, setSelectedEndDate] = useState(null);
     const [numberOfDays, setNumberOfDays] = useState(1);
-    const [finalPrice, setFinalPrice] = useState(price);
 
-    // const {signUp, handleSubmitSignUp, signUpErrors} = useForm({resolver: yupResolver(signUpSchema)});
-    // const {logIn, handleSubmitLogin, loginErrors} = useForm({resolver: yupResolver(logInSchema)});
-    // const {sendMessage, handleSubmitContact, contactErrors} = useForm({resolver: yupResolver(contactSchema)});
-    // const {makeReservation, handleSubmitReservation, reservationErrors} = useForm({resolver: yupResolver(reservationSchema)});
+    const {register: contactRegister, formState: {errors: contactErrors}, handleSubmit: handleContactSubmit} = useForm({
+        resolver: yupResolver(contactSchema)
+    });
+    const {register: reservationRegister, formState: {errors: reservationErrors}, handleSubmit: handleReservationSubmit, control} = useForm({
+        resolver: yupResolver(reservationSchema)
+    });
+    const {register: loginRegister, formState: {errors: loginErrors}, handleSubmit: handleLoginSubmit} = useForm({
+        resolver: yupResolver(logInSchema)
+    });
+    const {register: signupRegister, formState: {errors: signupErrors}, handleSubmit: handleSignupSubmit} = useForm({
+        resolver: yupResolver(signUpSchema)
+    });
 
-
-
-
-    // useEffect(() => {
-    //     setReservationValues({
-    //         ...reservationValues,
-    //         startDate: selectedStartDate
-    //     });
-    //
-    //     setNumberOfDays((selectedEndDate - selectedStartDate) / (1000 * 3600 * 24));
-    //     setFinalPrice(numberOfDays * finalPrice);
-    // }, [selectedStartDate])
-    //
-    // useEffect(() => {
-    //     setReservationValues({
-    //         ...reservationValues,
-    //         endDate: selectedEndDate
-    //     });
-    //
-    //     setNumberOfDays((selectedEndDate - selectedStartDate) / (1000 * 3600 * 24));
-    //     setFinalPrice(numberOfDays * finalPrice);
-    // }, [selectedEndDate]);
-
+    useEffect(() => {
+        setNumberOfDays((selectedEndDate - selectedStartDate) / (1000 * 3600 * 24));
+    }, [selectedStartDate, selectedEndDate])
 
     const handleCheckoutChange = () => {
         return (
@@ -120,57 +70,27 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
         // po zamknieciu modala ustawic contactvalues na initial
     }
 
-    const clearLoginInputs = () => {
-        setToggleChoice(!toggleChoice);
-        toggleChoice ?
-            setLoginValues(initialLoginValues) :
-            setSignUpValues(initialSignUpValues)
-    }
-
-    const handleSubmitForm = e => {
-        e.preventDefault();
-        console.log(reservationValues);
-        // console.log(signUpValues);
-
-
-        //-------------------------------------------------------------------
-        // przypisanie pozostalych wartosci, ktore nie sa pobierane z formularza
-
-        // initialReservationValues.motorcycle = motorcycle;
-        // initialReservationValues.price = finalPrice;
-        //-------------------------------------------------------------------
-        // TO SAMO Z MAILEM W CONTACT FORM!!!
-    }
-
     const handleModal = () => {
         setIsContactModalOpen(true);
         setTimeout(() => setIsContactModalOpen(false), 3000);
     }
 
-    const {register: contactRegister, formState: {errors: contactErrors}, handleSubmit: handleContactSubmit} = useForm({
-        resolver: yupResolver(contactSchema)
-    });
-
-    const {register: reservationRegister, formState: {errors: reservationErrors}, handleSubmit: handleReservationSubmit, control} = useForm({
-        resolver: yupResolver(reservationSchema)
-    });
-
-    const {register: loginRegister, formState: {errors: loginErrors}, handleSubmit: handleLoginSubmit} = useForm({
-        resolver: yupResolver(logInSchema)
-    });
-
-    const {register: signupRegister, formState: {errors: signupErrors}, handleSubmit: handleSignupSubmit} = useForm({
-        resolver: yupResolver(signUpSchema)
-    });
+    const assignDatesToObject = data => {
+        data.startDate = selectedStartDate;
+        data.endDate = selectedEndDate;
+        data.motorcycleId = motorcycle;
+        data.price = numberOfDays * price;
+        console.log(data);
+    }
 
     const onSubmit = data => {
-        console.log(data);
-
-        contact && sendEmail();
-        // setNumberOfDays((data.endDate - data.startDate) / (1000 * 3600 * 24));
-        // console.log(numberOfDays);
-        // setFinalPrice(numberOfDays * motorcycle.price);
-        // console.log(finalPrice);
+        booking ?
+            (
+                selectedStartDate === null || selectedEndDate === null ?
+                console.log('podaj date') :
+                assignDatesToObject(data)
+            ) :
+            console.log(data)
     };
 
     return (
@@ -217,6 +137,10 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
                                 register={reservationRegister}
                                 errors={reservationErrors}
                                 control={control}
+                                startDate={selectedStartDate}
+                                endDate={selectedEndDate}
+                                setStartDate={setSelectedStartDate}
+                                setEndDate={setSelectedEndDate}
                             />
                             {
                                 handleCheckoutChange()
@@ -266,7 +190,7 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
                                 <p>
                                     { toggleChoice ? 'Nie masz jeszcze konta?' : 'Masz juz konto?' }
                                 </p>
-                                <S.ChangeFormButton onClick={clearLoginInputs} >
+                                <S.ChangeFormButton onClick={() => setToggleChoice(!toggleChoice)} >
                                     { toggleChoice ? 'Zarejestruj się' : 'Zaloguj się' }
                                 </S.ChangeFormButton>
                             </S.ChangeFormWrapper>
