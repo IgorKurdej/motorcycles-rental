@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from "axios";
 import styled from 'styled-components';
 import AppContext from "../context";
-import Navbar from "../components/Navbar/Navbar";
 import MotorcyclesList from "../components/MotorcyclesList/MotorcyclesList";
 import FiltersSection from "../components/MotorcyclesList/FiltersSection/FiltersSection";
-import {motorcycles} from "../assets/Data";
 
 const Wrapper = styled.div`
   display: flex;
@@ -12,13 +11,29 @@ const Wrapper = styled.div`
   margin: 20px 0;
   width: 100vw;
   overflow-x: hidden;
-`
+`;
 
 const Offer = () => {
     const [searchValue, setSearchValue] = useState('');
     const [searchBrand, setSearchBrand] = useState(['BMW', 'Harley Davidson', 'Honda']);
     const [sortBy, setSortBy] = useState('');
-    const [motorcyclesData, setMotorcyclesData] = useState([...motorcycles]);
+    const [motorcyclesData, setMotorcyclesData] = useState([]);
+    const [initialMotorcyclesData, setInitialMotorcyclesData] = useState([]);
+
+    useEffect(() => {
+        getMotorcycles();
+    }, [])
+
+    const getMotorcycles = () => {
+        axios.get('http://localhost:3001/motorcycles')
+            .then(res => {
+                setMotorcyclesData(res.data);
+                setInitialMotorcyclesData(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
 
     return (
         <>
@@ -30,7 +45,8 @@ const Offer = () => {
                 sortBy,
                 setSortBy,
                 motorcyclesData,
-                setMotorcyclesData
+                setMotorcyclesData,
+                initialMotorcyclesData
             }}>
                 <Wrapper>
                     <FiltersSection />

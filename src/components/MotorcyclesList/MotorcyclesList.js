@@ -1,5 +1,6 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import AppContext from "../../context";
+import Axios from 'axios';
 import * as S from './MotorcyclesList.style';
 import MotorcycleItem from "../MotorcycleItem/MotorcycleItem";
 

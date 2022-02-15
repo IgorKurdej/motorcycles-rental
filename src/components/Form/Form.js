@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 import * as S from './Form.style';
 import LoginFormInputs from "./LoginFormInputs/LoginFormInputs";
 import SignUpFormInputs from "./SignUpFormInputs/SignUpFormInputs";
@@ -70,7 +71,7 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
         // po zamknieciu modala ustawic contactvalues na initial
     }
 
-    const handleModal = () => {
+    const handleModal = (message) => {
         setIsContactModalOpen(true);
         setTimeout(() => setIsContactModalOpen(false), 3000);
     }
@@ -84,13 +85,31 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
     }
 
     const onSubmit = data => {
-        booking ?
-            (
-                selectedStartDate === null || selectedEndDate === null ?
-                console.log('podaj date') :
-                assignDatesToObject(data)
-            ) :
-            console.log(data)
+        // booking ?
+        //     (
+        //         selectedStartDate === null || selectedEndDate === null ?
+        //         console.log('podaj date') :
+        //         assignDatesToObject(data)
+        //     ) :
+        //     console.log(data)
+
+
+        // logowanie
+        axios
+            .post('http://localhost:3001/login', data)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+
+        // rejrestracja
+        // login && delete data.passwordConfirmation;
+        //
+        // axios
+        //     .post('http://localhost:3001/register', data)
+        //     .then(() => handleModal());
+
+        // const history = useHistory();
+        // setTimeout(()=>history.push(to), 1000);
+
     };
 
     return (
@@ -198,10 +217,11 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
                     }
                     {
                         // Contact modal do osobnego componentu
-                        isContactModalOpen &&
-                        <S.ContactModal>
-                            <p>Wiadomość wysłana</p>
-                        </S.ContactModal>
+                        isContactModalOpen && (
+                            <S.ContactModal>
+                                <p>Zarejestrowano pomyślnie</p>
+                            </S.ContactModal>
+                        )
                     }
                 </S.Form>
         </S.FormWrapper>

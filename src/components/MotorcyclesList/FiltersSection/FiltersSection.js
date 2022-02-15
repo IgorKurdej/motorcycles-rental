@@ -4,6 +4,7 @@ import * as S from './FiltersSection.style';
 import CheckboxOption from "./CheckboxOption/CheckboxOption";
 import {motorcycles} from "../../../assets/Data";
 import MotorcycleItem from "../../MotorcycleItem/MotorcycleItem";
+import {init} from "emailjs-com";
 
 const FiltersSection = () => {
     const {
@@ -13,18 +14,18 @@ const FiltersSection = () => {
         setSortBy,
         searchBrand,
         setSearchBrand,
-        motorcyclesData,
-        setMotorcyclesData
+        setMotorcyclesData,
+        initialMotorcyclesData
     } = useContext(AppContext);
 
     const brands = ['BMW', 'Harley Davidson', 'Honda'];
     const sortingOptions = ['', 'Cena', 'Rok', 'Moc', 'Pojemność'];
-
     const [toggleOrder, setToggleOrder] = useState(true);
+
 
     useEffect(() => {
         setMotorcyclesData(() => (
-            [...motorcycles]
+            [...initialMotorcyclesData]
                 .filter(motorcycle => motorcycle.model.toLowerCase().includes(searchValue.toLowerCase())))
                 .filter(motorcycle => searchBrand.includes(motorcycle.marka))
                 .sort((item1, item2) => (
