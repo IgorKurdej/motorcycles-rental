@@ -9,6 +9,7 @@ const InputField = styled.input`
     padding: 2px 5px;
     outline: 0;
     border-width: 0 0 1px;
+    border-color: #797878;
     font-size: 16px;
     background-color: white;
     
@@ -17,16 +18,16 @@ const InputField = styled.input`
   }
 `
 
-const Input = ({type, placeholder, name, disabled, as, register}) => {
+const Input = ({type, value, placeholder, name, disabled, as, register}) => {
     return (
         <InputField
             type={type ? type : 'text'}
             placeholder={placeholder}
+            value={value}
             name={name}
             disabled={disabled}
             as={as}
             autoComplete="nope"
-            {...register(name)}
         />
     );
 };

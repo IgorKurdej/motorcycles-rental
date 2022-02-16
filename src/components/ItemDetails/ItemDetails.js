@@ -2,6 +2,7 @@ import React from 'react';
 import DescriptionItem from "./DescriptionItem/DescriptionItem";
 import * as S from './ItemDetails.style'
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 const units = {
     moc: 'KM',
@@ -12,23 +13,39 @@ const units = {
 const ItemDetails = ( props ) => {
     const {marka, model, pojemność, moc, rok, cena, booking, motorcycleData, reservationData, reservation} = props;
 
+    const dateConvert = date => {
+        let splitDate = date
+            .split('.')
+            .map((numb, idx) => idx % 2 !== 0 ? Number(numb) - 1 : Number(numb));
+
+        const reservationStartDate = new Date(splitDate[2], splitDate[1], splitDate[0]);
+        const oneDay = 24 * 60 * 60 * 1000;
+
+        const today = new Date();
+        const myToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0);
+
+        return (reservationStartDate - myToday) / oneDay;
+    }
+
+
+
     return (
         reservation ? (
             <S.DetailsWrapper reservation>
                 {/* DescriptionWrapper jako osobny komponent, jak w form InputsWrapper!!! */}
                 <S.DescriptionWrapper booking reservation>
-                    <DescriptionItem value={reservationData.status} reservation>Status</DescriptionItem>
-                    <DescriptionItem value={motorcycleData.marka} reservation>Marka</DescriptionItem>
-                    <DescriptionItem value={motorcycleData.model} reservation>Model</DescriptionItem>
-                    <DescriptionItem value={reservationData.start} reservation>Data odbioru</DescriptionItem>
-                    <DescriptionItem value={reservationData.koniec} reservation>Data zwrotu</DescriptionItem>
-                    <DescriptionItem value={reservationData.cena} reservation unit={units.cena} hr>Cena</DescriptionItem>
+                    <DescriptionItem value={dateConvert(reservationData.startDate) > 0 ? 'W trakcie' : 'Zakończone'} reservation>Status</DescriptionItem>
+                    <DescriptionItem value={reservationData.marka} reservation>Marka</DescriptionItem>
+                    <DescriptionItem value={reservationData.model} reservation>Model</DescriptionItem>
+                    <DescriptionItem value={reservationData.startDate} reservation>Data odbioru</DescriptionItem>
+                    <DescriptionItem value={reservationData.endDate} reservation>Data zwrotu</DescriptionItem>
+                    <DescriptionItem value={reservationData.price} reservation unit={units.cena} hr>Cena</DescriptionItem>
                     {
-                        reservationData.status === 'W trakcie' &&
-                        <S.ReservationButtonWrapper>
-                            <S.ReservationButton edit>Edytuj</S.ReservationButton>
-                            <S.ReservationButton>Anuluj</S.ReservationButton>
-                        </S.ReservationButtonWrapper>
+                        dateConvert(reservationData.startDate) > 0 > 0 &&
+                            <S.ReservationButtonWrapper>
+                                <S.ReservationButton edit>Edytuj</S.ReservationButton>
+                                <S.ReservationButton onClick={() => props.deleteReservation(reservationData.id)}>Anuluj</S.ReservationButton>
+                            </S.ReservationButtonWrapper>
                     }
                 </S.DescriptionWrapper>
             </S.DetailsWrapper>
@@ -36,21 +53,6 @@ const ItemDetails = ( props ) => {
             booking ? (
                 <S.DetailsWrapper>
                     <S.DescriptionWrapper booking>
-                        {/*{*/}
-                        {/*    Object.entries(props)*/}
-                        {/*        .filter(item =>*/}
-                        {/*            item[0] !== 'id' &&*/}
-                        {/*            item[0] !== 'img' &&*/}
-                        {/*            item[0] !== 'form' &&*/}
-                        {/*            item[0] !== 'reservation'*/}
-                        {/*        )*/}
-                        {/*        .map(([key, val]) =>*/}
-                        {/*            <DescriptionItem*/}
-                        {/*                key={key}*/}
-                        {/*                value={val}*/}
-                        {/*                unit={units[key]}*/}
-                        {/*            >{key}</DescriptionItem>)*/}
-                        {/*}*/}
                         <DescriptionItem value={marka}>Marka</DescriptionItem>
                         <DescriptionItem value={model}>Model</DescriptionItem>
                         <DescriptionItem value={rok}>Rok produkcji</DescriptionItem>

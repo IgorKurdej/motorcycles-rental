@@ -29,5 +29,5 @@ export const ImageWrapper = styled.div`
 `;
 
 export const MotoImg = styled.img`
-  height: ${({reservation}) => reservation ?  '80%' : '100%'};
+  height: ${({reservation}) => reservation ?  '65%' : '100%'};
 `;

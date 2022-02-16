@@ -19,6 +19,7 @@ const DateInput = styled(DatePicker)`
   padding: 5px;
   outline: 0;
   border-width: 0 0 1px;
+  border-color: #797878;
   font-size: 16px;
   background-color: white;
   
@@ -28,8 +29,6 @@ const DateInput = styled(DatePicker)`
 `
 
 const ReservationFormInputs = ({
-        reservationValues,
-        onChange,
         register,
         errors,
         control,
@@ -41,81 +40,35 @@ const ReservationFormInputs = ({
 }) => {
     return(
         <Wrapper>
-        <Input
-            placeholder='Imię'
-            name='firstname'
-            register={register}
-        />
-        <ErrorMessage message={errors.firstname?.message} />
-        <Input
-            placeholder='Nazwisko'
-            name='lastname'
-            register={register}
-        />
-        <ErrorMessage message={errors.lastname?.message} />
-        <Input
-            placeholder='Email'
-            name='email'
-            register={register}
-        />
-        <ErrorMessage message={errors.email?.message} />
-        <Input
-            placeholder='Telefon'
-            name='phone'
-            register={register}
-        />
-        <ErrorMessage message={errors.phone?.message} />
-        {/*<Controller*/}
-        {/*    name='startDate'*/}
-        {/*    control={control}*/}
-        {/*    // ref*/}
-        {/*    onBlur={() => console.log('dupa')}*/}
-        {/*    render={({ field: {onChange, value, onBlur}*/}
-        {/*    }) => (*/}
-        {/*        <DateInput*/}
-        {/*            onChange={onChange}*/}
-        {/*            selected={value}*/}
-        {/*            placeholderText="Data rozpoczęcia"*/}
-        {/*            dateFormat='dd/MM/yyyy'*/}
-        {/*            minDate={new Date()}*/}
-        {/*            // startDate={startDate}*/}
-        {/*            // endDate={endDate}*/}
-        {/*        />*/}
-        {/*    )}/>*/}
+            {/* JAKO VALUE PRZYPISAC EMAIL ZALOGOWANEGO USERA */}
+            <Input
+                value="igor31@o2.pl"
+                name='email'
+                // register={register}
+                disabled
+            />
+            <ErrorMessage />
 
-        <DateInput
-            selected={startDate}
-            onChange={date => setStartDate(date)}
-            placeholderText="Data rozpoczęcia"
-            dateFormat='dd/MM/yyyy'
-            minDate={new Date()}
-            maxDate={endDate}
-        />
-        <ErrorMessage message={startDate === null ? 'Podaj datę' : ''} />
+            <DateInput
+                required
+                selected={startDate}
+                onChange={date => setStartDate(date)}
+                placeholderText="Data rozpoczęcia"
+                dateFormat='dd/MM/yyyy'
+                minDate={new Date()}
+                maxDate={endDate}
+            />
+            <ErrorMessage />
 
-        {/*<Controller*/}
-        {/*    name='endDate'*/}
-        {/*    control={control}*/}
-        {/*    render={({ field: { onChange, value }}) => (*/}
-        {/*        <DateInput*/}
-        {/*            onChange={onChange}*/}
-        {/*            selected={value}*/}
-        {/*            placeholderText="Data zakończenia"*/}
-        {/*            dateFormat='dd/MM/yyyy'*/}
-        {/*            minDate={new Date()}*/}
-        {/*            // startDate={startDate}*/}
-        {/*            // endDate={endDate}*/}
-        {/*        />*/}
-        {/*)}/>*/}
-        <DateInput
-            selected={endDate}
-            onChange={date => setEndDate(date)}
-            placeholderText="Data zakończenia"
-            dateFormat='dd/MM/yyyy'
-            minDate={startDate === null ? new Date() : startDate}
-        />
-        {/*<ErrorMessage message={errors.endDate?.message} />*/}
-        <ErrorMessage message={endDate === null ? 'Podaj datę' : ''} />
+            <DateInput
+                required
+                selected={endDate}
+                onChange={date => setEndDate(date)}
+                placeholderText="Data zakończenia"
+                dateFormat='dd/MM/yyyy'
+                minDate={startDate === null ? new Date() : startDate}
+            />
+            <ErrorMessage />
 
         </Wrapper>
 )}

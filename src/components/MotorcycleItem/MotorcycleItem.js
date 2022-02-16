@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from "axios";
 import * as S from './MotorcycleItem.style';
 import ItemDetails from "../ItemDetails/ItemDetails";
 
@@ -8,11 +9,11 @@ const MotorcycleItem = (props) => (
             props.reservation &&
                 <S.Wrapper reservation>
                     <S.ImageWrapper>
-                        <S.MotoImg src={props.motorcycleData.img} reservation/>
+                        <S.MotoImg src={props.reservationData.img} reservation/>
                     </S.ImageWrapper>
                     <ItemDetails
-                        motorcycleData={props.motorcycleData}
                         reservationData={props.reservationData}
+                        deleteReservation={props.deleteRes}
                         reservation
                     />
                 </S.Wrapper>

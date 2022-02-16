@@ -14,39 +14,39 @@ const SignUpFormInputs = ({register, errors}) => {
     return (
         <Wrapper>
             <Input
-                placeholder='imię'
+                placeholder='Imię'
                 name='firstname'
                 register={register}
             />
             <ErrorMessage message={errors.firstname?.message}/>
             <Input
-                placeholder='nazwisko'
+                placeholder='Nazwisko'
                 name='lastname'
                 register={register}
             />
             <ErrorMessage message={errors.lastname?.message}/>
             <Input
-                placeholder='email'
+                placeholder='Email'
                 name='email'
                 register={register}
             />
             <ErrorMessage message={errors.email?.message}/>
             <Input
-                placeholder='telefon'
+                placeholder='Telefon'
                 name='phone'
                 register={register}
             />
             <ErrorMessage message={errors.phone?.message}/>
             <Input
                 type='password'
-                placeholder='hasło'
+                placeholder='Hasło'
                 name='password'
                 register={register}
             />
             <ErrorMessage message={errors.password?.message}/>
             <Input
                 type='password'
-                placeholder='powtórz hasło'
+                placeholder='Powtórz hasło'
                 name='passwordConfirmation'
                 register={register}
             />

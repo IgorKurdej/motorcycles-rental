@@ -7,7 +7,7 @@ import ReservationFormInputs from "./ReservationFormInputs/ReservationFormInputs
 import ContactFormInputs from "./ContactFormInputs/ContactFormInputs";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { signUpSchema, contactSchema, logInSchema, reservationSchema } from '../../validations/ValidationSchema'
+import { signUpSchema, contactSchema, logInSchema } from '../../validations/ValidationSchema'
 import ClearIcon from '@mui/icons-material/Clear';
 import emailjs from 'emailjs-com'
 import Input from "./Input/Input";
@@ -23,9 +23,6 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
 
     const {register: contactRegister, formState: {errors: contactErrors}, handleSubmit: handleContactSubmit} = useForm({
         resolver: yupResolver(contactSchema)
-    });
-    const {register: reservationRegister, formState: {errors: reservationErrors}, handleSubmit: handleReservationSubmit, control} = useForm({
-        resolver: yupResolver(reservationSchema)
     });
     const {register: loginRegister, formState: {errors: loginErrors}, handleSubmit: handleLoginSubmit} = useForm({
         resolver: yupResolver(logInSchema)
@@ -76,28 +73,32 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
         setTimeout(() => setIsContactModalOpen(false), 3000);
     }
 
-    const assignDatesToObject = data => {
-        data.startDate = selectedStartDate;
-        data.endDate = selectedEndDate;
-        data.motorcycleId = motorcycle;
-        data.price = numberOfDays * price;
-        console.log(data);
+    const dateConvert = date => date.toLocaleString().split(',')[0];
+
+    const handleBookingSubmit = e => {
+        e.preventDefault();
+
+        const bookingValues = {
+            startDate: dateConvert(selectedStartDate),
+            endDate: dateConvert(selectedEndDate),
+            price: numberOfDays * price,
+            userId: 10,
+            motorcycleId: motorcycle
+        };
+
+        axios
+            .post('http://localhost:3001/booking', bookingValues)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
     }
 
     const onSubmit = data => {
-        // booking ?
-        //     (
-        //         selectedStartDate === null || selectedEndDate === null ?
-        //         console.log('podaj date') :
-        //         assignDatesToObject(data)
-        //     ) :
-        //     console.log(data)
-
-
-        // logowanie
+        //logowanie
         axios
             .post('http://localhost:3001/login', data)
-            .then(res => console.log(res))
+            .then(res => {
+                res.data.length === 0 ? console.log('dupa') : console.log(res)
+            })
             .catch(err => console.log(err));
 
         // rejrestracja
@@ -129,7 +130,7 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
             </S.FormTitle>
             <S.Form
                 onSubmit={
-                    booking ? handleReservationSubmit(onSubmit) :
+                    booking ? handleBookingSubmit :
                     contact ? handleContactSubmit(sendEmail) :
                     login && toggleChoice ?
                         handleLoginSubmit(onSubmit) :
@@ -153,9 +154,6 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
                         booking &&
                         <>
                             <ReservationFormInputs
-                                register={reservationRegister}
-                                errors={reservationErrors}
-                                control={control}
                                 startDate={selectedStartDate}
                                 endDate={selectedEndDate}
                                 setStartDate={setSelectedStartDate}
