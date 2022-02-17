@@ -13,6 +13,12 @@ const Wrapper = styled.div`
   flex: 1;
   text-align: ${props => props.offer ? 'center' : props.right ? 'right' : 'left'};
   margin-bottom: ${props => props.offer && '5px'};
+  
+  input {
+    border: none;
+    font-size: 16px;
+    width: 140px;
+  }
 `
 
 const DescriptionItem = ({children, value, hr, unit, offer, reservation}) => {

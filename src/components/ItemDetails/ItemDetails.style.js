@@ -64,6 +64,11 @@ export const ReservationButtonWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 5px 0;
+  
+  Link {
+    width: 100%;
+    color: red;
+  }
 `
 
 export const ReservationButton = styled.button`
@@ -74,6 +79,7 @@ export const ReservationButton = styled.button`
     border: ${props => props.edit ? '2px solid forestgreen' : '2px solid #be2020'};
     color: ${props => props.edit ? 'forestgreen' : '#be2020'};
     background-color: transparent;
+    
     
     :hover {
       background-color: ${props => props.edit ? 'forestgreen' : '#be2020'};

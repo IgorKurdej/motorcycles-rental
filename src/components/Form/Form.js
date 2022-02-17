@@ -75,6 +75,8 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
 
     const dateConvert = date => date.toLocaleString().split(',')[0];
 
+    // console.log(dateConvert(selectedStartDate));
+
     const handleBookingSubmit = e => {
         e.preventDefault();
 

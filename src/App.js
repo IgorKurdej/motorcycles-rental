@@ -22,6 +22,7 @@ function App() {
               <Route exact path="/" element={<Home />} />
               <Route path="/oferta" element={<Offer />}/>
               <Route path="/rezerwacja" element={<Booking />}/>
+              <Route path="/rezerwacja/:id" element={<Booking id />}/>
               <Route path="/kontakt" element={<Contact />} />
               <Route path="/konto" element={<Account />}/>
               <Route path="/logowanie" element={<Login />}/>

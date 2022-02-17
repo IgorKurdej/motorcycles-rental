@@ -1,5 +1,5 @@
 import React from 'react';
-import {useLocation} from "react-router";
+import {useLocation, useParams} from "react-router";
 import BookingForm from "../components/BookingForm/BookingForm";
 
 const Booking = () => {

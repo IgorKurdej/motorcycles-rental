@@ -14,6 +14,7 @@ const MotorcycleItem = (props) => (
                     <ItemDetails
                         reservationData={props.reservationData}
                         deleteReservation={props.deleteRes}
+                        userReservation={props.userReservation}
                         reservation
                     />
                 </S.Wrapper>

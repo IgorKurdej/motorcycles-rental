@@ -10,7 +10,7 @@ const User = () => {
 
     useEffect(() => {
         axios
-            .post('http://localhost:3001/userReservation', { userId: 1 })
+            .post('http://localhost:3001/userReservation', { userId: 10 })
             .then(res => setUserReservation(res.data))
     }, [])
 
@@ -33,10 +33,11 @@ const User = () => {
                 <h2>Twoje rezerwacje</h2>
                 <S.ScrollList>
                     {
-                        userReservation.map(item => <MotorcycleItem
+                        userReservation.map((item, idx) => <MotorcycleItem
                             key={item.id}
                             reservationData={item}
                             deleteRes={deleteReservation}
+                            userReservation={userReservation[idx]}
                             reservation
                         />)
                     }
