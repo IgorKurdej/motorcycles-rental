@@ -89,7 +89,7 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
         };
 
         axios
-            .post('http://localhost:3001/booking', bookingValues)
+            .post('https://motorcycle-rental.herokuapp.com/booking', bookingValues)
             .then(res => console.log(res))
             .catch(err => console.log(err));
     }
@@ -97,7 +97,7 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
     const onSubmit = data => {
         //logowanie
         axios
-            .post('http://localhost:3001/login', data)
+            .post('https://motorcycle-rental.herokuapp.com/login', data)
             .then(res => {
                 res.data.length === 0 ? console.log('dupa') : console.log(res)
             })

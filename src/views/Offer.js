@@ -25,8 +25,10 @@ const Offer = () => {
     }, [])
 
     const getMotorcycles = () => {
-        axios.get('http://localhost:3001/motorcycles')
+        axios
+            .get('https://motorcycle-rental.herokuapp.com/motorcycles')
             .then(res => {
+                // console.log(res);
                 setMotorcyclesData(res.data);
                 setInitialMotorcyclesData(res.data);
             })

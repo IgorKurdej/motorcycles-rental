@@ -10,13 +10,13 @@ const User = () => {
 
     useEffect(() => {
         axios
-            .post('http://localhost:3001/userReservation', { userId: 10 })
+            .post('https://motorcycle-rental.herokuapp.com/userReservation', { userId: 10 })
             .then(res => setUserReservation(res.data))
     }, [])
 
     const deleteReservation = (id) => {
         axios
-            .delete(`http://localhost:3001/deleteReservation/${id}`)
+            .delete(`https://motorcycle-rental.herokuapp.com/${id}`)
             .then(() => {
                 setUserReservation(userReservation.filter(item => {
                     return item.id !== id;
