@@ -6,12 +6,18 @@ import AppContext from "../../context";
 import MotorcycleItem from "../MotorcycleItem/MotorcycleItem";
 
 const User = () => {
+    const [userData, setUserData] = useState({});
     const [userReservation, setUserReservation] = useState([]);
 
     useEffect(() => {
         axios
-            .post('https://motorcycle-rental.herokuapp.com/userReservation', { userId: 10 })
-            .then(res => setUserReservation(res.data))
+            .get('https://motorcycle-rental.herokuapp.com/user/21')
+            .then(res => setUserData(res.data[0]))
+
+        axios
+            .get('https://motorcycle-rental.herokuapp.com/userReservation/21')
+            .then(res => setUserReservation(res.data));
+
     }, [])
 
     const deleteReservation = (id) => {
@@ -27,7 +33,7 @@ const User = () => {
     return (
         <S.Wrapper>
             <S.LeftSide>
-                <UserDetails />
+                <UserDetails userData={userData} />
             </S.LeftSide>
             <S.ReservationList>
                 <h2>Twoje rezerwacje</h2>

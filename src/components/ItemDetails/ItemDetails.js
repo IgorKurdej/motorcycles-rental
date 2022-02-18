@@ -55,6 +55,7 @@ const ItemDetails = ( props ) => {
         axios
             .put("https://motorcycle-rental.herokuapp.com/updateReservation", obj)
             .then(res => {
+
                 // props.userReservation.startDate = obj.startDate;
                 // props.userReservation.endDate = obj.endDate;
                 // props.userReservation.price = obj.price;

@@ -32,6 +32,18 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
     });
 
     useEffect(() => {
+        // axios
+        //     .get('https://motorcycle-rental.herokuapp.com/users')
+        //     .then(res => {
+        //         console.log(res.data);
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //     });
+
+    }, [])
+
+    useEffect(() => {
         setNumberOfDays((selectedEndDate - selectedStartDate) / (1000 * 3600 * 24));
     }, [selectedStartDate, selectedEndDate])
 
@@ -75,8 +87,6 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
 
     const dateConvert = date => date.toLocaleString().split(',')[0];
 
-    // console.log(dateConvert(selectedStartDate));
-
     const handleBookingSubmit = e => {
         e.preventDefault();
 
@@ -84,9 +94,11 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
             startDate: dateConvert(selectedStartDate),
             endDate: dateConvert(selectedEndDate),
             price: numberOfDays * price,
-            userId: 10,
+            userId: 21,
             motorcycleId: motorcycle
         };
+
+        console.log(bookingValues);
 
         axios
             .post('https://motorcycle-rental.herokuapp.com/booking', bookingValues)
@@ -94,26 +106,53 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
             .catch(err => console.log(err));
     }
 
-    const onSubmit = data => {
-        //logowanie
+    // const onSubmit = data => {
+    //     //logowanie
+    //     // axios
+    //     //     .post('https://motorcycle-rental.herokuapp.com/login', data)
+    //     //     .then(res => {
+    //     //         res.data.length === 0 ? console.log('dupa') : console.log(res)
+    //     //     })
+    //     //     .catch(err => console.log(err));
+    //
+    //     console.log(data);
+    //     // rejrestracja
+    //     login && delete data.passwordConfirmation;
+    //
+    //     const obj = {
+    //         firstname: 'jake',
+    //         lastname: 'harper',
+    //         email: 'harp@js.pl',
+    //         phone: '123456789',
+    //         password: 'password'
+    //     }
+    //
+    //     axios
+    //         .post('https://motorcycle-rental.herokuapp.com/register', obj)
+    //         .then((res) => console.log(res))
+    //         .catch(err => console.log(err))
+    //         // .then(() => handleModal());
+    //
+    //     // const history = useHistory();
+    //     // setTimeout(()=>history.push(to), 1000);
+    //
+    // };
+
+    const handleReservationSubmit = (e) => {
+        e.preventDefault();
+
         axios
-            .post('https://motorcycle-rental.herokuapp.com/login', data)
-            .then(res => {
-                res.data.length === 0 ? console.log('dupa') : console.log(res)
+            .post('https://motorcycle-rental.herokuapp.com/register', {
+            // .post('http://localhost:3001/register', {
+                firstname: 'JAN',
+                lastname: '123',
+                email: 'harp@js.pl',
+                phone: 123456789,
+                password: 'password'
             })
-            .catch(err => console.log(err));
-
-        // rejrestracja
-        // login && delete data.passwordConfirmation;
-        //
-        // axios
-        //     .post('http://localhost:3001/register', data)
-        //     .then(() => handleModal());
-
-        // const history = useHistory();
-        // setTimeout(()=>history.push(to), 1000);
-
-    };
+            .then((res) => console.log(res))
+            .catch(err => console.log(err))
+    }
 
     return (
         <S.FormWrapper>
@@ -134,9 +173,10 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
                 onSubmit={
                     booking ? handleBookingSubmit :
                     contact ? handleContactSubmit(sendEmail) :
-                    login && toggleChoice ?
-                        handleLoginSubmit(onSubmit) :
-                        handleSignupSubmit(onSubmit)
+                    // login && toggleChoice ?
+                        // handleLoginSubmit(onSubmit) :
+                        // handleSignupSubmit(onSubmit)
+                        login && handleReservationSubmit
                 }>
                     {
                         contact &&
@@ -200,7 +240,7 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
                         <>
                             <S.ButtonWrapper>
                                 {/*<S.NavLink to='/'>*/}
-                                <S.Button name='submit' type='submit' onChange={() => onChange} >
+                                <S.Button>
                                     { toggleChoice ? 'Zaloguj' : 'Zarejestruj' }
                                 </S.Button>
                                 {/*</S.NavLink>*/}
@@ -229,30 +269,3 @@ const Form = ({login, booking, motorcycle, price, contact, onChange}) => {
 };
 
 export default Form;
-
-// const handleContactInputsChange = e => (
-//     setContactValues({
-//         ...contactValues,
-//         [e.target.name]: e.target.value
-//     })
-// );
-//
-// const handleReservationInputsChange = e => (
-//     setReservationValues({
-//         ...reservationValues,
-//         [e.target.name]: e.target.value
-//     })
-// )
-//
-// const handleLoginInputsChange = e => (
-//     toggleChoice ?
-//         setLoginValues({
-//             ...loginValues,
-//             [e.target.name]: e.target.value
-//         }) : (
-//             setSignUpValues({
-//                 ...signUpValues,
-//                 [e.target.name]: e.target.value
-//             })
-//         )
-// )
