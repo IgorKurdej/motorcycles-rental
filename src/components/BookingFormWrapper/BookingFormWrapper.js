@@ -1,18 +1,18 @@
 import React from 'react';
-import * as S from './BookingForm.style';
+import * as S from './BookingFormWrapper.style';
 import MotorcycleItem from "../MotorcycleItem/MotorcycleItem";
-import Form from "../Form/Form";
+import BookingForm from './BookingForm/BookingForm'
 
-const BookingForm = ({motorcycle}) => (
+const BookingFormWrapper = ({ motorcycle }) => (
     <S.Wrapper>
         <S.MotorcycleWrapper>
             <MotorcycleItem motorcycle={motorcycle} booking />
         </S.MotorcycleWrapper>
         <S.Hr />
         <S.FormWrapper>
-            <Form booking motorcycle={motorcycle.id} price={motorcycle.cena} />
+            <BookingForm motorcycle={motorcycle.id} price={motorcycle.cena} />
         </S.FormWrapper>
     </S.Wrapper>
 );
 
-export default BookingForm;
+export default BookingFormWrapper;

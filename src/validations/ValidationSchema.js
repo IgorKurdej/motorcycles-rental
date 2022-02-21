@@ -18,9 +18,3 @@ export const logInSchema = yup.object().shape({
     email: yup.string().email('Niepoprawny email').required('Proszę podać email'),
     password: yup.string().min(6, 'Minimum 6 znaków').required()
 });
-
-export const contactSchema = yup.object().shape({
-    email: yup.string().email('Niepoprawny email').required('Proszę podać email'),
-    title: yup.string().max(50).required(),
-    message: yup.string().required()
-})

@@ -2,14 +2,12 @@ import styled from 'styled-components';
 import {Link} from "react-router-dom";
 
 export const FormWrapper = styled.div`
-  margin-top: 100px;
+  margin: 150px 0 25px 0;
   width: 550px;
-  height: 650px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  padding: 70px 0;
   background-color: white;
   border-radius: 10px;
 `
@@ -19,26 +17,14 @@ export const FormTitle = styled.p`
   font-size: 30px;
 `
 
-export const Form = styled.form`
+export const FormBody = styled.form`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 60%;
   align-items: center;
 `;
 
-export const Checkout = styled.div`
-  width: 60%;
-  height: 50px;
-  display:flex;
-  align-items: center;
-  justify-content: space-between;
-  
-  p {
-    font-size: 18px;
-    font-weight: ${props => props.price && '700'};
-  }
-`
-
+// ---------------------------- BUTTON ------------------------------------
 export const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -50,11 +36,10 @@ export const ButtonWrapper = styled.div`
   width: 60%;
 `
 
-
-
 export const Button = styled.button`
-  width: ${props => props.modal ? '50%' : '100%'};
-  margin: ${props => props.confirm ? '10px 0 0 0' : '15px 0 30px'};
+  //width: ${props => props.modal ? '50%' : '100%'};
+  width: ${props => props.cancel ? '60%' : '100%'};
+  margin-top: ${props => props.cancel ? '10px' : '20px'};
   padding: 7px 0;
   border: ${props => props.cancel ? '3px solid #be2020' : '3px solid forestgreen'};
   background-color: transparent;
@@ -69,20 +54,9 @@ export const Button = styled.button`
   }
 `;
 
-export const ChangeFormWrapper = styled.div`
+export const NavLink = styled(Link)`
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-`
-
-export const ChangeFormButton = styled.button`
-  border: none;
-  background-color: transparent;
-  text-decoration: underline;
-  font-size: 16px;
-  margin: 5px 0;
-  cursor: pointer;
-  color: forestgreen;
+  text-decoration: none;
+  justify-content: center;
 `;
-

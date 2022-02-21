@@ -1,6 +1,6 @@
 import React from 'react';
-import Form from "../components/Form/Form";
 import styled from "styled-components";
+import FormContact from "../components/FormContact/FormContact";
 
 const Wrapper = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ const Wrapper = styled.div`
 const Contact = () => {
     return (
         <Wrapper>
-            <Form contact />
+            <FormContact />
         </Wrapper>
     );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Form from "../components/Form/Form";
+import FormSignupLogin from "../components/FormSignupLogin/FormSignupLogin";
 
 const Wrapper = styled.div`
   height: calc(100vh - 80px);
@@ -12,7 +12,8 @@ const Wrapper = styled.div`
 const Login = () => {
     return (
         <Wrapper>
-            <Form login />
+            {/*<Form login />*/}
+            <FormSignupLogin />
         </Wrapper>
     );
 };

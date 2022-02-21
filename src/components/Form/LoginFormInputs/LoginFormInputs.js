@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
-const LoginFormInputs = ({loginValues, onChange, register, errors}) => {
+const LoginFormInputs = ({register, errors}) => {
     return (
         <Wrapper>
             <Input

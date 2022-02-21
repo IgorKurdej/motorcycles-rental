@@ -28,6 +28,7 @@ const Input = ({type, value, placeholder, name, disabled, as, register}) => {
             disabled={disabled}
             as={as}
             autoComplete="nope"
+            register={register}
         />
     );
 };

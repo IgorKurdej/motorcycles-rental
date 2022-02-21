@@ -1,6 +1,6 @@
 import React from 'react';
 import {useLocation, useParams} from "react-router";
-import BookingForm from "../components/BookingForm/BookingForm";
+import BookingFormWrapper from "../components/BookingFormWrapper/BookingFormWrapper";
 
 const Booking = () => {
     let location = useLocation();
@@ -8,7 +8,7 @@ const Booking = () => {
 
     return (
         <div>
-            <BookingForm motorcycle={motorcycle} />
+            <BookingFormWrapper motorcycle={motorcycle} />
         </div>
     );
 };
