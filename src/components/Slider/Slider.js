@@ -91,17 +91,14 @@ const Slider = () => {
 
         while (counter < 5) {
             item = motorcyclesData[Math.floor(Math.random() * motorcyclesData.length)];
-            newArray.push(item);
+            newArray.includes(item)&&console.log("DUPLB")
+            newArray.push(item)
+
             counter++;
         }
         console.log(newArray);
         // console.log(motorcyclesSlider);
     }
-
-    // losowanie obiektu z tablicy
-    // przyda sie do losowanie motocykli do slidera
-    // var items = ['Yes', 'No', 'Maybe'];
-
 
     return (
         <S.Wrapper>
@@ -113,7 +110,7 @@ const Slider = () => {
                     {
                         // console.log(motorcyclesData)
 
-                        // drawMotorcycles()
+                        drawMotorcycles()
                         // moto.map((item, idx) => idx === currentItem && <MotorcycleItem {...item} key={idx} offer />)
                     }
                 </S.MotorcycleWrapper>
