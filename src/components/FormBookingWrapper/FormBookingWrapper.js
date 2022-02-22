@@ -1,9 +1,9 @@
 import React from 'react';
-import * as S from './BookingFormWrapper.style';
+import * as S from './FormBookingWrapper.style';
 import MotorcycleItem from "../MotorcycleItem/MotorcycleItem";
 import BookingForm from './BookingForm/BookingForm'
 
-const BookingFormWrapper = ({ motorcycle }) => (
+const FormBookingWrapper = ({ motorcycle }) => (
     <S.Wrapper>
         <S.MotorcycleWrapper>
             <MotorcycleItem motorcycle={motorcycle} booking />
@@ -15,4 +15,4 @@ const BookingFormWrapper = ({ motorcycle }) => (
     </S.Wrapper>
 );
 
-export default BookingFormWrapper;
+export default FormBookingWrapper;

@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+export const ChangeFormWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+`
+
 export const ChangeFormButton = styled.button`
   border: none;
   background-color: transparent;

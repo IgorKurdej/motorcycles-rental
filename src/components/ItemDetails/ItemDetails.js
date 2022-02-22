@@ -11,54 +11,40 @@ const units = {
 };
 
 const dateConvert = date => {
-    let splitDate = date
-        .split('.')
-        .map((numb, idx) => idx % 2 !== 0 ? Number(numb) - 1 : Number(numb));
-
-    const reservationStartDate = new Date(splitDate[2], splitDate[1], splitDate[0]);
     const oneDay = 24 * 60 * 60 * 1000;
-
     const today = new Date();
     const myToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0);
-
-    return (reservationStartDate - myToday) / oneDay;
+    return Math.round((new Date(date) - myToday) / oneDay);
 }
 
-const convertDateFormat = date => {
-    let splitDate = date.split('.').reverse();
-    let day = splitDate.pop();
-    day.length === 1 && splitDate.push('0'.concat(day));
-    return splitDate.join('-');
-}
-
-const reverseDate = date => {
-    return date.split('-').reverse().join('.');
-}
+const convertDateToInputDate = date => date.toLocaleString().split(',').shift().split('.').reverse().join('-');
 
 const ItemDetails = ( props ) => {
-    const {marka, model, pojemność, moc, rok, cena, booking, motorcycleData, reservationData, reservation} = props;
+    const {marka, model, pojemność, moc, rok, cena, booking, reservationData, reservation} = props;
 
     const [isUpdate, setIsUpdate] = useState(false);
     const [reservationUpdateValues, setReservationUpdateValues] = useState({
         ...reservationData
     });
 
+    useEffect(() => {
+        let countDays = (new Date(reservationUpdateValues.endDate) - new Date(reservationUpdateValues.startDate)) / (1000 * 3600 * 24);
+
+        setReservationUpdateValues({
+            ...reservationUpdateValues,
+            'price': countDays * reservationUpdateValues.cena === 0 ?
+                reservationUpdateValues.cena :
+                countDays * reservationUpdateValues.cena
+        });
+    }, [reservationUpdateValues.startDate, reservationUpdateValues.endDate]);
+
     const handleReservationUpdate = e => setReservationUpdateValues({ ...reservationUpdateValues, [e.target.name]: e.target.value });
 
-    const updateReservation = (id) => {
-        const obj = {
-            id: id,
-            startDate: reverseDate(reservationUpdateValues.startDate),
-            endDate: reverseDate(reservationUpdateValues.endDate),
-            price: reservationUpdateValues.price
-        }
+    const updateReservation = () => {
         axios
-            .put("https://motorcycle-rental.herokuapp.com/updateReservation", obj)
+            .put("https://motorcycle-rental.herokuapp.com/updateReservation", reservationUpdateValues)
             .then(res => {
-
-                // props.userReservation.startDate = obj.startDate;
-                // props.userReservation.endDate = obj.endDate;
-                // props.userReservation.price = obj.price;
+                console.log(res);
             })
             .catch(err => console.log(err))
     }
@@ -66,62 +52,82 @@ const ItemDetails = ( props ) => {
     return (
         reservation ? (
             <S.DetailsWrapper reservation>
-                {/* DescriptionWrapper jako osobny komponent, jak w form InputsWrapper!!! */}
                 <S.DescriptionWrapper booking reservation>
                     <DescriptionItem value={dateConvert(reservationData.startDate) > 0 ? 'W trakcie' : 'Zakończone'} reservation>Status</DescriptionItem>
                     <DescriptionItem value={reservationData.marka} reservation>Marka</DescriptionItem>
                     <DescriptionItem value={reservationData.model} reservation>Model</DescriptionItem>
                     {
-                        isUpdate ?
-                            <DescriptionItem
-                                reservation
-                                value={
-                                    <input
-                                        type='date'
-                                        name='startDate'
-                                        onChange={handleReservationUpdate}
-                                        value={convertDateFormat(reservationUpdateValues.startDate) || reservationUpdateValues.startDate}
-                                    />
-                                }> Nowa data odbioru
-                            </DescriptionItem> :
-                            <DescriptionItem value={reservationData.startDate} reservation>Data odbioru</DescriptionItem>
+                        isUpdate ? (
+                                <>
+                                    <DescriptionItem
+                                        reservation
+                                        value={
+                                            <input
+                                                type='date'
+                                                name='startDate'
+                                                onChange={handleReservationUpdate}
+                                                min={convertDateToInputDate(new Date())}
+                                                max={reservationUpdateValues.endDate}
+                                                value={reservationUpdateValues.startDate}
+                                            />
+                                        }
+                                    >
+                                        Nowa data odbioru
+                                    </DescriptionItem>
+                                    <DescriptionItem
+                                        reservation
+                                        value={
+                                            <input
+                                                type='date'
+                                                name='endDate'
+                                                onChange={handleReservationUpdate}
+                                                min={reservationUpdateValues.startDate || convertDateToInputDate(new Date())}
+                                                value={reservationUpdateValues.endDate}
+                                            />
+                                        }
+                                    >
+                                        Nowa data zwrotu
+                                    </DescriptionItem>
+                                    <DescriptionItem
+                                        value={reservationUpdateValues.price}
+                                        reservation unit={units.cena}
+                                    >
+                                        Nowa cena
+                                    </DescriptionItem>
+                                </>
+                            ) : (
+                                <>
+                                    <DescriptionItem value={reservationData.startDate} reservation>Data odbioru</DescriptionItem>
+                                    <DescriptionItem value={reservationData.endDate} reservation>Data zwrotu</DescriptionItem>
+                                    <DescriptionItem value={reservationData.price} reservation unit={units.cena}>Cena</DescriptionItem>
+                                </>
+                            )
                     }
                     {
-                        isUpdate ?
-                            <DescriptionItem
-                                reservation
-                                value={
-                                    <input
-                                        type='date'
-                                        name='endDate'
-                                        onChange={handleReservationUpdate}
-                                        value={convertDateFormat(reservationUpdateValues.endDate) || reservationUpdateValues.endDate}
-                                    />
-                                }> Nowa data zwrotu
-                            </DescriptionItem> :
-                            <DescriptionItem value={reservationData.endDate} reservation>Data zwrotu</DescriptionItem>
-                    }
-                    {
-                        isUpdate ?
-                            <DescriptionItem value={reservationUpdateValues.price} reservation unit={units.cena} hr>Nowa cena</DescriptionItem> :
-                            <DescriptionItem value={reservationData.price} reservation unit={units.cena} hr>Cena</DescriptionItem>
-                    }
-                    {
-                        dateConvert(reservationData.startDate) > 0 &&
-                            !isUpdate ? (
+                        dateConvert(reservationUpdateValues.startDate) > 0 && (
+                            isUpdate ? (
                                 <S.ReservationButtonWrapper>
-                                    <S.ReservationButton onClick={() => setIsUpdate(!isUpdate)} edit>Zarezerwuj</S.ReservationButton>
-                                    <S.ReservationButton onClick={() => props.deleteReservation(reservationData.id)}>Anuluj</S.ReservationButton>
+                                    <S.ReservationButton onClick={(e) => {
+                                        setIsUpdate(false)
+                                        updateReservation()
+                                    }} edit>Zapisz</S.ReservationButton>
+                                    <S.ReservationButton onClick={() => {
+                                        setIsUpdate(false);
+                                        setReservationUpdateValues({...reservationData});
+                                    }}
+                                    >
+                                        Anuluj zmiany
+                                    </S.ReservationButton>
                                 </S.ReservationButtonWrapper>
                             ) : (
                                 <S.ReservationButtonWrapper>
-                                    <S.ReservationButton onClick={() => {
-                                        updateReservation(reservationData.id)
-                                        setIsUpdate(!isUpdate);
-                                    }} edit>Potwierdź</S.ReservationButton>
-                                    <S.ReservationButton onClick={() => setIsUpdate(!isUpdate)}>Odrzuć zmiany</S.ReservationButton>
+                                    <S.ReservationButton onClick={() => setIsUpdate(true)} edit>Edytuj</S.ReservationButton>
+                                    <S.ReservationButton onClick={() => props.deleteReservation(reservationData.id)}>Anuluj rezerwacje</S.ReservationButton>
                                 </S.ReservationButtonWrapper>
                             )
+                        )
+
+
                     }
                 </S.DescriptionWrapper>
             </S.DetailsWrapper>

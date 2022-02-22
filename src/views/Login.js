@@ -12,7 +12,6 @@ const Wrapper = styled.div`
 const Login = () => {
     return (
         <Wrapper>
-            {/*<Form login />*/}
             <FormSignupLogin />
         </Wrapper>
     );

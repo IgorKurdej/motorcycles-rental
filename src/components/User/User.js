@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import axios from "axios";
 import * as S from './User.style'
 import UserDetails from "./UserDetails/UserDetails";
-import AppContext from "../../context";
 import MotorcycleItem from "../MotorcycleItem/MotorcycleItem";
 
 const User = () => {
@@ -22,7 +21,7 @@ const User = () => {
 
     const deleteReservation = (id) => {
         axios
-            .delete(`https://motorcycle-rental.herokuapp.com/${id}`)
+            .delete(`https://motorcycle-rental.herokuapp.com/deleteReservation/${id}`)
             .then(() => {
                 setUserReservation(userReservation.filter(item => {
                     return item.id !== id;

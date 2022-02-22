@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 
 const Offer = () => {
     const [searchValue, setSearchValue] = useState('');
-    const [searchBrand, setSearchBrand] = useState(['BMW', 'Harley Davidson', 'Honda']);
+    const [searchBrand, setSearchBrand] = useState(['BMW', 'Harley Davidson', 'Yamaha', 'Moto Guzzi', 'KTM', 'Ducati', 'Aprilia']);
     const [sortBy, setSortBy] = useState('');
     const [motorcyclesData, setMotorcyclesData] = useState([]);
     const [initialMotorcyclesData, setInitialMotorcyclesData] = useState([]);
@@ -26,11 +26,8 @@ const Offer = () => {
 
     const getMotorcycles = () => {
         axios
-            // .get('http://localhost:3001/motorcycles')
             .get('https://motorcycle-rental.herokuapp.com/motorcycles')
             .then(res => {
-                console.log(res);
-                // console.log(res);
                 setMotorcyclesData(res.data);
                 setInitialMotorcyclesData(res.data);
             })

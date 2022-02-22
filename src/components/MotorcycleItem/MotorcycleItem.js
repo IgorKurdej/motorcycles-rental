@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import axios from "axios";
+import React from 'react';
 import * as S from './MotorcycleItem.style';
 import ItemDetails from "../ItemDetails/ItemDetails";
 

@@ -18,7 +18,7 @@ const FiltersSection = () => {
         initialMotorcyclesData
     } = useContext(AppContext);
 
-    const brands = ['BMW', 'Harley Davidson', 'Honda'];
+    const brands = ['BMW', 'Harley Davidson', 'Yamaha', 'Moto Guzzi', 'KTM', 'Ducati', 'Aprilia'];
     const sortingOptions = ['', 'Cena', 'Rok', 'Moc', 'Pojemność'];
     const [toggleOrder, setToggleOrder] = useState(true);
 

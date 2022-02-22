@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 const InputField = styled.input`
   width: 100%;
@@ -20,22 +21,45 @@ const Label = styled.label`
   color: forestgreen;
 `
 
-const FormInput = ({ type, value, placeholder, name, disabled, as, register, minDate, maxDate, label, onChange }) => {
+const FormInput = ({
+   type,
+   value,
+   placeholder,
+   name,
+   disabled,
+   as,
+   register,
+   minDate,
+   maxDate,
+   label,
+   onChange,
+   errMessage,
+   required
+}) => {
     return (
         <>
-            <Label>{label}</Label>
-            <InputField
-                type={type ? type : 'text'}
-                placeholder={placeholder}
-                value={value}
-                name={name}
-                disabled={disabled}
-                as={as}
-                register={register}
-                min={minDate}
-                max={maxDate}
-                onChange={onChange}
-            />
+            { label && <Label>{label}</Label> }
+            {
+                register ?
+                    <InputField
+                        type={type ? type : 'text'}
+                        placeholder={placeholder}
+                        {...register(name)}
+                    /> :
+                    <InputField
+                        type={type ? type : 'text'}
+                        placeholder={placeholder}
+                        value={value}
+                        name={name}
+                        disabled={disabled}
+                        as={as}
+                        min={minDate}
+                        max={maxDate}
+                        onChange={onChange}
+                        required={required}
+                    />
+            }
+            { !label && <ErrorMessage message={errMessage} /> }
         </>
     );
 };

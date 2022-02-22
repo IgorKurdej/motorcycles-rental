@@ -1,14 +1,15 @@
 import React from 'react';
-import {useLocation, useParams} from "react-router";
-import BookingFormWrapper from "../components/BookingFormWrapper/BookingFormWrapper";
+import {useLocation} from "react-router";
+import FormBookingWrapper from "../components/FormBookingWrapper/FormBookingWrapper";
 
 const Booking = () => {
+    //TODO moze zamiast useLocation pobrac konkretny motocykl z bazy danych
     let location = useLocation();
     const motorcycle = location.state.motorcycle;
 
     return (
         <div>
-            <BookingFormWrapper motorcycle={motorcycle} />
+            <FormBookingWrapper motorcycle={motorcycle} />
         </div>
     );
 };
