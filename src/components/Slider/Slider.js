@@ -3,38 +3,14 @@ import * as S from './Slider.style';
 import MotorcycleItem from "../MotorcycleItem/MotorcycleItem";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import axios from "axios";
 
-const Slider = () => {
+const Slider = ({ motorcycles }) => {
     const [currentItem, setCurrentItem] = useState(0);
-    const [motorcyclesData, setMotorcyclesData] = useState([]);
-
-    useEffect(() => {
-        getMotorcycles();
-        drawMotorcycles();
-    }, [])
-
-    const getMotorcycles = () => {
-        axios
-            .get('https://motorcycle-rental.herokuapp.com/motorcycles')
-            .then(res => {
-                setMotorcyclesData(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    }
 
     const handleArrowClick = (direction) => {
         direction === 'left' ?
             setCurrentItem(currentItem > 0 ? currentItem - 1 : 4) :
             setCurrentItem(currentItem < 4 ? currentItem + 1 : 0);
-    }
-
-    const drawMotorcycles = () => {
-        return motorcyclesData
-            .sort(() => 0.5 - Math.random())
-            .slice(0, 5);
     }
 
     return (
@@ -45,7 +21,7 @@ const Slider = () => {
             <S.ContentWrapper>
                 <S.MotorcycleWrapper>
                     {
-                        drawMotorcycles().map((item, idx) => idx === currentItem && <MotorcycleItem {...item} key={idx} offer />)
+                        motorcycles.map((item, idx) => idx === currentItem && <MotorcycleItem {...item} key={idx} offer />)
                     }
                 </S.MotorcycleWrapper>
                 <S.DotsWrapper>
