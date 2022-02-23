@@ -90,10 +90,12 @@ const FormSignupLogin = () => {
                 axios
                     .post('https://motorcycle-rental.herokuapp.com/login', data)
                     .then(res => {
-                        !res.data.length &&
-                            setModalError(true)
-                            setModalMessage('Błędny email lub hasło')
-                            setToggleModal(true)
+                        sessionStorage.setItem('user', JSON.stringify(res.data[0]))
+                        // console.log(res.data[0]);
+                        // !res.data.length &&
+                        //     setModalError(true)
+                        //     setModalMessage('Błędny email lub hasło')
+                        //     setToggleModal(true)
                     })
                     .catch(err => console.log(err))
             ) : (

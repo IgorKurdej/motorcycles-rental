@@ -9,12 +9,10 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
-const Contact = () => {
-    return (
-        <Wrapper>
-            <FormContact />
-        </Wrapper>
-    );
-};
+const Contact = () => (
+    <Wrapper>
+        <FormContact />
+    </Wrapper>
+);
 
 export default Contact;

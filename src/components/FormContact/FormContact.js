@@ -4,6 +4,8 @@ import emailjs from "emailjs-com";
 import Modal from "../Modal/Modal";
 
 const FormContact = () => {
+    // sessionStorage.length !== 0 && console.log(JSON.parse(sessionStorage.user))
+
     const [toggleModal, setToggleModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
     const [inputValues, setInputValues] = useState({

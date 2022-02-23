@@ -1,5 +1,6 @@
-import React from 'react';
-import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
+import React, {useContext, useState} from 'react';
+import AppContext from "./context";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css';
 import GlobalStyle from "./theme/GlobalStyle";
 import Home from "./views/Home";
@@ -16,15 +17,14 @@ function App() {
           <GlobalStyle />
           <Navbar />
           <Routes>
-              <Route exact path="/" element={<Home />} />
-              <Route path="/oferta" element={<Offer />}/>
-              <Route path="/rezerwacja" element={<Booking />} />
-              <Route path="/kontakt" element={<Contact />} />
-              <Route path="/konto" element={<Account />}/>
-              <Route path="/logowanie" element={<Login />}/>
+                  <Route exact path="/" element={<Home />} />
+                  <Route path="/oferta" element={<Offer />}/>
+                  <Route path="/rezerwacja" element={<Booking />} />
+                  <Route path="/kontakt" element={<Contact />}/>
+                  <Route path="/konto" element={<Account />}/>
+                  <Route path="/logowanie" element={<Login />}/>
           </Routes>
       </Router>
-
   );
 }
 

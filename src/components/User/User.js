@@ -5,16 +5,18 @@ import UserDetails from "./UserDetails/UserDetails";
 import MotorcycleItem from "../MotorcycleItem/MotorcycleItem";
 
 const User = () => {
+    const user = JSON.parse(sessionStorage.user);
+
     const [userData, setUserData] = useState({});
     const [userReservation, setUserReservation] = useState([]);
 
     useEffect(() => {
         axios
-            .get('https://motorcycle-rental.herokuapp.com/user/21')
+            .get(`https://motorcycle-rental.herokuapp.com/user/${user.id}`)
             .then(res => setUserData(res.data[0]))
 
         axios
-            .get('https://motorcycle-rental.herokuapp.com/userReservation/41')
+            .get(`https://motorcycle-rental.herokuapp.com/userReservation/${user.id}`)
             .then(res => setUserReservation(res.data));
 
     }, [])

@@ -104,7 +104,7 @@ const ItemDetails = ( props ) => {
                             )
                     }
                     {
-                        dateConvert(reservationUpdateValues.startDate) > 0 && (
+                        dateConvert(reservationData.startDate) > 0 && (
                             isUpdate ? (
                                 <S.ReservationButtonWrapper>
                                     <S.ReservationButton onClick={(e) => {

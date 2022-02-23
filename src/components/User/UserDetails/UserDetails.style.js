@@ -21,5 +21,24 @@ export const UserImage = styled.img`
   width: 200px;
   border-radius: 50%;
   border: 5px solid green;
-  margin: 80px 0 50px 0;
+  margin: 80px 0 30px 0;
+`
+
+export const EditButton = styled.button`
+  border: none;
+  background-color: white;
+  text-align: right;
+  padding: 0 10px;
+  font-size: 16px;
+  color: ${props => props.cancel ? 'red' : 'forestgreen'};
+  text-decoration: underline;
+  cursor: pointer;
+`;
+
+export const EditButtonsWrapper = styled.button`
+  display: flex;
+  justify-content: flex-end;
+  border: none;
+  width: 40%;
+  background-color: white;
 `
