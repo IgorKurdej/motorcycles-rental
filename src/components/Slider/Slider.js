@@ -5,66 +5,13 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import axios from "axios";
 
-// const moto = [
-//     {
-//         id: 1,
-//         marka: 'Harley Davidson',
-//         model: 'Harley ',
-//         pojemność: 1254,
-//         moc: 13,
-//         rok: 2021,
-//         cena: 300,
-//         img: 'https://motocyklem.pl/img/BMWR1200GS.png'
-//     },
-//     {
-//         id: 1,
-//         marka: 'BasdbvcMW',
-//         model: '1250GS',
-//         pojemność: 1254,
-//         moc: 13,
-//         rok: 2021,
-//         cena: 300,
-//         img: 'https://motocyklem.pl/img/BMWR1200GS.png'
-//     },
-//     {
-//         id: 1,
-//         marka: 'w',
-//         model: '1250GS',
-//         pojemność: 1254,
-//         moc: 13,
-//         rok: 2021,
-//         cena: 300,
-//         img: 'https://motocyklem.pl/img/BMWR1200GS.png'
-//     },
-//     {
-//         id: 1,
-//         marka: 'BfcfesfsesersddsadwaMW',
-//         model: '1250GS',
-//         pojemność: 1254,
-//         moc: 13,
-//         rok: 2021,
-//         cena: 300,
-//         img: 'https://motocyklem.pl/img/BMWR1200GS.png'
-//     },
-//     {
-//         id: 1,
-//         marka: 'BdadwadsaMW',
-//         model: '1250GS',
-//         pojemność: 1254,
-//         moc: 13,
-//         rok: 2021,
-//         cena: 300,
-//         img: 'https://motocyklem.pl/img/BMWR1200GS.png'
-//     }
-// ]
-
 const Slider = () => {
     const [currentItem, setCurrentItem] = useState(0);
     const [motorcyclesData, setMotorcyclesData] = useState([]);
-    const [motorcyclesSlider, setMotorcyclesSlider] = useState([]);
 
     useEffect(() => {
         getMotorcycles();
+        drawMotorcycles();
     }, [])
 
     const getMotorcycles = () => {
@@ -85,19 +32,9 @@ const Slider = () => {
     }
 
     const drawMotorcycles = () => {
-        let counter = 0;
-        let item;
-        const newArray = [];
-
-        while (counter < 5) {
-            item = motorcyclesData[Math.floor(Math.random() * motorcyclesData.length)];
-            newArray.includes(item)&&console.log("DUPLB")
-            newArray.push(item)
-
-            counter++;
-        }
-        console.log(newArray);
-        // console.log(motorcyclesSlider);
+        return motorcyclesData
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 5);
     }
 
     return (
@@ -108,10 +45,7 @@ const Slider = () => {
             <S.ContentWrapper>
                 <S.MotorcycleWrapper>
                     {
-                        // console.log(motorcyclesData)
-
-                        drawMotorcycles()
-                        // moto.map((item, idx) => idx === currentItem && <MotorcycleItem {...item} key={idx} offer />)
+                        drawMotorcycles().map((item, idx) => idx === currentItem && <MotorcycleItem {...item} key={idx} offer />)
                     }
                 </S.MotorcycleWrapper>
                 <S.DotsWrapper>
