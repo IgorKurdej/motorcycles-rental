@@ -36,11 +36,10 @@ export const ArrowWrapper = styled.div`
 `
 
 export const ContentWrapper = styled.div`
-  width: 60%;
+  width: 1250px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  //justify-content: center;
 `
 
 export const DotsWrapper = styled.div`

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-    //width: ${props => props.booking ? '60%' : '100%' };
+    width: ${props => props.booking ? '60%' : '100%' };
     height: ${props => props.reservation ? '250px' : '350px'};
     //height: 100%;
     border-bottom: ${props => props.reservation && '1px solid lightgray'};
@@ -20,9 +20,8 @@ export const Wrapper = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
-     // height: ${props => props.offer ? '100%' : '50%'};
+    width: ${props => props.booking ? '100%' : '50%'};
     height: 100%;
-    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
