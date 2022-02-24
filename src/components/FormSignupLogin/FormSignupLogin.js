@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import FormSchema from "../FormSchema/FormSchema";
+import {Navigate} from "react-router";
 import * as S from "./FormSignupLogin.style";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -80,6 +81,18 @@ const FormSignupLogin = () => {
         }
     ];
 
+    const handleLoginFailure = () => {
+        setModalError(true);
+        setModalMessage('Błędny email lub hasło');
+        setToggleModal(true);
+    }
+
+    const handleLoginSuccess = (res) => {
+        sessionStorage.setItem('user', JSON.stringify(res.data[0]));
+        window.location.reload(false);
+        return <Navigate to='/' />
+    }
+
     const onSubmit = data => {
         const { passwordConfirmation, ...newData } = data;
 
@@ -90,12 +103,9 @@ const FormSignupLogin = () => {
                 axios
                     .post('https://motorcycle-rental.herokuapp.com/login', data)
                     .then(res => {
-                        sessionStorage.setItem('user', JSON.stringify(res.data[0]))
-                        // console.log(res.data[0]);
-                        // !res.data.length &&
-                        //     setModalError(true)
-                        //     setModalMessage('Błędny email lub hasło')
-                        //     setToggleModal(true)
+                        res.data.length ?
+                            handleLoginSuccess(res) :
+                            handleLoginFailure()
                     })
                     .catch(err => console.log(err))
             ) : (
@@ -120,6 +130,7 @@ const FormSignupLogin = () => {
                 inputs={toggleChoice ? loginInputs : signupInputs}
                 button={toggleChoice ? 'Zaloguj' : 'Zarejestruj'}
                 handleSubmit={toggleChoice ? handleLoginSubmit(onSubmit) : handleSignupSubmit(onSubmit)}
+                // handleButtonClick={toggleChoice && window.location.reload(false)}
             />
             <S.ChangeFormWrapper>
                 <p>

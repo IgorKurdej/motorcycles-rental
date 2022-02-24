@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import img from '../../assets/images/KTM.png'
+import {medium} from "../../Responsive";
 
 export const Container = styled.div`
   // background: url(${img}) left bottom;
@@ -10,6 +11,9 @@ export const Container = styled.div`
   background-color: black;
   //opacity: 0.6;
   display: flex;
+  ${medium({
+    height: '50vh',
+  })}
 `
 
 export const LeftSide = styled.div`
@@ -18,6 +22,9 @@ export const LeftSide = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+  ${medium({
+    display: 'none',
+  })}
 `
 
 export const Circle = styled.div`
@@ -54,6 +61,9 @@ export const RightSide = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  ${medium({
+    
+  })}
 `;
 
 export const Title = styled.h1`
@@ -64,11 +74,12 @@ export const Title = styled.h1`
 
 export const Description = styled.h2`
   color: white;
+  font-weight: 500;
 `
 
 export const Button = styled.button`
   background: none;
-  border: 5px solid forestgreen;
+  border: 4px solid forestgreen;
   color: white;
   padding: 20px 40px;
   font-size: 30px;
@@ -79,11 +90,8 @@ export const Button = styled.button`
     background-color: forestgreen;
     transition: .5s ease;
   }
+  
+  ${medium({
+    fontSize: '20px'
+  })}
 `;
-
-export const Slider = styled.div`
-  width: 100%;
-  height: 500px;
-  z-index: 5;
-  background-color: yellow;
-`

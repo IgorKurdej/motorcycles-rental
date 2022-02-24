@@ -1,18 +1,18 @@
 import styled from 'styled-components';
+import {medium} from "../../Responsive";
 
 export const Wrapper = styled.div`
   width: 100%;
   height: 600px;
-  
   display: flex;
-  //flex-direction: column;
   align-items: center;
   justify-content: center;
-  //background-color: #838282;
+  ${medium({
+    height: '700px',
+  })}
 `
 
 export const MotorcycleWrapper = styled.div`
-  height: auto;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -20,6 +20,9 @@ export const MotorcycleWrapper = styled.div`
   box-shadow: 0 4px 15px -2px black;
   padding: 0 20px;
   border-radius: 10px;
+  ${medium({
+    height: '100%',
+  })}
 `
 
 export const ArrowWrapper = styled.div`
@@ -40,6 +43,10 @@ export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  ${medium({
+    height: '500px',
+    
+  })}
 `
 
 export const DotsWrapper = styled.div`

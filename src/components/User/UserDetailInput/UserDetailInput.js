@@ -2,10 +2,6 @@ import React, {useRef, useState} from 'react';
 import * as S from "./UserDetailInput.style";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import EditIcon from '@mui/icons-material/Edit';
-import CheckIcon from '@mui/icons-material/Check';
-import ClearIcon from '@mui/icons-material/Clear';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
 const labels = {
     firstname: 'Imię',
@@ -15,7 +11,7 @@ const labels = {
     email: 'Email'
 }
 
-const UserDetailInput = ({userData, toggleUserUpdate, handleInputChange}) => {
+const UserDetailInput = ({ name, value, handleInputChange, toggleUserUpdate }) => {
     const inputEl = useRef(null);
     const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 
@@ -27,37 +23,23 @@ const UserDetailInput = ({userData, toggleUserUpdate, handleInputChange}) => {
     }
 
     return (
-        <S.Wrapper>
+        <>
+            <S.Label>{labels[name]}</S.Label>
             <S.InputWrapper>
+                <S.Input
+                    protected={name === 'password'}
+                    ref={inputEl}
+                    type={
+                        name === 'password' ? 'password' : name === 'email' ? 'email' : 'text'
+                    }
+                    value={value}
+                    name={name}
+                    onChange={handleInputChange}
+                    disabled={!toggleUserUpdate}
+                    required
+                />
                 {
-                    Object.entries(userData)
-                        .filter(([key, val]) => key !== 'id')
-                        .map(([ key, val ]) =>
-                            <>
-                                <S.Label>{labels[key]}</S.Label>
-                                <S.Input
-                                    protected={key === 'password'}
-                                    ref={inputEl}
-                                    type={key === 'password' ? 'password' : 'text'}
-                                    value={val}
-                                    name={key}
-                                    onChange={handleInputChange}
-                                    disabled={!toggleUserUpdate} />
-                            </>
-                        )
-                }
-
-                {/*<S.Input*/}
-                {/*    protected={props.name === 'password'}*/}
-                {/*    ref={inputEl}*/}
-                {/*    type={props.name === 'password' ? 'password' : 'text'}*/}
-                {/*    value={props.value}*/}
-                {/*    name={props.name}*/}
-                {/*    onChange={props.handleInputChange}*/}
-                {/*    disabled={!props.toggleUserUpdate}*/}
-                {/*/>*/}
-                {
-                    userData.name === 'password' &&
+                    name === 'password' &&
                         <S.Button onClick={handlePasswordVisibility} visibility='true' >
                             {
                                 isPasswordHidden ? <VisibilityIcon fontSize={"small"} /> : <VisibilityOffIcon fontSize={"small"} />
@@ -65,7 +47,7 @@ const UserDetailInput = ({userData, toggleUserUpdate, handleInputChange}) => {
                         </S.Button>
                 }
             </S.InputWrapper>
-        </S.Wrapper>
+        </>
     );
 };
 

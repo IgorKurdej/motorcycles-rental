@@ -1,13 +1,9 @@
 import React, {useState, useRef, useEffect} from 'react';
-import * as S from './UserDetails.style'
-import {users} from "../../../assets/Data";
 import UserDetailInput from "../UserDetailInput/UserDetailInput";
-import EditIcon from '@mui/icons-material/Edit';
+import axios from "axios";
+import * as S from './UserDetails.style'
 
-const UserDetails = ({ userData }) => {
-    const user = JSON.parse(sessionStorage.user);
-
-    const [updatedUser, setUpdatedUser] = useState({...userData});
+const UserDetails = ({ userData, setUserData, updatedUser, setUpdatedUser }) => {
     const [toggleUserUpdate, setToggleUserUpdate] = useState(false);
 
     const handleInputChange = e => {
@@ -17,27 +13,55 @@ const UserDetails = ({ userData }) => {
         });
     }
 
+    const handleDiscardChanges = () => {
+        setUpdatedUser(userData);
+        setToggleUserUpdate(false);
+    };
+
+    const onSubmit = e => {
+        e.preventDefault();
+        setUserData(updatedUser);
+        setToggleUserUpdate(false);
+
+        axios
+            .put("https://motorcycle-rental.herokuapp.com/updateUser", updatedUser)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => console.log(err));
+    }
+
     return (
         <S.Wrapper>
             <S.UserImage src='https://img.myloview.pl/fototapety/user-icon-human-person-symbol-avatar-login-sign-700-258992656.jpg' />
-            {
-                !toggleUserUpdate ?
-                    <S.EditButtonsWrapper>
-                        <S.EditButton onClick={() => setToggleUserUpdate(true)}>edytuj</S.EditButton>
-                    </S.EditButtonsWrapper> :
-                    <S.EditButtonsWrapper>
-                        <S.EditButton onClick={() => setToggleUserUpdate(false)}>zapisz</S.EditButton>
-                        <S.EditButton cancel onClick={() => setToggleUserUpdate(false)}>odrzuć</S.EditButton>
-                    </S.EditButtonsWrapper>
-            }
-            {
-                <UserDetailInput
-                    userData={userData}
-                    handleInputChange={handleInputChange}
-                    toggleUserUpdate={toggleUserUpdate}
-                />
-
-            }
+            <S.ContentWrapper onSubmit={onSubmit}>
+                {
+                    !toggleUserUpdate ? (
+                            <S.ButtonWrapper>
+                                <S.EditButton onClick={() => setToggleUserUpdate(true)}>edytuj</S.EditButton>
+                            </S.ButtonWrapper>
+                        ) : (
+                            <S.EditButtonsWrapper>
+                                <S.EditButton type="submit">zapisz</S.EditButton>
+                                <S.EditButton cancel onClick={handleDiscardChanges}>odrzuć</S.EditButton>
+                            </S.EditButtonsWrapper>
+                        )
+                }
+                {
+                    //TODO dodać jakas lepsza walidacje
+                    Object.entries(updatedUser)
+                        .filter(([key]) => key !== 'id')
+                        .map(([ key, val ]) => (
+                            <UserDetailInput
+                                key={key}
+                                name={key}
+                                value={val}
+                                handleInputChange={handleInputChange}
+                                toggleUserUpdate={toggleUserUpdate}
+                            />
+                        ))
+                }
+            </S.ContentWrapper>
         </S.Wrapper>
     );
 };

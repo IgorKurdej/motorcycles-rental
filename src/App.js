@@ -10,6 +10,8 @@ import Login from "./views/Login";
 import Booking from "./views/Booking";
 import Account from "./views/Account";
 import Contact from "./views/Contact";
+import ProtectedRoutesForUnlogged from "./ProtectedRoutesForUnlogged";
+import ProtectedRoutesForLogged from "./ProtectedRoutesForLogged";
 
 function App() {
   return (
@@ -19,10 +21,14 @@ function App() {
           <Routes>
                   <Route exact path="/" element={<Home />} />
                   <Route path="/oferta" element={<Offer />}/>
-                  <Route path="/rezerwacja" element={<Booking />} />
                   <Route path="/kontakt" element={<Contact />}/>
-                  <Route path="/konto" element={<Account />}/>
-                  <Route path="/logowanie" element={<Login />}/>
+                  <Route element={<ProtectedRoutesForUnlogged />}>
+                      <Route path="/rezerwacja" element={<Booking />} />
+                      <Route path="/konto" element={<Account />}/>
+                  </Route>
+                  <Route element={<ProtectedRoutesForLogged />}>
+                    <Route path="/logowanie" element={<Login />}/>
+                  </Route>
           </Routes>
       </Router>
   );

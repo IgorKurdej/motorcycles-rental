@@ -30,7 +30,7 @@ const MotorcycleItem = (props) => (
         {
             props.offer &&
                 <>
-                    <S.Wrapper>
+                    <S.Wrapper offer>
                         <S.ImageWrapper offer>
                             <S.MotoImg src={props.img} />
                         </S.ImageWrapper>

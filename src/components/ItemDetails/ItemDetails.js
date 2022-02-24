@@ -144,8 +144,8 @@ const ItemDetails = ( props ) => {
                     </S.DescriptionWrapper>
                 </S.DetailsWrapper>
             ) : (
-                <S.DetailsWrapper>
-                    <S.ModelWrapper>
+                <S.DetailsWrapper offer>
+                    <S.ModelWrapper offer>
                         <h1>{marka}</h1>
                         <h1>{model}</h1>
                     </S.ModelWrapper>

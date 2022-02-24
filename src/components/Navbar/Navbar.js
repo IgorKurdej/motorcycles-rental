@@ -1,13 +1,20 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useLocation} from "react-router";
 import * as S from './Navbar.style';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import {Link, Navigate} from "react-router-dom";
 
 const Navbar = () => {
+    const [isUserLogged, setIsUserLogged] = useState(sessionStorage.length);
     const [extendNavbar, setExtendNavbar] = useState(false);
     const {pathname} = useLocation();
     const splitPathname = pathname.split('/');
+
+    useEffect(() => {
+        setIsUserLogged(sessionStorage.length)
+        // console.log(sessionStorage);
+    }, [sessionStorage])
 
     return (
         <S.NavbarContainer extendNavbar={extendNavbar}>
@@ -16,19 +23,35 @@ const Navbar = () => {
                     <S.NavbarLinkContainer>
                         <S.NavbarLink
                             className={splitPathname[1] === '' && 'active'}
-                            to="/">Home</S.NavbarLink>
+                            to="/">Strona główna</S.NavbarLink>
                         <S.NavbarLink
                             className={splitPathname[1] === 'oferta' && 'active'}
                             to="/oferta">Oferta</S.NavbarLink>
                         <S.NavbarLink
                             className={splitPathname[1] === 'kontakt' && 'active'}
                             to="/kontakt">Kontakt</S.NavbarLink>
-                        <S.NavbarLink
-                            className={splitPathname[1] === 'konto' && 'active'}
-                            to="/konto">Twoje konto</S.NavbarLink>
-                        <S.NavbarLink
-                            className={splitPathname[1] === 'logowanie' && 'active'}
-                            to="/logowanie">Zaloguj się</S.NavbarLink>
+                        {
+                            isUserLogged ? (
+                                <>
+                                    <S.NavbarLink
+                                        className={splitPathname[1] === 'konto' && 'active'}
+                                        to="/konto"
+                                    >Twoje konto</S.NavbarLink>
+                                    <S.LogoutButton onClick={() => {
+                                        sessionStorage.clear()
+                                        window.location.reload(false);
+                                    }}>
+                                        <S.NavbarLink to="/">Wyloguj</S.NavbarLink>
+                                    </S.LogoutButton>
+                                </>
+                            ) : (
+                                <S.NavbarLink
+                                    className={splitPathname[1] === 'logowanie' && 'active'}
+                                    to="/logowanie"
+                                >Zaloguj się</S.NavbarLink>
+                            )
+
+                        }
                         <S.OpenLinksButton
                             onClick={() => setExtendNavbar(curr => !curr)}
                         >
@@ -38,9 +61,6 @@ const Navbar = () => {
                         </S.OpenLinksButton>
                     </S.NavbarLinkContainer>
                 </S.LeftContainer>
-                <S.RightContainer>
-                    {/*<S.Logo src={LogoImg} />*/}
-                </S.RightContainer>
             </S.NavbarInnerContainer>
             {
                 extendNavbar && (

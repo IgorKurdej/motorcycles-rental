@@ -4,13 +4,10 @@ import emailjs from "emailjs-com";
 import Modal from "../Modal/Modal";
 
 const FormContact = () => {
-    // sessionStorage.length !== 0 && console.log(JSON.parse(sessionStorage.user))
-
     const [toggleModal, setToggleModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
     const [inputValues, setInputValues] = useState({
-        // TODO przypisac pod email email usera jak juz bedzie globalny
-        email: '',
+        email: sessionStorage.length !== 0 ? JSON.parse(sessionStorage.user).email : '',
         title: '',
         message: ''
     });
@@ -24,7 +21,7 @@ const FormContact = () => {
 
     const clearInputValues = () => {
         setInputValues({
-            email: '',
+            email: sessionStorage.length !== 0 ? JSON.parse(sessionStorage.user).email : '',
             title: '',
             message: ''
         });

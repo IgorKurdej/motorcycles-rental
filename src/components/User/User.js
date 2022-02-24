@@ -8,12 +8,16 @@ const User = () => {
     const user = JSON.parse(sessionStorage.user);
 
     const [userData, setUserData] = useState({});
+    const [updatedUserData, setUpdatedUserData] = useState({});
     const [userReservation, setUserReservation] = useState([]);
 
     useEffect(() => {
         axios
             .get(`https://motorcycle-rental.herokuapp.com/user/${user.id}`)
-            .then(res => setUserData(res.data[0]))
+            .then(res => {
+                setUserData(res.data[0])
+                setUpdatedUserData(res.data[0])
+            })
 
         axios
             .get(`https://motorcycle-rental.herokuapp.com/userReservation/${user.id}`)
@@ -34,19 +38,28 @@ const User = () => {
     return (
         <S.Wrapper>
             <S.LeftSide>
-                <UserDetails userData={userData} />
+                <UserDetails
+                    userData={userData}
+                    setUserData={setUserData}
+                    updatedUser={updatedUserData}
+                    setUpdatedUser={setUpdatedUserData}
+                />
             </S.LeftSide>
             <S.ReservationList>
                 <h2>Twoje rezerwacje</h2>
                 <S.ScrollList>
                     {
-                        userReservation.map((item, idx) => <MotorcycleItem
-                            key={item.id}
-                            reservationData={item}
-                            deleteRes={deleteReservation}
-                            userReservation={userReservation[idx]}
-                            reservation
-                        />)
+                        userReservation
+                            .sort((m1, m2) => m2.id - m1.id)
+                            .map((item, idx) =>
+                                <MotorcycleItem
+                                    key={item.id}
+                                    reservationData={item}
+                                    deleteRes={deleteReservation}
+                                    userReservation={userReservation[idx]}
+                                    reservation
+                                />
+                            )
                     }
                 </S.ScrollList>
             </S.ReservationList>

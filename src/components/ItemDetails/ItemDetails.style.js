@@ -7,6 +7,14 @@ export const DetailsWrapper = styled.div`
     flex-direction: column;
     justify-content: space-around;
     margin: ${({reservation}) => reservation && '5px'};
+    
+    @media (max-width: 1200px) {
+      height: ${props => props.offer && '250px'};
+      justify-content: ${props => props.offer && 'center'};
+      background-color: ${props => props.offer && '#838282'};
+      //flex: ${props => props.offer && '2'};
+      
+    }
 `
 
 export const ModelWrapper = styled.div`
@@ -18,6 +26,11 @@ export const ModelWrapper = styled.div`
     h1 {
       margin: 0 10px;
       font-weight: 500;
+    }
+    
+    @media (max-width: 1200px) {
+      margin: ${props => props.offer && '0'};
+      background-color: ${props => props.offer && '#838282'};
     }
 `
 

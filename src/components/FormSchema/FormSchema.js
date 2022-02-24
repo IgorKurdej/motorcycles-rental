@@ -3,7 +3,7 @@ import * as S from './FormSchema.style'
 import FormInput from "./FormInput/FormInput";
 import Checkout from "./Checkout/Checkout";
 
-const FormSchema = ({ title, inputs, button, handleSubmit, message, ...props }) => (
+const FormSchema = ({ title, inputs, button, handleSubmit, handleButtonClick, message, ...props }) => (
     <S.FormWrapper>
         <S.FormTitle>{ title }</S.FormTitle>
         <S.FormBody onSubmit={handleSubmit}>

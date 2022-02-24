@@ -55,12 +55,16 @@ export const NavbarLink = styled(Link)`
   }
 `;
 
+export const LogoutButton = styled.button`
+  border: none;
+  background-color: transparent;
+`
+
 export const NavbarLinkExtended = styled(Link)`
   color: #fff;
   font-size: x-large;
   text-decoration: none;
   margin: 10px;
-  
 `;
 
 export const Logo = styled.img`

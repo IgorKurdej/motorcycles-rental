@@ -1,38 +1,22 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
-  display: flex;
-  width: 40%;
-  min-width: 400px;
-  flex-direction: column;
-  padding: 10px 20px;
-`
-
 export const Label = styled.label`
   font-size: 20px;
-  margin-bottom: 5px;
+  margin: 12px 0 8px;
+  width: 100%;
 `
 
 export const Button = styled.button`
-  width: 30px;
   background-color: transparent;
   border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-right: ${props => props.visibility && '5px'};
-`
-
-export const SavingButtons = styled.div`
-  display: flex;
+  padding-right: 6px;
 `
 
 export const InputWrapper = styled.div`
   display: flex;
-  flex-direction: column;
   border: 1px solid lightgray;
   border-radius: 5px;
+  width: 100%;
 `
 
 export const Input = styled.input`

@@ -8,8 +8,8 @@ export const Wrapper = styled.div`
   align-items: center;
 `
 
-export const ContentWrapper = styled.div`
-  width: 100%;
+export const ContentWrapper = styled.form`
+  width: 40%;
   max-width: 700px;
   display: flex;
   flex-direction: column;
@@ -24,6 +24,12 @@ export const UserImage = styled.img`
   margin: 80px 0 30px 0;
 `
 
+export const ButtonWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+`
+
 export const EditButton = styled.button`
   border: none;
   background-color: white;
@@ -35,10 +41,8 @@ export const EditButton = styled.button`
   cursor: pointer;
 `;
 
-export const EditButtonsWrapper = styled.button`
+export const EditButtonsWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-  border: none;
-  width: 40%;
-  background-color: white;
+  width: 100%;
 `

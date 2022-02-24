@@ -4,6 +4,8 @@ import axios from "axios";
 import Modal from "../../Modal/Modal";
 
 const BookingForm = ({ motorcycle, price }) => {
+    const user = JSON.parse(sessionStorage.getItem('user'));
+
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [numberOfDays, setNumberOfDays] = useState(1);
@@ -24,7 +26,7 @@ const BookingForm = ({ motorcycle, price }) => {
     const inputs = [
         {
             name: 'email',
-            value: 'igor31@o2.pl',
+            value: user.email,
             label: 'Twój email',
             disabled: true,
         },
@@ -56,7 +58,7 @@ const BookingForm = ({ motorcycle, price }) => {
             startDate: startDate,
             endDate: endDate,
             price: numberOfDays * price,
-            userId: 51,
+            userId: user.id,
             motorcycleId: motorcycle
         };
 
