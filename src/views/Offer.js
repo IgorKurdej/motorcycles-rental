@@ -11,6 +11,15 @@ const Wrapper = styled.div`
   margin: 20px 0;
   width: 100vw;
   overflow-x: hidden;
+  
+  @media (max-width: 1650px) {
+    justify-content: space-around;
+  }
+  
+  @media (max-width: 1200px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const Offer = () => {

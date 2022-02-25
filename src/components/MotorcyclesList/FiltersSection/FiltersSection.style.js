@@ -7,6 +7,22 @@ export const Wrapper = styled.div`
   flex-direction: column;
   padding: 20px;
   margin: 0 20px;
+  
+  @media (max-width: 1650px) {
+    width: 20%;
+  }
+  
+  @media (max-width: 1200px) {
+    height: 120px;
+    padding-bottom: 0;
+    flex-direction: row;
+    width: 90%;
+    justify-content: center;
+  }
+  
+  @media (max-width: 800px) {
+    width: 100%;
+  }
 `
 
 export const Label = styled.label`
@@ -25,15 +41,33 @@ export const SearchSection = styled.div`
     margin: 10px 0;
     outline: 0;
     border-width: 0 0 1px;
+    
+    @media (max-width: 1200px) {
+        margin: 18px 0;
+    }
   }
   
   input:focus {
     border-bottom-color: forestgreen;
   }
+  
+  @media (max-width: 1200px) {
+    width: 30%;
+    margin: 0 30px;
+  }
+  
+  @media (max-width: 800px) {
+    width: 40%;
+  }
 `;
 
 export const FiltersSection = styled.div`
   margin-bottom: 20px;
+  
+  @media (max-width: 1200px) {
+    display: none;
+  }
+  
 `;
 
 export const CheckboxOptions = styled.div`
@@ -52,11 +86,25 @@ export const Button = styled.button`
   color: #a09f9f;
   cursor: pointer;
   margin: 5px 0;
+  
+  @media (max-width: 1200px) {
+    display: none;
+  }
 `
 
 export const SortSection = styled.div`
   display: flex;
   flex-direction: column;
+  
+  @media (max-width: 1200px) {
+    width: 30%;
+    margin: 0 30px;
+  }
+  
+  
+  @media (max-width: 800px) {
+    width: 35%;
+  }
 `;
 
 export const SortTitleWrapper = styled.div`
@@ -93,11 +141,3 @@ export const Select = styled.select`
   
   
 `;
-
-export const SelectOption = styled.option`
-  text-indent: 5px;
-  :hover {
-    background-color: yellow;
-  }
-  
-`

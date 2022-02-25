@@ -13,8 +13,14 @@ const Navbar = () => {
 
     useEffect(() => {
         setIsUserLogged(sessionStorage.length)
-        // console.log(sessionStorage);
     }, [sessionStorage])
+
+    const handleExtendedNavbarLinkClick = () => setExtendNavbar(false);
+    const clearSessionStorage = () => {
+        sessionStorage.clear()
+        window.location.reload(false);
+    }
+
 
     return (
         <S.NavbarContainer extendNavbar={extendNavbar}>
@@ -37,10 +43,7 @@ const Navbar = () => {
                                         className={splitPathname[1] === 'konto' && 'active'}
                                         to="/konto"
                                     >Twoje konto</S.NavbarLink>
-                                    <S.LogoutButton onClick={() => {
-                                        sessionStorage.clear()
-                                        window.location.reload(false);
-                                    }}>
+                                    <S.LogoutButton onClick={clearSessionStorage}>
                                         <S.NavbarLink to="/">Wyloguj</S.NavbarLink>
                                     </S.LogoutButton>
                                 </>
@@ -66,10 +69,25 @@ const Navbar = () => {
                 extendNavbar && (
                     <S.NavbarContainer>
                         <S.NavbarExtendedContainer>
-                            <S.NavbarLinkExtended to="/">Home</S.NavbarLinkExtended>
-                            <S.NavbarLinkExtended to="/products">Products</S.NavbarLinkExtended>
-                            <S.NavbarLinkExtended to="/contact">Contact us</S.NavbarLinkExtended>
-                            <S.NavbarLinkExtended to="/about">About</S.NavbarLinkExtended>
+                            <S.NavbarLinkExtended onClick={handleExtendedNavbarLinkClick} to="/">Strona głowna</S.NavbarLinkExtended>
+                            <S.NavbarLinkExtended onClick={handleExtendedNavbarLinkClick} to="/oferta">Oferta</S.NavbarLinkExtended>
+                            <S.NavbarLinkExtended onClick={handleExtendedNavbarLinkClick} to="/kontakt">Kontakt</S.NavbarLinkExtended>
+                            {
+                                isUserLogged ? (
+                                    <>
+                                        <S.NavbarLinkExtended onClick={handleExtendedNavbarLinkClick} to="/konto">Twoje konto</S.NavbarLinkExtended>
+                                        <S.NavbarLinkExtended onClick={() => {
+                                            handleExtendedNavbarLinkClick()
+                                            clearSessionStorage()
+                                        }} to="/"
+                                        >
+                                            Wyloguj
+                                        </S.NavbarLinkExtended>
+                                    </>
+                                ) : (
+                                    <S.NavbarLinkExtended onClick={handleExtendedNavbarLinkClick} to="/logowanie">Zaloguj się</S.NavbarLinkExtended>
+                                )
+                            }
                         </S.NavbarExtendedContainer>
                     </S.NavbarContainer>
                 )

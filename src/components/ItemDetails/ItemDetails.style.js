@@ -11,9 +11,7 @@ export const DetailsWrapper = styled.div`
     @media (max-width: 1200px) {
       height: ${props => props.offer && '250px'};
       justify-content: ${props => props.offer && 'center'};
-      background-color: ${props => props.offer && '#838282'};
-      //flex: ${props => props.offer && '2'};
-      
+      width: ${props => props.offer && '100%'};;
     }
 `
 
@@ -21,17 +19,24 @@ export const ModelWrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 30px 0;
+    margin: 20px 0 0;
     
     h1 {
       margin: 0 10px;
       font-weight: 500;
     }
     
-    @media (max-width: 1200px) {
-      margin: ${props => props.offer && '0'};
-      background-color: ${props => props.offer && '#838282'};
+    @media (max-width: 1450px) {
+      font-size: ${props => props.offer && '14px'};
     }
+    
+    @media (max-width: 1200px) {
+       margin: ${props => props.offer && '0 0 8px'};
+    }
+    @media (max-width: 850px) {
+      font-size: ${props => props.offer && '12px'};
+    }
+    
 `
 
 export const DescriptionWrapper = styled.div`
@@ -41,6 +46,38 @@ export const DescriptionWrapper = styled.div`
     
     p {
       font-size: ${({reservation}) => reservation ? '18px' : '20px'};
+      
+      @media (max-width: 1450px) {
+        font-size: ${props => props.offer && '18px'};
+      }
+      
+      @media (max-width: 1200px) {
+        font-size: ${props => props.offer && '20px'};
+      }
+      
+      @media (max-width: 850px) {
+        font-size: ${props => props.offer && '16px'};
+      }
+      
+      @media (max-width: 1300px) {
+        font-size: ${props => props.booking && '16px'}; 
+      }
+      
+      @media (max-width: 1100px) {
+        font-size: ${props => props.booking && '16px'};
+        justify-content: center;
+        width: 100%;
+        padding: ${props => props.booking && !props.reservation && '0 35px'};
+      }
+      
+      @media (max-width: 700px) {
+        font-size: ${props => props.reservation && '16px'}; 
+      }
+    }
+    
+    @media (max-width: 1200px) {
+      width: ${props => props.offer && '100%'};
+      font-size: ${props => props.offer && '20px'};
     }
 `
 
@@ -51,11 +88,20 @@ export const ReservationWrapper = styled.div`
     
     p {
       font-size: 18px;
+      @media (max-width: 1200px) {
+        margin-right: 30px;
+      }
+      
+      @media (max-width: 850px) {
+        font-size: ${props => props.offer && '16px'};
+        
+        margin: 5px 0 0;
+      }
     }
     
     button {
         margin: 10px;
-        width: 100%;
+        //width: 100%;
         padding: 10px 50px;
         background-color: forestgreen;
         color: white;
@@ -68,6 +114,27 @@ export const ReservationWrapper = styled.div`
           background-color: transparent;
           color: forestgreen;
         }
+        
+        @media (max-width: 1200px) {
+          font-size: ${props => props.offer && '16px'};
+          padding: ${props => props.offer && '8px 40px'};
+          margin-left: 30px;
+        }
+        
+        @media (max-width: 850px) {
+          width: 100%;
+          margin: 10px 0 0;
+        }
+    }
+    
+    @media (max-width: 1200px) {
+      justify-content: center;
+      padding-top: 5px;
+    }
+    
+    @media (max-width: 850px) {
+        flex-direction: column;
+        justify-content: center;
     }
 `
 

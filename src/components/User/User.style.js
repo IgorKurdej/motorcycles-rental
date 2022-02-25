@@ -5,34 +5,30 @@ export const Wrapper = styled.div`
   height: calc(100vh - 80px);
   display: flex;
   align-items: center;
+  
+  @media (max-width: 1100px) {
+    flex-direction: column;
+  }
 `;
-
-// export const UserAcctWrapper = styled.div`
-//   width: 80%;
-//   display: flex;
-//   margin-top: 100px;
-//   //border: 1px solid lightgray;
-//
-// `
 
 export const LeftSide = styled.div`
   flex: 1;
   display: flex;
   height: 100%;
+  
 `
 
 export const ReservationList = styled.div`
     flex: 1;
-    height: 100%;
-    //height: calc(100vh - 80px);
+    height: calc(100vh - 80px);
     margin-right: 20px; 
     display: flex;
-    //justify-content: center;
     flex-direction: column;
-    //align-items: flex-end;
     align-items: center;
-    overflow: hidden scroll;
     
+    @media (max-width: 1100px) {
+        width: 80%; 
+    }
   
   h2 {
     margin: 60px 0 40px;
@@ -42,9 +38,7 @@ export const ReservationList = styled.div`
 `
 
 export const ScrollList = styled.div`
-  height: 80vh;
   width: 95%;
-  margin: 0 150px;
   padding: 0 30px;
   //overflow-y: scroll;
   

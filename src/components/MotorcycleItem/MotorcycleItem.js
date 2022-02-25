@@ -7,7 +7,7 @@ const MotorcycleItem = (props) => (
         {
             props.reservation &&
                 <S.Wrapper reservation>
-                    <S.ImageWrapper>
+                    <S.ImageWrapper reservation>
                         <S.MotoImg src={props.reservationData.img} reservation/>
                     </S.ImageWrapper>
                     <ItemDetails
@@ -22,7 +22,7 @@ const MotorcycleItem = (props) => (
             props.booking &&
                 <S.Wrapper booking>
                     <S.ImageWrapper booking>
-                        <S.MotoImg src={props.motorcycle.img} />
+                        <S.MotoImg src={props.motorcycle.img} booking />
                     </S.ImageWrapper>
                     <ItemDetails {...props.motorcycle} booking />
                 </S.Wrapper>
@@ -32,11 +32,11 @@ const MotorcycleItem = (props) => (
                 <>
                     <S.Wrapper offer>
                         <S.ImageWrapper offer>
-                            <S.MotoImg src={props.img} />
+                            <S.MotoImg src={props.img} offer />
                         </S.ImageWrapper>
                         <ItemDetails {...props} />
                     </S.Wrapper>
-                    <hr/>
+                    <S.Hr />
                 </>
         }
     </>

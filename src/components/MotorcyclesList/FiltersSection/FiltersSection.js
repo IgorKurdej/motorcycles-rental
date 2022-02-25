@@ -85,7 +85,7 @@ const FiltersSection = () => {
                 </S.SortTitleWrapper>
                 <S.Select onChange={e => setSortBy(e.target.value.toLowerCase())}>
                     {
-                        sortingOptions.map((option, idx) => <S.SelectOption key={idx}>{option}</S.SelectOption>)
+                        sortingOptions.map((option, idx) => <option key={idx}>{option}</option>)
                     }
                 </S.Select>
             </S.SortSection>

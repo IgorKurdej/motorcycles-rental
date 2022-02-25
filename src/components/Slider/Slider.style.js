@@ -8,25 +8,23 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   ${medium({
-    height: '700px',
+    height: '650px',
   })}
 `
 
 export const MotorcycleWrapper = styled.div`
   width: 100%;
+  //min-width: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 15px -2px black;
-  padding: 0 20px;
+  padding: 20px;
   border-radius: 10px;
-  ${medium({
-    height: '100%',
-  })}
 `
 
 export const ArrowWrapper = styled.div`
-  width: 40px;
+  min-width: 40px;
   height: 40px;
   background-color: forestgreen;
   display: flex;
@@ -36,6 +34,10 @@ export const ArrowWrapper = styled.div`
   color: white;
   margin: 50px;
   cursor: pointer;
+  
+  @media (max-width: 700px) {
+    //position: absolute;
+  }
 `
 
 export const ContentWrapper = styled.div`
@@ -44,8 +46,7 @@ export const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   ${medium({
-    height: '500px',
-    
+    height: '550px'
   })}
 `
 
@@ -55,7 +56,8 @@ export const DotsWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-top: 20px;
+  margin-top: 40px;
+  padding-bottom: 50px;
 `
 
 export const Dot = styled.div`

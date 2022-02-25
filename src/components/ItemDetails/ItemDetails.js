@@ -72,7 +72,7 @@ const ItemDetails = ( props ) => {
                                             />
                                         }
                                     >
-                                        Nowa data odbioru
+                                        Data odbioru
                                     </DescriptionItem>
                                     <DescriptionItem
                                         reservation
@@ -86,7 +86,7 @@ const ItemDetails = ( props ) => {
                                             />
                                         }
                                     >
-                                        Nowa data zwrotu
+                                        Data zwrotu
                                     </DescriptionItem>
                                     <DescriptionItem
                                         value={reservationUpdateValues.price}
@@ -116,13 +116,13 @@ const ItemDetails = ( props ) => {
                                         setReservationUpdateValues({...reservationData});
                                     }}
                                     >
-                                        Anuluj zmiany
+                                        Anuluj
                                     </S.ReservationButton>
                                 </S.ReservationButtonWrapper>
                             ) : (
                                 <S.ReservationButtonWrapper>
                                     <S.ReservationButton onClick={() => setIsUpdate(true)} edit>Edytuj</S.ReservationButton>
-                                    <S.ReservationButton onClick={() => props.deleteReservation(reservationData.id)}>Anuluj rezerwacje</S.ReservationButton>
+                                    <S.ReservationButton onClick={() => props.deleteReservation(reservationData.id)}>Anuluj</S.ReservationButton>
                                 </S.ReservationButtonWrapper>
                             )
                         )
@@ -149,12 +149,12 @@ const ItemDetails = ( props ) => {
                         <h1>{marka}</h1>
                         <h1>{model}</h1>
                     </S.ModelWrapper>
-                    <S.DescriptionWrapper>
+                    <S.DescriptionWrapper offer>
                         <DescriptionItem offer value={rok} >Rok produkcji</DescriptionItem>
                         <DescriptionItem offer value={moc} unit={units.moc}>Moc silnika</DescriptionItem>
                         <DescriptionItem offer value={pojemność} unit={units.pojemność} hr>Pojemność silnika</DescriptionItem>
                     </S.DescriptionWrapper>
-                    <S.ReservationWrapper>
+                    <S.ReservationWrapper offer>
                         <p>Cena za dzień: {cena} zł</p>
                         <Link to='/rezerwacja' state={{motorcycle: props}}>
                             <button>Zarezerwuj</button>

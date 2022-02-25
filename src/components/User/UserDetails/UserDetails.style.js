@@ -10,7 +10,8 @@ export const Wrapper = styled.div`
 
 export const ContentWrapper = styled.form`
   width: 40%;
-  max-width: 700px;
+  min-width: 350px;
+  max-width: 450px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,6 +23,11 @@ export const UserImage = styled.img`
   border-radius: 50%;
   border: 5px solid green;
   margin: 80px 0 30px 0;
+  
+  @media (max-width: 1100px) {
+    margin-top: 50px;
+    width: 160px;
+  }
 `
 
 export const ButtonWrapper = styled.div`

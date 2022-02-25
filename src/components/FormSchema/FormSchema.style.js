@@ -10,6 +10,10 @@ export const FormWrapper = styled.div`
   align-items: center;
   background-color: white;
   border-radius: 10px;
+  
+  @media (max-width: 750px) {
+    margin-top: 50px;
+  }
 `
 
 export const FormTitle = styled.p`
