@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import {medium} from "../../Responsive";
 
 export const Wrapper = styled.div`
-    width: ${props => props.booking ? '60%' : '100%' };
+    width: ${props => props.booking ? '40%' : '100%' };
+    margin: ${props => props.motoList && '0 50px 330px 50px'};
     height: ${props => props.reservation ? '250px' : '350px'};
     border-bottom: ${props => props.reservation && '1px solid lightgray'};
     display: flex;

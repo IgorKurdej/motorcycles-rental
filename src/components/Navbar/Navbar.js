@@ -29,6 +29,9 @@ const Navbar = () => {
             <S.NavbarInnerContainer>
                 <S.LeftContainer>
                     <S.NavbarLinkContainer>
+                        <S.NavbarLink to='/users'>Użytkownicy</S.NavbarLink>
+                        <S.NavbarLink to='/motorcycles'>Motocykle</S.NavbarLink>
+                        <S.NavbarLink to='/motorcycle'>Dodaj motocykl</S.NavbarLink>
                         <S.NavbarLink
                             className={splitPathname[1] === '' && 'active'}
                             to="/">Strona główna</S.NavbarLink>

@@ -13,6 +13,9 @@ import Contact from "./views/Contact";
 import ProtectedRoutesForUnlogged from "./ProtectedRoutesForUnlogged";
 import ProtectedRoutesForLogged from "./ProtectedRoutesForLogged";
 import Reservations from "./views/Reservations";
+import Users from "./views/Users";
+import Motorcycles from "./views/Motorcycles";
+import FormMotorcycle from "./components/FormMotorcycle/FormMotorcycle";
 
 function App() {
   return (
@@ -20,17 +23,20 @@ function App() {
           <GlobalStyle />
           <Navbar />
           <Routes>
-                  <Route exact path="/" element={<Home />} />
-                  <Route path="/oferta" element={<Offer />}/>
-                  <Route path="/kontakt" element={<Contact />}/>
-                  <Route element={<ProtectedRoutesForUnlogged />}>
-                      <Route path="/rezerwacja" element={<Booking />} />
-                      <Route path="/user" element={<Account />}/>
-                      <Route path="/rezerwacje" element={<Reservations />}/>
-                  </Route>
-                  <Route element={<ProtectedRoutesForLogged />}>
-                    <Route path="/logowanie" element={<Login />}/>
-                  </Route>
+              <Route path='/users' element={<Users />} />
+              <Route path='/motorcycles' element={<Motorcycles />} />
+              <Route path='/motorcycle' element={<FormMotorcycle />} />
+              <Route exact path="/" element={<Home />} />
+              <Route path="/oferta" element={<Offer />}/>
+              <Route path="/kontakt" element={<Contact />}/>
+              <Route element={<ProtectedRoutesForUnlogged />}>
+                  <Route path="/rezerwacja" element={<Booking />} />
+                  <Route path="/user" element={<Account />}/>
+                  <Route path="/rezerwacje" element={<Reservations />}/>
+              </Route>
+              <Route element={<ProtectedRoutesForLogged />}>
+                <Route path="/logowanie" element={<Login />}/>
+              </Route>
           </Routes>
       </Router>
   );

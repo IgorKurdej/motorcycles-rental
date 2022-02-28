@@ -20,7 +20,7 @@ const MotorcycleItem = (props) => (
         }
         {
             props.booking &&
-                <S.Wrapper booking>
+                <S.Wrapper booking motoList={props.motoList} >
                     <S.ImageWrapper booking>
                         <S.MotoImg src={props.motorcycle.img} booking />
                     </S.ImageWrapper>

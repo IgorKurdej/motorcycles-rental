@@ -1,9 +1,9 @@
 import React, {useState, useEffect, useContext} from 'react';
-import AppContext from "../../../context";
+import AppContext from "../../context";
 import * as S from './FiltersSection.style';
 import CheckboxOption from "./CheckboxOption/CheckboxOption";
-import {motorcycles} from "../../../assets/Data";
-import MotorcycleItem from "../../MotorcycleItem/MotorcycleItem";
+import {motorcycles} from "../../assets/Data";
+import MotorcycleItem from "../MotorcycleItem/MotorcycleItem";
 import {init} from "emailjs-com";
 
 const FiltersSection = () => {

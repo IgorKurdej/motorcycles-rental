@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import styled from 'styled-components';
 import AppContext from "../context";
-import MotorcyclesList from "../components/MotorcyclesList/MotorcyclesList";
-import FiltersSection from "../components/MotorcyclesList/FiltersSection/FiltersSection";
+import OfferList from "../components/OfferList/OfferList";
+import FiltersSection from "../components/FiltersSection/FiltersSection";
 
 const Wrapper = styled.div`
   display: flex;
@@ -60,7 +60,7 @@ const Offer = () => {
             }}>
                 <Wrapper>
                     <FiltersSection />
-                    <MotorcyclesList />
+                    <OfferList />
                 </Wrapper>
             </AppContext.Provider>
         </>
