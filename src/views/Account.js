@@ -1,12 +1,6 @@
 import React from 'react';
-import User from "../components/User/User";
+import UserDetails from "../components/User/UserDetails";
 
-const Account = () => {
-    return (
-        <div>
-            <User />
-        </div>
-    );
-};
+const Account = () => <UserDetails />
 
 export default Account;

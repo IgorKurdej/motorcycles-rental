@@ -9,13 +9,9 @@ export const Wrapper = styled.div`
 `
 
 export const ContentWrapper = styled.form`
-  width: 40%;
-  min-width: 350px;
-  max-width: 450px;
+  width: 350px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `
 
 export const UserImage = styled.img`
@@ -31,7 +27,6 @@ export const UserImage = styled.img`
 `
 
 export const ButtonWrapper = styled.div`
-  width: 100%;
   display: flex;
   justify-content: flex-end;
 `

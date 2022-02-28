@@ -1,29 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import * as S from './User.style'
-import UserDetails from "./UserDetails/UserDetails";
+import * as S from "./UserReservations.style";
 import MotorcycleItem from "../MotorcycleItem/MotorcycleItem";
 
-const User = () => {
+const UserReservations = () => {
     const user = JSON.parse(sessionStorage.user);
 
-    const [userData, setUserData] = useState({});
-    const [updatedUserData, setUpdatedUserData] = useState({});
     const [userReservation, setUserReservation] = useState([]);
 
     useEffect(() => {
         axios
-            .get(`https://motorcycle-rental.herokuapp.com/user/${user.id}`)
-            .then(res => {
-                setUserData(res.data[0])
-                setUpdatedUserData(res.data[0])
-            })
-
-        axios
             .get(`https://motorcycle-rental.herokuapp.com/userReservation/${user.id}`)
             .then(res => setUserReservation(res.data));
-
-    }, [])
+    }, []);
 
     const deleteReservation = (id) => {
         axios
@@ -37,14 +26,6 @@ const User = () => {
 
     return (
         <S.Wrapper>
-            <S.LeftSide>
-                <UserDetails
-                    userData={userData}
-                    setUserData={setUserData}
-                    updatedUser={updatedUserData}
-                    setUpdatedUser={setUpdatedUserData}
-                />
-            </S.LeftSide>
             <S.ReservationList>
                 <h2>Twoje rezerwacje</h2>
                 <S.ScrollList>
@@ -67,4 +48,4 @@ const User = () => {
     );
 };
 
-export default User;
+export default UserReservations;

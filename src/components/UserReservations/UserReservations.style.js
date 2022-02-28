@@ -5,36 +5,29 @@ export const Wrapper = styled.div`
   height: calc(100vh - 80px);
   display: flex;
   align-items: center;
+  justify-content: center;
   
   @media (max-width: 1100px) {
     flex-direction: column;
   }
 `;
 
-export const LeftSide = styled.div`
-  flex: 1;
-  display: flex;
-  height: 100%;
-  
-`
-
 export const ReservationList = styled.div`
-    flex: 1;
+    width: 50%;
     height: calc(100vh - 80px);
-    margin-right: 20px; 
     display: flex;
     flex-direction: column;
     align-items: center;
     
-    @media (max-width: 1100px) {
-        width: 80%; 
+    @media (max-width: 1200px) {
+        width: 90%; 
     }
   
-  h2 {
+    h2 {
     margin: 60px 0 40px;
     font-weight: 500;
     font-size: 26px;
-  }
+    }
 `
 
 export const ScrollList = styled.div`
@@ -44,6 +37,3 @@ export const ScrollList = styled.div`
   
   
 `
-
-
-

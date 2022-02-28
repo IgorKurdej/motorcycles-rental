@@ -44,7 +44,9 @@ export const NavbarLink = styled(Link)`
   font-weight: 500;
   text-decoration: none;
   margin: 10px;
-  //color: red;
+  height: 80px;
+  display: flex;
+  align-items: center;
 
   :hover {
     color: ${props => props.className === 'active' ? '' : '#8f8e8e'};

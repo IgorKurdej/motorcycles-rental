@@ -1,30 +1,43 @@
-import React, {useState, useRef, useEffect} from 'react';
-import UserDetailInput from "../UserDetailInput/UserDetailInput";
+import React, {useState, useEffect} from 'react';
+import UserDetailInput from "./UserDetailInput/UserDetailInput";
 import axios from "axios";
 import * as S from './UserDetails.style'
 
-const UserDetails = ({ userData, setUserData, updatedUser, setUpdatedUser }) => {
+const UserDetails = () => {
+    const user = JSON.parse(sessionStorage.user);
+
     const [toggleUserUpdate, setToggleUserUpdate] = useState(false);
+    const [userData, setUserData] = useState({});
+    const [updatedUserData, setUpdatedUserData] = useState({});
+
+    useEffect(() => {
+        axios
+            .get(`https://motorcycle-rental.herokuapp.com/user/${user.id}`)
+            .then(res => {
+                setUserData(res.data[0])
+                setUpdatedUserData(res.data[0])
+            })
+    }, [])
 
     const handleInputChange = e => {
-        setUpdatedUser({
-            ...updatedUser,
+        setUpdatedUserData({
+            ...updatedUserData,
             [e.target.name]: e.target.value
         });
     }
 
     const handleDiscardChanges = () => {
-        setUpdatedUser(userData);
+        setUpdatedUserData(userData);
         setToggleUserUpdate(false);
     };
 
-    const onSubmit = e => {
+    const handleSubmit = e => {
         e.preventDefault();
-        setUserData(updatedUser);
+        setUserData(updatedUserData);
         setToggleUserUpdate(false);
 
         axios
-            .put("https://motorcycle-rental.herokuapp.com/updateUser", updatedUser)
+            .put("https://motorcycle-rental.herokuapp.com/updateUser", updatedUserData)
             .then(res => {
                 console.log(res);
             })
@@ -34,7 +47,7 @@ const UserDetails = ({ userData, setUserData, updatedUser, setUpdatedUser }) => 
     return (
         <S.Wrapper>
             <S.UserImage src='https://img.myloview.pl/fototapety/user-icon-human-person-symbol-avatar-login-sign-700-258992656.jpg' />
-            <S.ContentWrapper onSubmit={onSubmit}>
+            <S.ContentWrapper onSubmit={handleSubmit}>
                 {
                     !toggleUserUpdate ? (
                             <S.ButtonWrapper>
@@ -49,7 +62,7 @@ const UserDetails = ({ userData, setUserData, updatedUser, setUpdatedUser }) => 
                 }
                 {
                     //TODO dodać jakas lepsza walidacje
-                    Object.entries(updatedUser)
+                    Object.entries(updatedUserData)
                         .filter(([key]) => key !== 'id')
                         .map(([ key, val ]) => (
                             <UserDetailInput

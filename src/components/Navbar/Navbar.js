@@ -4,10 +4,12 @@ import * as S from './Navbar.style';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import {Link, Navigate} from "react-router-dom";
+import Dropdown from "./Dropdown/Dropdown";
 
 const Navbar = () => {
     const [isUserLogged, setIsUserLogged] = useState(sessionStorage.length);
     const [extendNavbar, setExtendNavbar] = useState(false);
+    const [toggleDd, setToggleDd] = useState(false);
     const {pathname} = useLocation();
     const splitPathname = pathname.split('/');
 
@@ -31,7 +33,7 @@ const Navbar = () => {
                             className={splitPathname[1] === '' && 'active'}
                             to="/">Strona główna</S.NavbarLink>
                         <S.NavbarLink
-                            className={splitPathname[1] === 'oferta' && 'active'}
+                            className={(splitPathname[1] === 'oferta' || splitPathname[1] === 'rezerwacja') &&  'active'}
                             to="/oferta">Oferta</S.NavbarLink>
                         <S.NavbarLink
                             className={splitPathname[1] === 'kontakt' && 'active'}
@@ -40,9 +42,16 @@ const Navbar = () => {
                             isUserLogged ? (
                                 <>
                                     <S.NavbarLink
-                                        className={splitPathname[1] === 'konto' && 'active'}
-                                        to="/konto"
-                                    >Twoje konto</S.NavbarLink>
+                                        className={(splitPathname[1] === 'user' || splitPathname[1] === 'rezerwacje') && 'active'}
+                                        to="/user"
+                                        onMouseEnter={() => setToggleDd(true)}
+                                        onMouseLeave={() => setToggleDd(false)}
+                                    >
+                                        Twoje konto
+                                        {
+                                            toggleDd && <Dropdown />
+                                        }
+                                    </S.NavbarLink>
                                     <S.LogoutButton onClick={clearSessionStorage}>
                                         <S.NavbarLink to="/">Wyloguj</S.NavbarLink>
                                     </S.LogoutButton>
@@ -75,7 +84,8 @@ const Navbar = () => {
                             {
                                 isUserLogged ? (
                                     <>
-                                        <S.NavbarLinkExtended onClick={handleExtendedNavbarLinkClick} to="/konto">Twoje konto</S.NavbarLinkExtended>
+                                        <S.NavbarLinkExtended onClick={handleExtendedNavbarLinkClick} to="/user">Twoje dane</S.NavbarLinkExtended>
+                                        <S.NavbarLinkExtended onClick={handleExtendedNavbarLinkClick} to="/rezerwacje">Twoje rezerwacje</S.NavbarLinkExtended>
                                         <S.NavbarLinkExtended onClick={() => {
                                             handleExtendedNavbarLinkClick()
                                             clearSessionStorage()

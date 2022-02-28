@@ -12,6 +12,7 @@ import Account from "./views/Account";
 import Contact from "./views/Contact";
 import ProtectedRoutesForUnlogged from "./ProtectedRoutesForUnlogged";
 import ProtectedRoutesForLogged from "./ProtectedRoutesForLogged";
+import Reservations from "./views/Reservations";
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
                   <Route path="/kontakt" element={<Contact />}/>
                   <Route element={<ProtectedRoutesForUnlogged />}>
                       <Route path="/rezerwacja" element={<Booking />} />
-                      <Route path="/konto" element={<Account />}/>
+                      <Route path="/user" element={<Account />}/>
+                      <Route path="/rezerwacje" element={<Reservations />}/>
                   </Route>
                   <Route element={<ProtectedRoutesForLogged />}>
                     <Route path="/logowanie" element={<Login />}/>
