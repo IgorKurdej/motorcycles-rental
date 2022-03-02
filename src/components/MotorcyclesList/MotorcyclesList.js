@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import * as S from './MotorcyclesList.style'
 import axios from "axios";
 import MotorcycleItem from "../MotorcycleItem/MotorcycleItem";
+import {Link} from "react-router-dom";
 
 const MotorcyclesList = () => {
     const [motorcycles, setMotorcycles] = useState([]);
@@ -20,11 +21,14 @@ const MotorcyclesList = () => {
     return (
         <S.Wrapper>
             <S.ButtonWrapper>
-                <S.Button>+ Dodaj motocykl</S.Button>
+                <Link to='/motorcycle' >
+                    <S.Button>+ Dodaj motocykl</S.Button>
+                </Link>
             </S.ButtonWrapper>
             <S.MotorcyclesWrapper>
+                {console.log(motorcycles)}
                 {
-                    motorcycles.map(item => <MotorcycleItem motorcycle={item} booking motoList />)
+                    motorcycles.map(item => <MotorcycleItem key={item.id} motorcycle={item} booking motoList />)
                 }
             </S.MotorcyclesWrapper>
         </S.Wrapper>

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import FormSchema from "../../FormSchema/FormSchema";
 import axios from "axios";
 import Modal from "../../Modal/Modal";
+import emailjs from "emailjs-com";
 
 const BookingForm = ({ motorcycle, price }) => {
     const user = JSON.parse(sessionStorage.getItem('user'));
@@ -28,7 +29,8 @@ const BookingForm = ({ motorcycle, price }) => {
             name: 'email',
             value: user.email,
             label: 'Twój email',
-            disabled: true,
+            readonly: true,
+            onChange: e => {}
         },
         {
             name: 'startDate',
@@ -41,7 +43,7 @@ const BookingForm = ({ motorcycle, price }) => {
             required: true
         },
         {
-            name: 'startDate',
+            name: 'endDate',
             type: 'date',
             label: "Data zakończenia",
             value: endDate,
@@ -57,10 +59,17 @@ const BookingForm = ({ motorcycle, price }) => {
         const bookingValues = {
             startDate: startDate,
             endDate: endDate,
-            price: numberOfDays * price,
+            finalPrice: numberOfDays * price,
             userId: user.id,
             motorcycleId: motorcycle
         };
+
+        emailjs
+            .sendForm('service_ci7ya81', 'template_epna9tb', e.target, 'user_pBO8DUUY9cNNcg33wDKAk')
+            .then(() => {}
+            , error => {
+                console.log(error.text);
+            });
 
         axios
             .post('https://motorcycle-rental.herokuapp.com/booking', bookingValues)
@@ -69,7 +78,7 @@ const BookingForm = ({ motorcycle, price }) => {
                 setEndDate('');
                 setNumberOfDays(1);
                 setToggleModal(true);
-                setModalMessage(res.data);
+                setModalMessage(`${res.data}. Potwierdznie wysłano na maila.`);
             })
             .catch(err => console.log(err));
     }

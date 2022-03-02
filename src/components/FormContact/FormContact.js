@@ -34,7 +34,7 @@ const FormContact = () => {
             onChange: handleInputChange,
             type: 'email',
             placeholder: 'twój email',
-            required: true
+            required: true,
         },
         {
             name: 'title',

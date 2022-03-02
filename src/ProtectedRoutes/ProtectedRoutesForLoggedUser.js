@@ -5,9 +5,9 @@ const useAuth = () => {
     return !sessionStorage.length;
 }
 
-const ProtectedRoutesForLogged = () => {
+const ProtectedRoutesForLoggedUser = () => {
     const isAuth = useAuth();
     return isAuth ? <Outlet /> : <Navigate to='/' />
 };
 
-export default ProtectedRoutesForLogged;
+export default ProtectedRoutesForLoggedUser;

@@ -2,7 +2,6 @@ import React, {useState, useEffect, useContext} from 'react';
 import AppContext from "../../context";
 import * as S from './FiltersSection.style';
 import CheckboxOption from "./CheckboxOption/CheckboxOption";
-import {motorcycles} from "../../assets/Data";
 import MotorcycleItem from "../MotorcycleItem/MotorcycleItem";
 import {init} from "emailjs-com";
 
@@ -19,7 +18,7 @@ const FiltersSection = () => {
     } = useContext(AppContext);
 
     const brands = ['BMW', 'Harley Davidson', 'Yamaha', 'Moto Guzzi', 'KTM', 'Ducati', 'Aprilia'];
-    const sortingOptions = ['', 'Cena', 'Rok', 'Moc', 'Pojemność'];
+    const sortingOptions = ['', 'Price', 'Year', 'Power', 'Capacity'];
     const [toggleOrder, setToggleOrder] = useState(true);
 
 
@@ -27,7 +26,7 @@ const FiltersSection = () => {
         setMotorcyclesData(() => (
             [...initialMotorcyclesData]
                 .filter(motorcycle => motorcycle.model.toLowerCase().includes(searchValue.toLowerCase())))
-                .filter(motorcycle => searchBrand.includes(motorcycle.marka))
+                .filter(motorcycle => searchBrand.includes(motorcycle.brand))
                 .sort((item1, item2) => (
                     toggleOrder ?
                         ( sortBy === '' ?

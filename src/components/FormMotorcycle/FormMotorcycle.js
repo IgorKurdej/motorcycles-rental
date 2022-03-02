@@ -3,6 +3,13 @@ import FormSchema from "../FormSchema/FormSchema";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import { motorcycleSchema } from "../../validations/ValidationSchema";
+import styled from 'styled-components';
+import axios from "axios";
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
 
 const FormMotorcycle = () => {
     const {register, formState: {errors}, reset, handleSubmit} = useForm({
@@ -11,10 +18,10 @@ const FormMotorcycle = () => {
 
     const motorcyclesInput = [
         {
-            name: 'marka',
+            name: 'brand',
             placeholder: 'Marka',
             register: register,
-            errMessage: errors.marka?.message,
+            errMessage: errors.brand?.message,
         },
         {
             name: 'model',
@@ -23,28 +30,28 @@ const FormMotorcycle = () => {
             errMessage: errors.lastname?.message,
         },
         {
-            name: 'pojemność',
+            name: 'capacity',
             type: 'number',
             placeholder: 'Pojemność silnika',
             register: register,
             errMessage: errors.pojemność?.message,
         },
         {
-            name: 'moc',
+            name: 'power',
             type: 'number',
             placeholder: 'Moc silnika',
             register: register,
             errMessage: errors.moc?.message,
         },
         {
-            name: 'rok',
+            name: 'year',
             type: 'number',
             placeholder: 'Rok produkcji',
             register: register,
             errMessage: errors.rok?.message,
         },
         {
-            name: 'cena',
+            name: 'price',
             type: 'number',
             placeholder: 'Cena',
             register: register,
@@ -59,18 +66,22 @@ const FormMotorcycle = () => {
     ];
 
     const submitFunction = data => {
-        console.log(data);
+
+        axios
+            .post('https://motorcycle-rental.herokuapp.com/addMotorcycle', data)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
     }
 
     return (
-        <div>
+        <Wrapper>
             <FormSchema
                 title={'Dodaj motocykl'}
                 inputs={motorcyclesInput}
                 button={'Dodaj'}
                 handleSubmit={handleSubmit(submitFunction)}
             />
-        </div>
+        </Wrapper>
     );
 };
 

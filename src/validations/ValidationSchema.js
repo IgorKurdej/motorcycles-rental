@@ -20,11 +20,11 @@ export const logInSchema = yup.object().shape({
 });
 
 export const motorcycleSchema = yup.object().shape({
-    marka: yup.string().required('Podaj marke'),
+    brand: yup.string().required('Podaj marke'),
     model: yup.string().required('Podaj model'),
-    pojemność: yup.number().require('Podaj pojemność silnika'),
-    moc: yup.number().require('Podaj moc silnika'),
-    rok: yup.number().require('Podaj rok produkcji'),
-    cena: yup.number().require('Podaj cene'),
-    img: yup.string().require('Podaj link do zdjęcia')
+    // pojemność: yup.number().require('Podaj pojemność silnika'),
+    // moc: yup.number().require('Podaj moc silnika'),
+    // rok: yup.number().require('Podaj rok produkcji'),
+    // cena: yup.number().require('Podaj cene'),
+    // img: yup.string().require('Podaj link do zdjęcia')
 });

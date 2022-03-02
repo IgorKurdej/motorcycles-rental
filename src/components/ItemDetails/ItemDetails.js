@@ -3,11 +3,12 @@ import DescriptionItem from "./DescriptionItem/DescriptionItem";
 import * as S from './ItemDetails.style'
 import {Link} from "react-router-dom";
 import axios from "axios";
+import ModalConfirmation from "../ModalConfirmation/ModalConfirmation";
 
 const units = {
-    moc: 'KM',
-    pojemność: 'cm',
-    cena: ' zł'
+    power: 'KM',
+    capacity: 'cm',
+    price: ' zł'
 };
 
 const dateConvert = date => {
@@ -20,8 +21,9 @@ const dateConvert = date => {
 const convertDateToInputDate = date => date.toLocaleString().split(',').shift().split('.').reverse().join('-');
 
 const ItemDetails = ( props ) => {
-    const {marka, model, pojemność, moc, rok, cena, booking, reservationData, reservation} = props;
+    const {brand, model, capacity, power, year, price, booking, reservationData, reservation} = props;
 
+    const [toggleModalConfirmation, setToggleModalConfirmation] = useState(false);
     const [isUpdate, setIsUpdate] = useState(false);
     const [reservationUpdateValues, setReservationUpdateValues] = useState({
         ...reservationData
@@ -32,9 +34,9 @@ const ItemDetails = ( props ) => {
 
         setReservationUpdateValues({
             ...reservationUpdateValues,
-            'price': countDays * reservationUpdateValues.cena === 0 ?
-                reservationUpdateValues.cena :
-                countDays * reservationUpdateValues.cena
+            'finalPrice': countDays * reservationUpdateValues.price === 0 ?
+                reservationUpdateValues.finalPrice :
+                countDays * reservationUpdateValues.price
         });
     }, [reservationUpdateValues.startDate, reservationUpdateValues.endDate]);
 
@@ -54,7 +56,7 @@ const ItemDetails = ( props ) => {
             <S.DetailsWrapper reservation>
                 <S.DescriptionWrapper booking reservation>
                     <DescriptionItem value={dateConvert(reservationData.startDate) > 0 ? 'W trakcie' : 'Zakończone'} reservation>Status</DescriptionItem>
-                    <DescriptionItem value={reservationData.marka} reservation>Marka</DescriptionItem>
+                    <DescriptionItem value={reservationData.brand} reservation>Marka</DescriptionItem>
                     <DescriptionItem value={reservationData.model} reservation>Model</DescriptionItem>
                     {
                         isUpdate ? (
@@ -89,17 +91,17 @@ const ItemDetails = ( props ) => {
                                         Data zwrotu
                                     </DescriptionItem>
                                     <DescriptionItem
-                                        value={reservationUpdateValues.price}
-                                        reservation unit={units.cena}
+                                        value={reservationUpdateValues.finalPrice}
+                                        reservation unit={units.price}
                                     >
                                         Nowa cena
                                     </DescriptionItem>
                                 </>
                             ) : (
                                 <>
-                                    <DescriptionItem value={reservationData.startDate} reservation>Data odbioru</DescriptionItem>
-                                    <DescriptionItem value={reservationData.endDate} reservation>Data zwrotu</DescriptionItem>
-                                    <DescriptionItem value={reservationData.price} reservation unit={units.cena}>Cena</DescriptionItem>
+                                    <DescriptionItem value={reservationUpdateValues.startDate} reservation>Data odbioru</DescriptionItem>
+                                    <DescriptionItem value={reservationUpdateValues.endDate} reservation>Data zwrotu</DescriptionItem>
+                                    <DescriptionItem value={reservationUpdateValues.finalPrice} reservation unit={units.price}>Cena</DescriptionItem>
                                 </>
                             )
                     }
@@ -122,7 +124,15 @@ const ItemDetails = ( props ) => {
                             ) : (
                                 <S.ReservationButtonWrapper>
                                     <S.ReservationButton onClick={() => setIsUpdate(true)} edit>Edytuj</S.ReservationButton>
-                                    <S.ReservationButton onClick={() => props.deleteReservation(reservationData.id)}>Anuluj</S.ReservationButton>
+                                    <S.ReservationButton onClick={() => setToggleModalConfirmation(true)}>Anuluj</S.ReservationButton>
+                                    {
+                                        toggleModalConfirmation &&
+                                        <ModalConfirmation
+                                            title='Czy na pewno chcesz usunąć rezerwacje?'
+                                            acceptFn={() => props.deleteReservation(reservationData.id)}
+                                            discardFn={() => setToggleModalConfirmation(false)}
+                                        />
+                                    }
                                 </S.ReservationButtonWrapper>
                             )
                         )
@@ -133,29 +143,29 @@ const ItemDetails = ( props ) => {
             </S.DetailsWrapper>
         ) : (
             booking ? (
-                <S.DetailsWrapper>
+                <S.DetailsWrapper booking>
                     <S.DescriptionWrapper booking>
-                        <DescriptionItem value={marka}>Marka</DescriptionItem>
+                        <DescriptionItem value={brand}>Marka</DescriptionItem>
                         <DescriptionItem value={model}>Model</DescriptionItem>
-                        <DescriptionItem value={rok}>Rok produkcji</DescriptionItem>
-                        <DescriptionItem value={moc} unit={units.moc}>Moc silnika</DescriptionItem>
-                        <DescriptionItem value={pojemność} unit={units.pojemność}>Pojemność silnika</DescriptionItem>
-                        <DescriptionItem value={cena} unit={units.cena}>Cena za dzień</DescriptionItem>
+                        <DescriptionItem value={year}>Rok produkcji</DescriptionItem>
+                        <DescriptionItem value={power} unit={units.power}>Moc silnika</DescriptionItem>
+                        <DescriptionItem value={capacity} unit={units.capacity}>Pojemność silnika</DescriptionItem>
+                        <DescriptionItem value={price} unit={units.price}>Cena za dzień</DescriptionItem>
                     </S.DescriptionWrapper>
                 </S.DetailsWrapper>
             ) : (
                 <S.DetailsWrapper offer>
                     <S.ModelWrapper offer>
-                        <h1>{marka}</h1>
+                        <h1>{brand}</h1>
                         <h1>{model}</h1>
                     </S.ModelWrapper>
                     <S.DescriptionWrapper offer>
-                        <DescriptionItem offer value={rok} >Rok produkcji</DescriptionItem>
-                        <DescriptionItem offer value={moc} unit={units.moc}>Moc silnika</DescriptionItem>
-                        <DescriptionItem offer value={pojemność} unit={units.pojemność} hr>Pojemność silnika</DescriptionItem>
+                        <DescriptionItem offer value={year} >Rok produkcji</DescriptionItem>
+                        <DescriptionItem offer value={power} unit={units.power}>Moc silnika</DescriptionItem>
+                        <DescriptionItem offer value={capacity} unit={units.capacity} hr>Pojemność silnika</DescriptionItem>
                     </S.DescriptionWrapper>
                     <S.ReservationWrapper offer>
-                        <p>Cena za dzień: {cena} zł</p>
+                        <p>Cena za dzień: {price} zł</p>
                         <Link to='/rezerwacja' state={{motorcycle: props}}>
                             <button>Zarezerwuj</button>
                         </Link>
@@ -167,17 +177,3 @@ const ItemDetails = ( props ) => {
 };
 
 export default ItemDetails;
-
-
-// <S.DetailsWrapper>
-//     <S.DescriptionWrapper reservation>
-//         {
-//             Object.entries(props.user)
-//                 .map(item =>
-//                     <DescriptionItem key={item[0]} value={item[1]}>
-//                         {item[0]}
-//                     </DescriptionItem>
-//                 )
-//         }
-//     </S.DescriptionWrapper>
-// </S.DetailsWrapper>

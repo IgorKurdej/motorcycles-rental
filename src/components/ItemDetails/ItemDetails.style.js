@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const DetailsWrapper = styled.div`
     height: 100%;
+    width: 100%;
     flex: ${({reservation}) => reservation ? 2 : 1};
     display: flex;
     flex-direction: column;

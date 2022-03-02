@@ -63,7 +63,7 @@ const UserDetails = () => {
                 {
                     //TODO dodać jakas lepsza walidacje
                     Object.entries(updatedUserData)
-                        .filter(([key]) => key !== 'id')
+                        .filter(([key]) => key !== 'id' && key !== 'role')
                         .map(([ key, val ]) => (
                             <UserDetailInput
                                 key={key}

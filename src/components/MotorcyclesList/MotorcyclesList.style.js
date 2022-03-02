@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
 `
 
 export const MotorcyclesWrapper = styled.div`
-  width: 70%;
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

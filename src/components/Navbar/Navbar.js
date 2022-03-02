@@ -13,6 +13,8 @@ const Navbar = () => {
     const {pathname} = useLocation();
     const splitPathname = pathname.split('/');
 
+    const user = JSON.parse(sessionStorage.getItem('user'));
+
     useEffect(() => {
         setIsUserLogged(sessionStorage.length)
     }, [sessionStorage])
@@ -29,9 +31,6 @@ const Navbar = () => {
             <S.NavbarInnerContainer>
                 <S.LeftContainer>
                     <S.NavbarLinkContainer>
-                        <S.NavbarLink to='/users'>Użytkownicy</S.NavbarLink>
-                        <S.NavbarLink to='/motorcycles'>Motocykle</S.NavbarLink>
-                        <S.NavbarLink to='/motorcycle'>Dodaj motocykl</S.NavbarLink>
                         <S.NavbarLink
                             className={splitPathname[1] === '' && 'active'}
                             to="/">Strona główna</S.NavbarLink>
@@ -43,22 +42,42 @@ const Navbar = () => {
                             to="/kontakt">Kontakt</S.NavbarLink>
                         {
                             isUserLogged ? (
-                                <>
-                                    <S.NavbarLink
-                                        className={(splitPathname[1] === 'user' || splitPathname[1] === 'rezerwacje') && 'active'}
-                                        to="/user"
-                                        onMouseEnter={() => setToggleDd(true)}
-                                        onMouseLeave={() => setToggleDd(false)}
-                                    >
-                                        Twoje konto
-                                        {
-                                            toggleDd && <Dropdown />
-                                        }
-                                    </S.NavbarLink>
-                                    <S.LogoutButton onClick={clearSessionStorage}>
-                                        <S.NavbarLink to="/">Wyloguj</S.NavbarLink>
-                                    </S.LogoutButton>
-                                </>
+                                user.role === 'user' ? (
+                                    <>
+                                        <S.NavbarLink
+                                            className={(splitPathname[1] === 'user' || splitPathname[1] === 'rezerwacje') && 'active'}
+                                            to="/user"
+                                            onMouseEnter={() => setToggleDd(true)}
+                                            onMouseLeave={() => setToggleDd(false)}
+                                        >
+                                            Twoje konto
+                                            {
+                                                toggleDd && <Dropdown />
+                                            }
+                                        </S.NavbarLink>
+                                        <S.LogoutButton onClick={clearSessionStorage}>
+                                            <S.NavbarLink to="/">Wyloguj</S.NavbarLink>
+                                        </S.LogoutButton>
+                                    </>
+                                ) : (
+                                    <>
+                                        <S.NavbarLink
+                                            className={(splitPathname[1] === 'users') && 'active'}
+                                            to='/users'
+                                        >
+                                            Użytkownicy
+                                        </S.NavbarLink>
+                                        <S.NavbarLink
+                                            className={(splitPathname[1] === 'motorcycles' || splitPathname[1] === 'motorcycle') && 'active'}
+                                            to="/motorcycles"
+                                        >
+                                            Motocykle
+                                        </S.NavbarLink>
+                                        <S.LogoutButton onClick={clearSessionStorage}>
+                                            <S.NavbarLink to="/">Wyloguj</S.NavbarLink>
+                                        </S.LogoutButton>
+                                    </>
+                                )
                             ) : (
                                 <S.NavbarLink
                                     className={splitPathname[1] === 'logowanie' && 'active'}

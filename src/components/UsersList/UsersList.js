@@ -39,7 +39,7 @@ const UsersList = () => {
             const filteredUsers = initialUsersData.filter(user => {
                 return Object
                     .values(user)
-                    .join('')
+                    .join(' ')
                     .toLowerCase()
                     .includes(searchValue.toLowerCase());
             });
@@ -59,7 +59,9 @@ const UsersList = () => {
             />
             <S.UserList>
                 {
-                    users.map(user => <UserItem key={user.id} user={user} deleteFn={removeUser} />)
+                    users
+                        .filter(user => user.role !== 'admin')
+                        .map(user => <UserItem key={user.id} user={user} deleteFn={removeUser} />)
                 }
             </S.UserList>
         </S.Wrapper>
