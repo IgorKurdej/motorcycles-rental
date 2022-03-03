@@ -1,3 +1,16 @@
+Website published on https://igorkurdej.github.io/motorcycles-rental/
+
+Stack:
+- React,
+- React Hooks,
+- Context API,
+- React Router Dom,
+- Styled-components,
+- Axios,
+- React Form Hook,
+- Yup,
+- Email.js
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
