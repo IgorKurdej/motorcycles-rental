@@ -1,5 +1,9 @@
 Website published on https://igorkurdej.github.io/motorcycles-rental/
 
+You can create your own account or log in with an existing one.
+Login: a.nowak@gmail.com
+Password: 123123
+
 Stack:
 - React,
 - React Hooks,
