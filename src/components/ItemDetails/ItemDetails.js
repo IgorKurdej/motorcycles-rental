@@ -166,9 +166,18 @@ const ItemDetails = ( props ) => {
                     </S.DescriptionWrapper>
                     <S.ReservationWrapper offer>
                         <p>Cena za dzień: {price} zł</p>
-                        <Link to='/rezerwacja' state={{motorcycle: props}}>
-                            <button>Zarezerwuj</button>
-                        </Link>
+                        {
+                            sessionStorage.length ? (
+                                <S.BookingButton as={Link} to='/rezerwacja' state={{motorcycle: props}}>
+                                    Zarezerwuj
+                                </S.BookingButton>
+                            ) : (
+                                <S.BookingButton as={Link} to='/logowanie'>
+                                    Zarezerwuj
+                                </S.BookingButton>
+                            )
+                        }
+
                     </S.ReservationWrapper>
                 </S.DetailsWrapper>
             )

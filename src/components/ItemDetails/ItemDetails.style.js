@@ -100,34 +100,6 @@ export const ReservationWrapper = styled.div`
       }
     }
     
-    button {
-        margin: 10px;
-        //width: 100%;
-        padding: 10px 50px;
-        background-color: forestgreen;
-        color: white;
-        border: 2px solid forestgreen;
-        border-radius: 5px;
-        font-size: 18px;
-        cursor: pointer;
-        
-        :hover {
-          background-color: transparent;
-          color: forestgreen;
-        }
-        
-        @media (max-width: 1200px) {
-          font-size: ${props => props.offer && '16px'};
-          padding: ${props => props.offer && '8px 40px'};
-          margin-left: 30px;
-        }
-        
-        @media (max-width: 850px) {
-          width: 100%;
-          margin: 10px 0 0;
-        }
-    }
-    
     @media (max-width: 1200px) {
       justify-content: center;
       padding-top: 5px;
@@ -138,6 +110,34 @@ export const ReservationWrapper = styled.div`
         justify-content: center;
     }
 `
+
+export const BookingButton = styled.button`
+    margin: 10px;
+    padding: 10px 50px;
+    background-color: forestgreen;
+    color: white;
+    border: 2px solid forestgreen;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: none;
+    
+    :hover {
+    background-color: transparent;
+    color: forestgreen;
+    }
+    
+    @media (max-width: 1200px) {
+    font-size: ${props => props.offer && '16px'};
+    padding: ${props => props.offer && '8px 40px'};
+    margin-left: 30px;
+    }
+    
+    @media (max-width: 850px) {
+    width: 100%;
+    margin: 10px 0 0;
+    }
+`;
 
 export const ReservationButtonWrapper = styled.div`
   width: 100%;
