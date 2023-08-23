@@ -1,9 +1,10 @@
-import { Button } from './components/ui/button';
+import { RouterProvider } from 'react-router';
+import { router } from './router';
 
 function App() {
   return (
-    <div className='bg-pink-200'>
-      <Button>HELLO WORLD</Button>
+    <div className='min-h-screen flex items-center justify-center'>
+      <RouterProvider router={router} />
     </div>
   );
 }
