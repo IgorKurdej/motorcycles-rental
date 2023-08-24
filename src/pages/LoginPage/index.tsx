@@ -66,10 +66,10 @@ export const LoginPage: FC = () => {
       </Form>
       <p className='mt-4'>Nie masz jeszcze konta?</p>
       <Link
-        to='/sign-up'
+        to='/signup'
         className='mt-1 font-semibold underline text-green-600'
       >
-        Zaloguj się
+        Załóż konto
       </Link>
     </div>
   );
