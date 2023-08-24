@@ -3,9 +3,9 @@ import { router } from './router';
 
 function App() {
   return (
-    <div className='min-h-screen flex items-center justify-center'>
-      <RouterProvider router={router} />
-    </div>
+    // <div className='flex items-center justify-center'>
+    <RouterProvider router={router} />
+    // </div>
   );
 }
 

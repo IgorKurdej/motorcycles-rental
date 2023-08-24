@@ -24,18 +24,15 @@ export const SignupPage: FC = () => {
       email: '',
       password: '',
       confirmPassword: '',
-      // terms: true,
     },
   });
-
-  console.log(form.formState.errors);
 
   const onSubmit: SubmitHandler<Signup> = (data) => {
     console.log(data);
   };
 
   return (
-    <div className='h-full flex flex-col items-center justify-center sm:p-10 lg:p-24'>
+    <div className='w-full sm:px-10 lg:px-24 py-8 flex flex-col items-center overflow-auto'>
       <p className='text-2xl font-semibold mb-5'>Załóż konto</p>
       <Form {...form}>
         <form

@@ -1,5 +1,14 @@
 import { FC } from 'react';
+import { Navbar } from '../../components';
+import { Outlet } from 'react-router';
 
 export const RootLayout: FC = () => {
-  return <div>RootLayout</div>;
+  return (
+    <div className='flex flex-col h-screen'>
+      <Navbar />
+      <main className='flex-1 mx-auto w-full max-w-[1600px] flex flex-col'>
+        <Outlet />
+      </main>
+    </div>
+  );
 };

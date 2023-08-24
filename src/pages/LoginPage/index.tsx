@@ -26,7 +26,7 @@ export const LoginPage: FC = () => {
   };
 
   return (
-    <div className='h-full flex flex-col items-center justify-center sm:p-10 lg:p-24'>
+    <div className='w-full sm:p-10 lg:p-24 flex flex-col items-center'>
       <p className='text-2xl font-semibold mb-5'>Zaloguj się</p>
       <Form {...form}>
         <form
