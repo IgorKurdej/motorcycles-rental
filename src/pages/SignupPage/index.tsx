@@ -35,7 +35,7 @@ export const SignupPage: FC = () => {
   };
 
   return (
-    <div className='h-full flex flex-col items-center justify-center p-10 lg:p-24'>
+    <div className='h-full flex flex-col items-center justify-center sm:p-10 lg:p-24'>
       <p className='text-2xl font-semibold mb-5'>Załóż konto</p>
       <Form {...form}>
         <form
