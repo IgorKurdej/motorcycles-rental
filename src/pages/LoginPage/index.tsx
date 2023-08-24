@@ -14,6 +14,7 @@ import {
 } from '../../components/ui/form';
 import { Button } from '../../components/ui/button';
 import { Login, loginSchema } from '../../libs/schemas';
+import { pb } from '../../libs/pocketbase';
 
 export const LoginPage: FC = () => {
   const form = useForm<Login>({
@@ -21,8 +22,8 @@ export const LoginPage: FC = () => {
     defaultValues: { email: '', password: '' },
   });
 
-  const onSubmit: SubmitHandler<Login> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<Login> = async (data) => {
+    await pb.collection('users').authWithPassword(data.email, data.password);
   };
 
   return (

@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Button } from '../ui/button';
+import { pb } from '../../libs/pocketbase';
 
 export const Navbar: FC = () => {
   const { pathname } = useLocation();
@@ -37,9 +38,9 @@ export const Navbar: FC = () => {
           </Link>
         ))}
       </nav>
-      <Button>
+      {!pb.authStore.isValid && <Button>
         <Link to='/login'>Zaloguj się</Link>
-      </Button>
+      </Button>}
     </div>
   );
 };

@@ -15,6 +15,7 @@ import {
 import { Input } from '../../components/ui/input';
 import { Button } from '../../components/ui/button';
 import { Checkbox } from '../../components/ui/checkbox';
+import { pb } from '../../libs/pocketbase';
 
 export const SignupPage: FC = () => {
   const form = useForm<Signup>({
@@ -23,12 +24,19 @@ export const SignupPage: FC = () => {
       username: '',
       email: '',
       password: '',
-      confirmPassword: '',
+      passwordConfirm: '',
     },
   });
 
-  const onSubmit: SubmitHandler<Signup> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<Signup> = async (data) => {
+    const newUser = {
+      ...data,
+      emailVisibility: true,
+    };
+
+    await pb.collection('users').create(newUser);
+
+    // await pb.collection('users').requestVerification(data.email);
   };
 
   return (
@@ -80,7 +88,7 @@ export const SignupPage: FC = () => {
           />
           <FormField
             control={form.control}
-            name='confirmPassword'
+            name='passwordConfirm'
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Powtórz hasło</FormLabel>

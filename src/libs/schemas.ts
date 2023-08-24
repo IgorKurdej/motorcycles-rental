@@ -20,7 +20,7 @@ export const signupSchema = z
     password: z
       .string()
       .min(6, { message: 'Hasło musi posiadać minimum 6 znaków' }),
-    confirmPassword: z.string().min(1, { message: 'Pole wymagane' }),
+    passwordConfirm: z.string().min(1, { message: 'Pole wymagane' }),
     terms: z.literal(true, {
       errorMap: () => ({ message: 'Pole wymagane' }),
     }),
@@ -28,7 +28,7 @@ export const signupSchema = z
     //   required_error: 'Akceptacja warunków wymagana',
     // }),
   })
-  .refine((data) => data.password === data.confirmPassword, {
+  .refine((data) => data.password === data.passwordConfirm, {
     path: ['confirmPassword'],
     message: 'Hasła nie są takie same',
   });
