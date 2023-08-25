@@ -11,5 +11,5 @@ export const DashboardPage: FC = () => {
     // getMotorcycles();
   }, []);
 
-  return <div>DashboardPage</div>;
+  return <div>{/* <Toaster /> */}</div>;
 };

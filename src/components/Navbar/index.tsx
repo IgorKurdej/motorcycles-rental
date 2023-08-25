@@ -1,11 +1,24 @@
 import { FC } from 'react';
-import { useLocation } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '../ui/button';
 import { pb } from '../../libs/pocketbase';
+import { toast } from 'react-hot-toast';
 
 export const Navbar: FC = () => {
   const { pathname } = useLocation();
+  const naviagate = useNavigate();
+
+  const logout = () => {
+    try {
+      pb.authStore.clear();
+    } catch (e) {
+      toast.error('Coś poszło nie tak!');
+      console.log(e);
+    } finally {
+      toast('Do zobaczenia!');
+      naviagate('/');
+    }
+  };
 
   const routes = [
     {
@@ -38,9 +51,14 @@ export const Navbar: FC = () => {
           </Link>
         ))}
       </nav>
-      {!pb.authStore.isValid && <Button>
-        <Link to='/login'>Zaloguj się</Link>
-      </Button>}
+
+      {!pb.authStore.isValid ? (
+        <Button>
+          <Link to='/login'>Zaloguj się</Link>
+        </Button>
+      ) : (
+        <Button onClick={logout}>Wyloguj</Button>
+      )}
     </div>
   );
 };

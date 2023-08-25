@@ -15,9 +15,11 @@ import {
 import { Input } from '../../components/ui/input';
 import { Button } from '../../components/ui/button';
 import { Checkbox } from '../../components/ui/checkbox';
-import { pb } from '../../libs/pocketbase';
+import { useSignup } from '../../hooks/useSignup';
 
 export const SignupPage: FC = () => {
+  const { mutate, isLoading } = useSignup();
+
   const form = useForm<Signup>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -29,13 +31,7 @@ export const SignupPage: FC = () => {
   });
 
   const onSubmit: SubmitHandler<Signup> = async (data) => {
-    const newUser = {
-      ...data,
-      emailVisibility: true,
-    };
-
-    await pb.collection('users').create(newUser);
-
+    mutate(data);
     // await pb.collection('users').requestVerification(data.email);
   };
 
@@ -114,7 +110,12 @@ export const SignupPage: FC = () => {
               </FormItem>
             )}
           />
-          <Button type='submit' className='flex-1'>
+          <Button
+            type='submit'
+            className='flex-1'
+            isLoading={isLoading}
+            disabled={isLoading}
+          >
             Zarejestuj
           </Button>
         </form>

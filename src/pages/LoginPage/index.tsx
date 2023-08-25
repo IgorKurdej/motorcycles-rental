@@ -14,16 +14,18 @@ import {
 } from '../../components/ui/form';
 import { Button } from '../../components/ui/button';
 import { Login, loginSchema } from '../../libs/schemas';
-import { pb } from '../../libs/pocketbase';
+import { useLogin } from '../../hooks/useLogin';
 
 export const LoginPage: FC = () => {
+  const { mutate, isLoading } = useLogin();
+
   const form = useForm<Login>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: '', password: '' },
+    defaultValues: { email: 'adam@gmail.com', password: '123123123' },
   });
 
   const onSubmit: SubmitHandler<Login> = async (data) => {
-    await pb.collection('users').authWithPassword(data.email, data.password);
+    mutate(data);
   };
 
   return (
@@ -60,7 +62,7 @@ export const LoginPage: FC = () => {
               </FormItem>
             )}
           />
-          <Button type='submit' className='flex-1'>
+          <Button type='submit' className='flex-1' isLoading={isLoading}>
             Zaloguj
           </Button>
         </form>
