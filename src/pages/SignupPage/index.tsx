@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from 'react-router-dom';
@@ -16,9 +16,13 @@ import { Input } from '../../components/ui/input';
 import { Button } from '../../components/ui/button';
 import { Checkbox } from '../../components/ui/checkbox';
 import { useSignup } from '../../hooks/useSignup';
+import { ShowPassword } from '../../components';
 
 export const SignupPage: FC = () => {
   const { mutate, isLoading } = useSignup();
+
+  const [isPasswordHidden, setIsPasswordHidden] = useState(true);
+  const [isConfirmPasswordHidden, setIsConfirmPasswordHidden] = useState(true);
 
   const form = useForm<Signup>({
     resolver: zodResolver(signupSchema),
@@ -76,7 +80,17 @@ export const SignupPage: FC = () => {
               <FormItem>
                 <FormLabel>Hasło</FormLabel>
                 <FormControl>
-                  <Input type={'password'} placeholder='••••••' {...field} />
+                  <div className='relative'>
+                    <Input
+                      type={isPasswordHidden ? 'password' : 'text'}
+                      placeholder='••••••'
+                      {...field}
+                    />
+                    <ShowPassword
+                      isHidden={isPasswordHidden}
+                      setIsHidden={setIsPasswordHidden}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -89,7 +103,17 @@ export const SignupPage: FC = () => {
               <FormItem>
                 <FormLabel>Powtórz hasło</FormLabel>
                 <FormControl>
-                  <Input type={'password'} placeholder='••••••' {...field} />
+                  <div className='relative'>
+                    <Input
+                      type={isConfirmPasswordHidden ? 'password' : 'text'}
+                      placeholder='••••••'
+                      {...field}
+                    />
+                    <ShowPassword
+                      isHidden={isConfirmPasswordHidden}
+                      setIsHidden={setIsConfirmPasswordHidden}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -15,9 +15,11 @@ import {
 import { Button } from '../../components/ui/button';
 import { Login, loginSchema } from '../../libs/schemas';
 import { useLogin } from '../../hooks/useLogin';
+import { ShowPassword } from '../../components';
 
 export const LoginPage: FC = () => {
   const { mutate, isLoading } = useLogin();
+  const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 
   const form = useForm<Login>({
     resolver: zodResolver(loginSchema),
@@ -56,7 +58,17 @@ export const LoginPage: FC = () => {
               <FormItem>
                 <FormLabel>Hasło</FormLabel>
                 <FormControl>
-                  <Input type={'password'} placeholder='hasło' {...field} />
+                  <div className='relative'>
+                    <Input
+                      type={isPasswordHidden ? 'password' : 'text'}
+                      placeholder='••••••'
+                      {...field}
+                    />
+                    <ShowPassword
+                      isHidden={isPasswordHidden}
+                      setIsHidden={setIsPasswordHidden}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
