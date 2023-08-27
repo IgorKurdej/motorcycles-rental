@@ -7,8 +7,8 @@ export const AuthLayout: FC = () => {
   return (
     <div className='flex flex-col h-screen'>
       <Navbar />
-      <div className='flex h-[calc(100vh-64px)] xxl:h-[calc(100vh-80px)] justify-center'>
-        <div className='flex max-w-[1200px] w-full md:shadow m-10 overflow-hidden rounded-lg'>
+      <div className='flex h-[calc(100vh-64px)] xxl:h-[calc(100vh-80px)] justify-center p-10 flex-col items-center'>
+        <div className='flex max-w-[1200px] w-full max-h-[1000px] md:shadow overflow-hidden rounded-lg'>
           <div className='md:flex-1 hidden md:block'>
             <img
               src={motoAuth}
