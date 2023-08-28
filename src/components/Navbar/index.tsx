@@ -31,15 +31,15 @@ export const Navbar: FC = () => {
       label: 'Oferta',
       isActive: pathname === '/offer',
     },
-    {
-      href: '/contact',
-      label: 'Kontakt',
-      isActive: pathname === '/contact',
-    },
+    // {
+    //   href: '/contact',
+    //   label: 'Kontakt',
+    //   isActive: pathname === '/contact',
+    // },
   ];
 
   return (
-    <div className='bg-black h-16 xxl:h-20 w-full flex items-center justify-between px-32'>
+    <div className='bg-black h-16 xxl:h-20 w-full flex items-center justify-between px-5 sticky top-0'>
       <nav className='space-x-6'>
         {routes.map(({ href, isActive, label }) => (
           <Link
