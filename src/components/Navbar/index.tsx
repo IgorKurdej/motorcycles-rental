@@ -45,7 +45,7 @@ export const Navbar: FC = () => {
           <Link
             key={href}
             to={href}
-            className={isActive ? 'text-green-500' : 'text-white'}
+            className={isActive ? 'text-primary' : 'text-white'}
           >
             {label}
           </Link>

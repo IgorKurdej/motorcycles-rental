@@ -32,7 +32,7 @@ export const MotorcycleCard: FC<IProps> = ({ image }) => {
         </div>
         <div className='flex justify-between items-center flex-col md:flex-row gap-2'>
           <span className='font-medium'>500 zł / dzień</span>
-          <Button className='w-full md:w-fit' size='sm'>
+          <Button className='w-full md:w-fit' variant='outline' size='sm'>
             Dodaj do koszyka
           </Button>
         </div>
