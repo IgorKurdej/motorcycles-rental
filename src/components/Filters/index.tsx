@@ -10,32 +10,84 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
+import { useFiltersStore } from '../../hooks/useFiltersStore';
 
-const brands = ['BMW', 'Yamaha', 'Harley Davidson'];
+const allBrands = ['BMW', 'Yamaha', 'Harley Davidson'];
 
 export const Filters: FC = () => {
-  const [sortBy, setSortBy] = useState('');
+  const [isAllBrandsChecked, setIsAllBrandsChecked] = useState(false);
+
+  const {
+    searchValue,
+    searchedBrands,
+    sortBy,
+    setSearchValue,
+    setSearchedBrands,
+    setSearchedBrandsWithBrandName,
+    setSortBy,
+  } = useFiltersStore();
+
+  useEffect(() => {
+    if (searchedBrands.length === 0) {
+      setSearchedBrands([...allBrands]);
+      setIsAllBrandsChecked(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (searchedBrands.length === allBrands.length) {
+      setIsAllBrandsChecked(true);
+      return;
+    }
+
+    setIsAllBrandsChecked(false);
+  }, [searchedBrands]);
+
+  const handleSearchBrandsChange = (isSeachAllChecked: boolean) => {
+    if (isSeachAllChecked) {
+      setSearchedBrands([...allBrands]);
+      return;
+    }
+
+    setSearchedBrands([]);
+  };
 
   return (
-    <div className='h-fit p-4 sticky top-20 xxl:top-24 space-y-8 w-60 hidden lg:block'>
-      <div className='space-y-1'>
+    <div className='h-fit p-4 sticky top-16 lg:top-20 xxl:top-24 lg:space-y-8 lg:w-60 flex items-center lg:block gap-3'>
+      <div className='space-y-1 flex-1'>
         <Label className='text-base'>Wyszukaj motocykl</Label>
-        <Input placeholder='szukaj...' />
+        <Input
+          value={searchValue}
+          placeholder='szukaj...'
+          onChange={(e) => setSearchValue(e.target.value)}
+        />
       </div>
-      <div className='space-y-2'>
+
+      <div className='space-y-1 hidden lg:block'>
         <Label className='text-base mb-2'>Marka</Label>
         <div className='flex items-center space-x-2'>
-          <Checkbox id='all' defaultChecked />
+          <Checkbox
+            id='all'
+            checked={isAllBrandsChecked}
+            onCheckedChange={handleSearchBrandsChange}
+          />
           <Label htmlFor='all'>Zaznacz wszystkie</Label>
         </div>
-        {brands.map((brand) => (
+        {allBrands.map((brand) => (
           <div key={brand} className='flex items-center space-x-2'>
-            <Checkbox id={brand} defaultChecked />
+            <Checkbox
+              id={brand}
+              onCheckedChange={(isChecked) =>
+                setSearchedBrandsWithBrandName(isChecked as boolean, brand)
+              }
+              checked={searchedBrands.includes(brand)}
+            />
             <Label htmlFor={brand}>{brand}</Label>
           </div>
         ))}
       </div>
-      <div className='space-y-1'>
+
+      <div className='space-y-1 flex-1'>
         <Label className='text-base'>Sortuj po</Label>
         <div className='flex items-center justify-between gap-3'>
           <Select value={sortBy} onValueChange={(value) => setSortBy(value)}>
