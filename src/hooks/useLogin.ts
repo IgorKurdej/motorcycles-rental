@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 import { pb } from '../libs/pocketbase';
-import { Login } from '../libs/schemas';
+import { Login } from '../libs/types';
 
 const login = async ({ email, password }: Login) => {
   await pb.collection('users').authWithPassword(email, password);

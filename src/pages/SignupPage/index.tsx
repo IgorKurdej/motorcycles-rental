@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from 'react-router-dom';
 
-import { Signup, signupSchema } from '../../libs/schemas';
+import { signupSchema } from '../../libs/schemas';
 import {
   Form,
   FormControl,
@@ -17,6 +17,7 @@ import { Button } from '../../components/ui/button';
 import { Checkbox } from '../../components/ui/checkbox';
 import { useSignup } from '../../hooks/useSignup';
 import { ShowPassword } from '../../components';
+import { Signup } from '../../libs/types';
 
 export const SignupPage: FC = () => {
   const { mutate, isLoading } = useSignup();

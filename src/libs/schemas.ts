@@ -9,8 +9,6 @@ export const loginSchema = z.object({
     .min(6, { message: 'Hasło musi posiadać minimum 6 znaków' }),
 });
 
-export type Login = z.infer<typeof loginSchema>;
-
 export const signupSchema = z
   .object({
     username: z.string().min(1, { message: 'Pole wymagane' }),
@@ -32,5 +30,3 @@ export const signupSchema = z
     path: ['confirmPassword'],
     message: 'Hasła nie są takie same',
   });
-
-export type Signup = z.infer<typeof signupSchema>;

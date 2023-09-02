@@ -13,9 +13,10 @@ import {
   FormMessage,
 } from '../../components/ui/form';
 import { Button } from '../../components/ui/button';
-import { Login, loginSchema } from '../../libs/schemas';
+import { loginSchema } from '../../libs/schemas';
 import { useLogin } from '../../hooks/useLogin';
 import { ShowPassword } from '../../components';
+import { Login } from '../../libs/types';
 
 export const LoginPage: FC = () => {
   const { mutate, isLoading } = useLogin();
