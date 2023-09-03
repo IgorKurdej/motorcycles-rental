@@ -1,7 +1,8 @@
 import { FC, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+
 import { useGetMotorcycleById } from '../../hooks/useGetMotorcycleById';
-import { useParams } from 'react-router-dom';
-import { cn, getImgSrc } from '../../libs/utils';
+import { getImgSrc } from '../../libs/utils';
 import { Spinner } from '../../components/ui';
 import {
   Accordion,
@@ -9,27 +10,41 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../../components/ui/accordion';
-import { format } from 'date-fns';
-import { IMotorcycle } from '../../libs/types';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '../../components/ui/popover';
-import { Button } from '../../components/ui/button';
-import { CalendarIcon } from 'lucide-react';
-import { Calendar } from '../../components/ui/calendar';
+import { IAccordionOption, IMotorcycle } from '../../libs/types';
 import { DateInput } from '../../components/DateInput';
+import {
+  ArrowLeft,
+  ArrowLeftFromLine,
+  ArrowLeftToLine,
+  Undo2,
+} from 'lucide-react';
+
+const accordionOptions: IAccordionOption[] = [
+  {
+    value: 'description',
+    header: 'Opis',
+    content:
+      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit distinctio voluptatibus laboriosam id, doloremque exercitationem? Expedita tempora vitae vero excepturi quo neque iste explicabo, nesciunt ea quasi harum earum tenetur!',
+  },
+  {
+    value: 'details',
+    header: 'Szczegóły',
+    content:
+      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit distinctio voluptatibus laboriosam id, doloremque exercitationem? Expedita tempora vitae vero excepturi quo neque iste explicabo, nesciunt ea quasi harum earum tenetur!',
+  },
+  {
+    value: 'ratings',
+    header: 'Oceny klientów',
+    content:
+      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit distinctio voluptatibus laboriosam id, doloremque exercitationem? Expedita tempora vitae vero excepturi quo neque iste explicabo, nesciunt ea quasi harum earum tenetur!',
+  },
+];
 
 export const MotorcyclePage: FC = () => {
   const { id } = useParams();
-  const { data, isLoading } = useGetMotorcycleById(id || '');
+  const { data } = useGetMotorcycleById(id || '');
 
   const [date, setDate] = useState<Date | undefined>();
-
-  if (isLoading) {
-    return <Spinner />;
-  }
 
   const {
     id: motoId,
@@ -42,46 +57,31 @@ export const MotorcyclePage: FC = () => {
 
   return (
     <div className='flex flex-col gap-2'>
+      <Link to='/offer' className='text-primary flex gap-1 items-center'>
+        <ArrowLeft size={16} />
+        <span className='font-medium'>cofnij</span>
+      </Link>
       <img
         className=''
         src={getImgSrc(collectionName, motoId, image)}
         alt={'product'}
       />
-      <p className='text-2xl text-center font-semibold'>{brand}</p>
-      <p className='text-xl text-center font-medium'>{model}</p>
-      <div>
+      <p className='space-x-4 text-center'>
+        <span className='text-3xl text-center font-semibold'>{brand}</span>
+        <span className='text-xl text-center font-medium'>{model}</span>
+      </p>
+      <div className='flex flex-col gap-1'>
         <DateInput date={date} setDate={setDate} />
         <DateInput date={date} setDate={setDate} />
         <p>Cena {price}</p>
       </div>
-      <Accordion type='single' collapsible defaultValue='description'>
-        <AccordionItem value='description'>
-          <AccordionTrigger>Opis</AccordionTrigger>
-          <AccordionContent>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit
-            distinctio voluptatibus laboriosam id, doloremque exercitationem?
-            Expedita tempora vitae vero excepturi quo neque iste explicabo,
-            nesciunt ea quasi harum earum tenetur!
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value='details'>
-          <AccordionTrigger>Szczegóły</AccordionTrigger>
-          <AccordionContent>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit
-            distinctio voluptatibus laboriosam id, doloremque exercitationem?
-            Expedita tempora vitae vero excepturi quo neque iste explicabo,
-            nesciunt ea quasi harum earum tenetur!
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value='ratings'>
-          <AccordionTrigger>Oceny klientów</AccordionTrigger>
-          <AccordionContent>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit
-            distinctio voluptatibus laboriosam id, doloremque exercitationem?
-            Expedita tempora vitae vero excepturi quo neque iste explicabo,
-            nesciunt ea quasi harum earum tenetur!
-          </AccordionContent>
-        </AccordionItem>
+      <Accordion type='single' collapsible>
+        {accordionOptions.map(({ value, header, content }) => (
+          <AccordionItem key={value} value={value}>
+            <AccordionTrigger>{header}</AccordionTrigger>
+            <AccordionContent>{content}</AccordionContent>
+          </AccordionItem>
+        ))}
       </Accordion>
     </div>
   );

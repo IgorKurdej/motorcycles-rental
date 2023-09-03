@@ -8,7 +8,7 @@ import { sortNumbers } from '../../libs/utils';
 export const allBrands = ['BMW', 'Yamaha', 'Harley Davidson'];
 
 export const OfferPage: FC = () => {
-  const { data, isLoading } = useGetMotorcycles();
+  const { data } = useGetMotorcycles();
   const { searchValue, searchedBrands, isAsc, sortBy } = useFiltersStore();
 
   const motorcycles = useMemo(
@@ -33,10 +33,6 @@ export const OfferPage: FC = () => {
         ),
     [data, searchedBrands, isAsc, sortBy, searchValue]
   );
-
-  if (isLoading) {
-    return <Spinner />;
-  }
 
   return (
     <div className='flex flex-col lg:flex-row justify-between px-4 md:px-0'>

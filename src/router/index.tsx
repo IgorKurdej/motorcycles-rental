@@ -13,6 +13,8 @@ import {
 } from '../pages';
 import { ProtectedIAuth } from '../layouts/ProtectedIfAuth';
 import { ProtectedIfNotAuth } from '../layouts/ProtectedIfNotAuth';
+import { Suspense } from 'react';
+import { Spinner } from '../components/ui';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,8 +22,22 @@ export const router = createBrowserRouter(
       <Route path='/' element={<RootLayout />} errorElement={<div>404</div>}>
         <Route index element={<DashboardPage />} />
 
-        <Route path='offer' element={<OfferPage />} />
-        <Route path='/motorcycle/:id' element={<MotorcyclePage />} />
+        <Route
+          path='offer'
+          element={
+            <Suspense fallback={<Spinner />}>
+              <OfferPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path='/motorcycle/:id'
+          element={
+            <Suspense fallback={<Spinner />}>
+              <MotorcyclePage />
+            </Suspense>
+          }
+        />
         <Route element={<ProtectedIfNotAuth />}></Route>
       </Route>
 
