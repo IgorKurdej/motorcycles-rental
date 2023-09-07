@@ -1,23 +1,29 @@
-import { FC, useState } from 'react';
+import { FC, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 
 import { useGetMotorcycleById } from '../../hooks/useGetMotorcycleById';
 import { getImgSrc } from '../../libs/utils';
-import { Spinner } from '../../components/ui';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '../../components/ui/accordion';
-import { IAccordionOption, IMotorcycle } from '../../libs/types';
+import { IAccordionOption, IMotorcycle, Reservation } from '../../libs/types';
 import { DateInput } from '../../components/DateInput';
+import { Button } from '../../components/ui/button';
 import {
-  ArrowLeft,
-  ArrowLeftFromLine,
-  ArrowLeftToLine,
-  Undo2,
-} from 'lucide-react';
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '../../components/ui/form';
+import { differenceInDays } from 'date-fns';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { reservationSchema } from '../../libs/schemas';
 
 const accordionOptions: IAccordionOption[] = [
   {
@@ -44,8 +50,6 @@ export const MotorcyclePage: FC = () => {
   const { id } = useParams();
   const { data } = useGetMotorcycleById(id || '');
 
-  const [date, setDate] = useState<Date | undefined>();
-
   const {
     id: motoId,
     collectionName,
@@ -54,6 +58,21 @@ export const MotorcyclePage: FC = () => {
     price,
     image,
   } = data as IMotorcycle;
+
+  const form = useForm<Reservation>({
+    resolver: zodResolver(reservationSchema),
+  });
+
+  const reservationDates = form.watch();
+  const reservationDuration = useMemo(
+    () =>
+      differenceInDays(reservationDates.endDate, reservationDates.startDate),
+    [reservationDates]
+  );
+
+  const onSubmit: SubmitHandler<Reservation> = (data) => {
+    console.log(data);
+  };
 
   return (
     <div className='flex flex-col gap-2'>
@@ -66,15 +85,47 @@ export const MotorcyclePage: FC = () => {
         src={getImgSrc(collectionName, motoId, image)}
         alt={'product'}
       />
-      <p className='space-x-4 text-center'>
-        <span className='text-3xl text-center font-semibold'>{brand}</span>
-        <span className='text-xl text-center font-medium'>{model}</span>
+      <p className='flex items-center flex-col justify-center my-4'>
+        <span className='text-3xl font-semibold'>{brand}</span>
+        <span className='text-2xl font-medium'>{model}</span>
       </p>
-      <div className='flex flex-col gap-1'>
-        <DateInput date={date} setDate={setDate} />
-        <DateInput date={date} setDate={setDate} />
-        <p>Cena {price}</p>
-      </div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-3 '>
+          <div className='flex gap-3'>
+            <FormField
+              control={form.control}
+              name='startDate'
+              render={({ field }) => (
+                <FormItem className='flex flex-col flex-1'>
+                  <FormLabel>Rezerwacja od</FormLabel>
+                  <DateInput date={field.value} setDate={field.onChange} />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name='endDate'
+              render={({ field }) => (
+                <FormItem className='flex flex-col flex-1'>
+                  <FormLabel>Rezerwacja do</FormLabel>
+                  <DateInput date={field.value} setDate={field.onChange} />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <p className='space-x-3 text-right'>
+            <span className='text-lg'>Cena za 6 dni:</span>
+            <span className='font-semibold text-xl'>
+              {reservationDuration * price || 0} zł
+            </span>
+          </p>
+          <Button className='w-full'>Dodaj do koszyka</Button>
+          <div className='flex justify-between items-center gap-3'></div>
+        </form>
+      </Form>
+
       <Accordion type='single' collapsible>
         {accordionOptions.map(({ value, header, content }) => (
           <AccordionItem key={value} value={value}>

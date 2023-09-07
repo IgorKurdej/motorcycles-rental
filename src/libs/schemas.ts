@@ -30,3 +30,15 @@ export const signupSchema = z
     path: ['confirmPassword'],
     message: 'Hasła nie są takie same',
   });
+
+export const reservationSchema = z
+  .object({
+    startDate: z.coerce.date().refine((data) => data > new Date(), {
+      message: 'Start date must be in the future',
+    }),
+    endDate: z.coerce.date(),
+  })
+  .refine((data) => data.endDate > data.startDate, {
+    message: 'End date cannot be earlier than start date.',
+    path: ['endDate'],
+  });

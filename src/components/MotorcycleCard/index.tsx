@@ -50,11 +50,9 @@ export const MotorcycleCard: FC<IProps> = ({ motorcycle }) => {
         </div>
         <div className='flex justify-between items-center flex-col md:flex-row gap-2'>
           <span className='font-medium'>{price} zł / dzień</span>
-          <Link to={`/motorcycle/${id}`}>
-            <Button className='w-full md:w-fit' variant='outline' size='sm'>
-              Poznaj szczegóły
-            </Button>
-          </Link>
+          <Button className='w-full md:w-fit' size='sm'>
+            <Link to={`/motorcycle/${id}`}>Poznaj szczegóły</Link>
+          </Button>
         </div>
       </div>
     </div>
