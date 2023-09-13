@@ -15,6 +15,13 @@ export interface IMotorcycle extends Record {
   engineCapacity: number;
   price: number;
   image: string;
+  reviews: IReview[];
+}
+
+export interface IReview extends Record {
+  message: string;
+  rate: 1 | 2 | 3 | 4 | 5;
+  // user: IUser;
 }
 
 export interface IAccordionOption {

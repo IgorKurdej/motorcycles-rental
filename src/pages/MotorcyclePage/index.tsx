@@ -24,27 +24,7 @@ import { differenceInDays } from 'date-fns';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { reservationSchema } from '../../libs/schemas';
-
-const accordionOptions: IAccordionOption[] = [
-  {
-    value: 'description',
-    header: 'Opis',
-    content:
-      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit distinctio voluptatibus laboriosam id, doloremque exercitationem? Expedita tempora vitae vero excepturi quo neque iste explicabo, nesciunt ea quasi harum earum tenetur!',
-  },
-  {
-    value: 'details',
-    header: 'Szczegóły',
-    content:
-      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit distinctio voluptatibus laboriosam id, doloremque exercitationem? Expedita tempora vitae vero excepturi quo neque iste explicabo, nesciunt ea quasi harum earum tenetur!',
-  },
-  {
-    value: 'ratings',
-    header: 'Oceny klientów',
-    content:
-      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit distinctio voluptatibus laboriosam id, doloremque exercitationem? Expedita tempora vitae vero excepturi quo neque iste explicabo, nesciunt ea quasi harum earum tenetur!',
-  },
-];
+import { Reviews } from '../../components';
 
 export const MotorcyclePage: FC = () => {
   const { id } = useParams();
@@ -57,7 +37,10 @@ export const MotorcyclePage: FC = () => {
     model,
     price,
     image,
+    expand,
   } = data as IMotorcycle;
+
+  console.log(data);
 
   const form = useForm<Reservation>({
     resolver: zodResolver(reservationSchema),
@@ -73,6 +56,27 @@ export const MotorcyclePage: FC = () => {
   const onSubmit: SubmitHandler<Reservation> = (data) => {
     console.log(data);
   };
+
+  const accordionOptions: IAccordionOption[] = [
+    {
+      value: 'description',
+      header: 'Opis',
+      content:
+        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit distinctio voluptatibus laboriosam id, doloremque exercitationem? Expedita tempora vitae vero excepturi quo neque iste explicabo, nesciunt ea quasi harum earum tenetur!',
+    },
+    {
+      value: 'details',
+      header: 'Szczegóły',
+      content:
+        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit distinctio voluptatibus laboriosam id, doloremque exercitationem? Expedita tempora vitae vero excepturi quo neque iste explicabo, nesciunt ea quasi harum earum tenetur!',
+    },
+    {
+      value: 'ratings',
+      header: 'Oceny klientów',
+      content: <Reviews reviews={expand?.reviews} />,
+      // content: '',
+    },
+  ];
 
   return (
     <div className='flex flex-col gap-2'>
