@@ -42,3 +42,8 @@ export const reservationSchema = z
     message: 'End date cannot be earlier than start date.',
     path: ['endDate'],
   });
+
+export const addNewReviewSchema = z.object({
+  message: z.string().min(1, { message: 'Pole wymagane' }),
+  rate: z.number(),
+});

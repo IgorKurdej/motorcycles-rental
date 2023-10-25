@@ -15,7 +15,7 @@ import {
 import { Input } from '../../components/ui/input';
 import { Button } from '../../components/ui/button';
 import { Checkbox } from '../../components/ui/checkbox';
-import { useSignup } from '../../hooks/useSignup';
+import { useSignup } from '../../hooks/mutations/useSignup';
 import { ShowPassword } from '../../components';
 import { Signup } from '../../libs/types';
 

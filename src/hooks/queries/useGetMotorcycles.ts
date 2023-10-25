@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
-import { pb } from '../libs/pocketbase';
+import { pb } from '../../libs/pocketbase';
 import toast from 'react-hot-toast';
-import { IMotorcycle } from '../libs/types';
+import { IMotorcycle } from '../../libs/types';
 
 const getMotorcycles = async (): Promise<IMotorcycle[]> => {
   return await pb.collection('motorcycles').getFullList();

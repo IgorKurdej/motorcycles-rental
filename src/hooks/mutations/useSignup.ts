@@ -1,8 +1,8 @@
 import { useMutation } from 'react-query';
-import { pb } from '../libs/pocketbase';
-import { Signup } from '../libs/schemas';
+import { pb } from '../../libs/pocketbase';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
+import { Signup } from '../../libs/types';
 
 const signup = async (data: Signup) => {
   const newUser = {

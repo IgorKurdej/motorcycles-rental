@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react';
 import { Filters, MotorcycleCard } from '../../components';
 import { Spinner } from '../../components/ui';
 import { useFiltersStore } from '../../hooks/useFiltersStore';
-import { useGetMotorcycles } from '../../hooks/useGetMotorcycles';
+import { useGetMotorcycles } from '../../hooks/queries/useGetMotorcycles';
 import { sortNumbers } from '../../libs/utils';
 
 export const allBrands = ['BMW', 'Yamaha', 'Harley Davidson'];
