@@ -2,9 +2,7 @@ import { FC } from 'react';
 import { IReview } from '../../libs/types';
 import user from '../../assets/user.png';
 import { Rating } from '@smastrom/react-rating';
-import { useReviews } from '../../hooks/queries/useReviews';
-import { Spinner } from '../ui';
-import { AddReview } from './AddReview';
+import { EmptyState } from '../EmptyState';
 
 const countAvgRating = (reviews: IReview[]) => {
   const avg =
@@ -13,29 +11,25 @@ const countAvgRating = (reviews: IReview[]) => {
 };
 
 interface IProps {
-  motorcycleId: string;
+  reviews: IReview[];
 }
 
-export const Reviews: FC<IProps> = ({ motorcycleId }) => {
-  const { data, isLoading, refetch } = useReviews(motorcycleId);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
-
-  return data?.length === 0 ? (
-    <p>brak</p>
+export const Reviews: FC<IProps> = ({ reviews }) => {
+  return reviews?.length === 0 ? (
+    <div>
+      <EmptyState>Jeszcze nikt nie dodał opinii o tym motocyklu</EmptyState>
+    </div>
   ) : (
     <div className='max-w-full'>
       <div className='mb-5 flex items-center'>
         <span className='font-medium text-base'>
-          Średnia ocena {countAvgRating(data || [])} na {data?.length} opinii
+          Średnia ocena {countAvgRating(reviews || [])} na {reviews?.length}{' '}
+          opinii
         </span>
-        <AddReview refetch={refetch} />
       </div>
       <div className='space-y-8 max-h-80 overflow-y-auto'>
-        {data?.map((review) => (
-          <div key={review.author} className='space-y-3 pr-5'>
+        {reviews?.map((review) => (
+          <div key={review.id} className='space-y-3 pr-5'>
             <div className='flex justify-between items-center'>
               <div className='flex items-center gap-3'>
                 <img

@@ -47,3 +47,8 @@ export const addNewReviewSchema = z.object({
   message: z.string().min(1, { message: 'Pole wymagane' }),
   rate: z.number(),
 });
+
+export const userSchema = z.object({
+  username: z.string().min(1, { message: 'Pole wymagene' }),
+  email: z.string().min(1, { message: 'Pole wymagane' }),
+});

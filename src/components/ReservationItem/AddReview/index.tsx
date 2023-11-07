@@ -20,30 +20,20 @@ import { Textarea } from '../../ui/textarea';
 import { IReview } from '../../../libs/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { addNewReviewSchema } from '../../../libs/schemas';
-import { pb } from '../../../libs/pocketbase';
-import { FC, useState } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { Rating } from '@smastrom/react-rating';
 import { useAddNewReview } from '../../../hooks/mutations/useAddNewReview';
-import { useParams } from 'react-router';
-import {
-  QueryObserverResult,
-  RefetchOptions,
-  RefetchQueryFilters,
-} from 'react-query';
-
-// TODO: UŻYĆ KIEDY BĘDZIE PODSUMOWANIE WYPOŻYCZEŃ UŻYTKOWNIKA!
+import { useGetMotorcycleById } from '../../../hooks/queries/useGetMotorcycleById';
+import { getImgSrc } from '../../../libs/utils';
 
 interface IProps {
-  refetch: <TPageData>(
-    options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
-  ) => Promise<QueryObserverResult<IReview[], unknown>>;
+  motorcycleId: string;
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export const AddReview: FC<IProps> = ({ refetch }) => {
-  const { id: motorycleId } = useParams();
-
-  const [isOpen, setIsOpen] = useState(false);
-
+export const AddReview: FC<IProps> = ({ motorcycleId, isOpen, setIsOpen }) => {
+  const { data: motorcycle } = useGetMotorcycleById(motorcycleId);
   const { mutate } = useAddNewReview(() => handleSucces());
 
   const form = useForm<IReview>({
@@ -55,27 +45,36 @@ export const AddReview: FC<IProps> = ({ refetch }) => {
   });
 
   const handleSucces = () => {
-    refetch();
     setIsOpen(false);
     form.reset();
   };
 
   const onSubmit: SubmitHandler<IReview> = async (data) => {
-    data.motorcycleId = motorycleId as string;
+    data.motorcycleId = motorcycleId as string;
     mutate(data);
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button className='mr-0 ml-auto' size='sm'>
-          Dodaj
-        </Button>
-      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Podziel się swoją opinią</DialogTitle>
         </DialogHeader>
+        {motorcycle && (
+          <div className='flex items-center gap-5 mt-2'>
+            <img
+              className='h-16'
+              src={getImgSrc('motorcycles', motorcycle.id, motorcycle.image)}
+              alt='reservation-motorcycle-image'
+            />
+            <div>
+              <p className='font-medium'>{motorcycle.brand}</p>
+              <p className='font-light text-sm text-gray-400'>
+                {motorcycle.model}
+              </p>
+            </div>
+          </div>
+        )}
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

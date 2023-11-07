@@ -10,6 +10,8 @@ import {
   OfferPage,
   DashboardPage,
   MotorcyclePage,
+  UserPage,
+  ReservationsPage,
 } from '../pages';
 import { ProtectedIAuth } from '../layouts/ProtectedIfAuth';
 import { ProtectedIfNotAuth } from '../layouts/ProtectedIfNotAuth';
@@ -21,7 +23,6 @@ export const router = createBrowserRouter(
     <>
       <Route path='/' element={<RootLayout />} errorElement={<div>404</div>}>
         <Route index element={<DashboardPage />} />
-
         <Route
           path='offer'
           element={
@@ -38,7 +39,25 @@ export const router = createBrowserRouter(
             </Suspense>
           }
         />
-        <Route element={<ProtectedIfNotAuth />}></Route>
+
+        <Route element={<ProtectedIfNotAuth />}>
+          <Route
+            path='/user'
+            element={
+              <Suspense fallback={<Spinner />}>
+                <UserPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path='/reservations'
+            element={
+              <Suspense fallback={<Spinner />}>
+                <ReservationsPage />
+              </Suspense>
+            }
+          />
+        </Route>
       </Route>
 
       <Route path='/' element={<ProtectedIAuth />}>

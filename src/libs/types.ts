@@ -4,14 +4,22 @@ import {
   loginSchema,
   reservationSchema,
   signupSchema,
+  userSchema,
 } from './schemas';
 import { Record } from 'pocketbase';
 import { ReactNode } from 'react';
 
+export enum ReservationStatus {
+  ended = 'ended',
+  during = 'during',
+  toRealize = 'toRealize',
+}
+
 export type Login = z.infer<typeof loginSchema>;
 export type Signup = z.infer<typeof signupSchema>;
 export type Reservation = z.infer<typeof reservationSchema>;
-// export type AddNewReview = z.infer<typeof addNewReviewSchema>;
+export type AddNewReview = z.infer<typeof addNewReviewSchema>;
+export type User = z.infer<typeof userSchema>;
 
 export interface IMotorcycle extends Record {
   brand: string;
@@ -22,6 +30,17 @@ export interface IMotorcycle extends Record {
   price: number;
   image: string;
   reviews: IReview[];
+}
+
+export interface IReservation extends Record {
+  id: string;
+  motorcycleId: string;
+  userId: string;
+  dateFrom: Date;
+  dateTo: Date;
+  // extend: {
+  //   motorcycleId: ;
+  // };
 }
 
 export interface IReview extends Record {

@@ -26,10 +26,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { reservationSchema } from '../../libs/schemas';
 import { Reviews } from '../../components';
 import { MotorcycleDetails } from '../../components/MotorcycleDetails';
+import { useReviews } from '../../hooks/queries/useReviews';
 
 export const MotorcyclePage: FC = () => {
   const { id } = useParams();
-  const { data } = useGetMotorcycleById(id || '');
+  const { data: motorcycle } = useGetMotorcycleById(id || '');
+
+  const { data: reviews } = useReviews(id || '');
 
   const {
     id: motoId,
@@ -41,8 +44,7 @@ export const MotorcyclePage: FC = () => {
     enginePower,
     engineCapacity,
     image,
-    expand,
-  } = data as IMotorcycle;
+  } = motorcycle as IMotorcycle;
 
   const form = useForm<Reservation>({
     resolver: zodResolver(reservationSchema),
@@ -82,7 +84,7 @@ export const MotorcyclePage: FC = () => {
     {
       value: 'ratings',
       header: 'Oceny klientów',
-      content: <Reviews motorcycleId={id || ''} />,
+      content: <Reviews reviews={reviews || []} />,
     },
   ];
 
@@ -98,7 +100,11 @@ export const MotorcyclePage: FC = () => {
 
       <div className='max-w-[600px] w-full flex flex-col gap-3'>
         <div className='flex flex-col justify-center items-center'>
-          <img src={getImgSrc(collectionName, motoId, image)} alt='product' />
+          <img
+            src={getImgSrc(collectionName, motoId, image)}
+            alt='product'
+            className='h-[300px]'
+          />
           <p className='flex items-center flex-col md:flex-row md:gap-2 justify-center my-4'>
             <span className='text-3xl font-semibold'>{brand}</span>
             <span className='text-2xl font-medium'>{model}</span>
