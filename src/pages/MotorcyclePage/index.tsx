@@ -103,7 +103,7 @@ export const MotorcyclePage: FC = () => {
           <img
             src={getImgSrc(collectionName, motoId, image)}
             alt='product'
-            className='h-[300px]'
+            className='h-[200px] sm:h-[300px] object-contain'
           />
           <p className='flex items-center flex-col md:flex-row md:gap-2 justify-center my-4'>
             <span className='text-3xl font-semibold'>{brand}</span>

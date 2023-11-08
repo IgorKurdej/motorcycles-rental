@@ -1,5 +1,8 @@
-import React from 'react';
+import { FC } from 'react';
+import { Dialog } from '../../ui/dialog';
 
-export const EditReservation = () => {
-  return <div>EditReservation</div>;
+interface IProps {}
+
+export const EditReservation: FC<IProps> = () => {
+  return <Dialog></Dialog>;
 };

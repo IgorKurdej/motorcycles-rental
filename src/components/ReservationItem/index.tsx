@@ -6,6 +6,7 @@ import { BadgeStatus } from './BadgeStatus';
 import { AddReview } from './AddReview';
 import { format } from 'date-fns';
 import { Badge } from '../ui/badge';
+import { EditReservation } from './EditReservation';
 
 interface IProps {
   motorcycle: IMotorcycle;
@@ -19,6 +20,7 @@ export const ReservationItem: FC<IProps> = ({
   dateTo,
 }) => {
   const [isAddReviewModalOpen, setIsAddReviewModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const { id, image, brand, model, price } = motorcycle;
 
@@ -47,11 +49,11 @@ export const ReservationItem: FC<IProps> = ({
           <div className='flex justify-around text-gray-600'>
             <div className='flex flex-col'>
               <span>Od</span>
-              <span>15.09.2023</span>
+              <span>{format(new Date(dateFrom), 'dd.MM.yyyy')}</span>
             </div>
             <div className='flex flex-col'>
               <span>Do</span>
-              <span>18.09.2023</span>
+              <span>{format(new Date(dateTo), 'dd.MM.yyyy')}</span>
             </div>
           </div>
         </div>
@@ -66,6 +68,7 @@ export const ReservationItem: FC<IProps> = ({
           </Button>
           <Button
             className='flex-1 rounded-none'
+            onClick={() => setIsEditModalOpen(true)}
             disabled={reservationStatus !== ReservationStatus.toRealize}
           >
             Edytuj
@@ -80,6 +83,8 @@ export const ReservationItem: FC<IProps> = ({
           setIsOpen={setIsAddReviewModalOpen}
         />
       )}
+
+      {isEditModalOpen && <EditReservation />}
     </>
   );
 };

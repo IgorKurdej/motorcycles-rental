@@ -6,7 +6,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '../../ui/dialog';
 import {
   Form,
@@ -15,7 +14,6 @@ import {
   FormLabel,
   FormMessage,
 } from '../../ui/form';
-import { Input } from '../../ui/input';
 import { Textarea } from '../../ui/textarea';
 import { IReview } from '../../../libs/types';
 import { zodResolver } from '@hookform/resolvers/zod';
