@@ -1,19 +1,23 @@
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { cn } from '../../libs/utils';
 import { Button } from '../ui/button';
 import { CalendarIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import { Calendar } from '../ui/calendar';
+import { Matcher } from 'react-day-picker';
 
 interface IProps {
   date: Date | undefined;
+  disabledDates?: Matcher | Matcher[];
   setDate: Dispatch<SetStateAction<Date | undefined>>;
 }
 
-export const DateInput: FC<IProps> = ({ date, setDate }) => {
+export const DateInput: FC<IProps> = ({ date, disabledDates, setDate }) => {
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+
   return (
-    <Popover>
+    <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
       <PopoverTrigger asChild>
         <Button
           variant={'outline'}
@@ -30,7 +34,11 @@ export const DateInput: FC<IProps> = ({ date, setDate }) => {
         <Calendar
           mode='single'
           selected={date}
-          onSelect={setDate}
+          disabled={disabledDates}
+          onSelect={(e) => {
+            setDate(e);
+            setIsCalendarOpen(false);
+          }}
           initialFocus
         />
       </PopoverContent>

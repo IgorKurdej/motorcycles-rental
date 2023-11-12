@@ -38,9 +38,10 @@ export interface IReservation extends Record {
   userId: string;
   dateFrom: Date;
   dateTo: Date;
-  // extend: {
-  //   motorcycleId: ;
-  // };
+  price: string;
+  extend: {
+    motorcycleId: IMotorcycle;
+  };
 }
 
 export interface IReview extends Record {

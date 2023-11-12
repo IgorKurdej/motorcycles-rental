@@ -1,28 +1,38 @@
 import { FC, useMemo, useState } from 'react';
-import { IMotorcycle, ReservationStatus } from '../../libs/types';
+import { ReservationStatus } from '../../libs/types';
 import { getImgSrc, getResevationStatus } from '../../libs/utils';
 import { Button } from '../ui/button';
 import { BadgeStatus } from './BadgeStatus';
 import { AddReview } from './AddReview';
 import { format } from 'date-fns';
 import { Badge } from '../ui/badge';
-import { EditReservation } from './EditReservation';
+import { Modal, ReservationForm } from '..';
 
 interface IProps {
-  motorcycle: IMotorcycle;
+  reservationId: string;
+  motorcycleId: string;
+  image: string;
+  brand: string;
+  model: string;
+  pricePerDay: number;
   dateFrom: Date;
   dateTo: Date;
+  price: string;
 }
 
 export const ReservationItem: FC<IProps> = ({
-  motorcycle,
+  reservationId,
+  motorcycleId,
+  image,
+  brand,
+  model,
+  pricePerDay,
   dateFrom,
   dateTo,
+  price,
 }) => {
   const [isAddReviewModalOpen, setIsAddReviewModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-
-  const { id, image, brand, model, price } = motorcycle;
 
   const reservationStatus = useMemo(
     () => getResevationStatus(dateFrom, dateTo),
@@ -38,7 +48,7 @@ export const ReservationItem: FC<IProps> = ({
         <BadgeStatus status={reservationStatus} />
         <img
           className='h-[175px] object-contain'
-          src={getImgSrc('motorcycles', id, image)}
+          src={getImgSrc('motorcycles', motorcycleId, image)}
           alt='reservation-image'
         />
 
@@ -78,13 +88,28 @@ export const ReservationItem: FC<IProps> = ({
 
       {isAddReviewModalOpen && (
         <AddReview
-          motorcycleId={id}
+          motorcycleId={motorcycleId}
           isOpen={isAddReviewModalOpen}
           setIsOpen={setIsAddReviewModalOpen}
         />
       )}
 
-      {isEditModalOpen && <EditReservation />}
+      {isEditModalOpen && (
+        <Modal
+          title='Edytuj rezerwacje'
+          isOpen={isEditModalOpen}
+          setIsOpen={setIsEditModalOpen}
+        >
+          <ReservationForm
+            reservationId={reservationId}
+            pricePerDay={pricePerDay}
+            dateFrom={dateFrom}
+            dateTo={dateTo}
+            submitBtnText='Zapisz'
+            setIsOpen={setIsEditModalOpen}
+          />
+        </Modal>
+      )}
     </>
   );
 };

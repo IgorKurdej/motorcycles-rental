@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 
@@ -10,21 +10,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../../components/ui/accordion';
-import { IAccordionOption, IMotorcycle, Reservation } from '../../libs/types';
-import { DateInput } from '../../components/DateInput';
-import { Button } from '../../components/ui/button';
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '../../components/ui/form';
-import { differenceInDays } from 'date-fns';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { reservationSchema } from '../../libs/schemas';
-import { Reviews } from '../../components';
+import { IAccordionOption, IMotorcycle } from '../../libs/types';
+import { ReservationForm, Reviews } from '../../components';
 import { MotorcycleDetails } from '../../components/MotorcycleDetails';
 import { useReviews } from '../../hooks/queries/useReviews';
 
@@ -45,22 +32,6 @@ export const MotorcyclePage: FC = () => {
     engineCapacity,
     image,
   } = motorcycle as IMotorcycle;
-
-  const form = useForm<Reservation>({
-    resolver: zodResolver(reservationSchema),
-  });
-
-  const reservationDates = form.watch();
-
-  const reservationDuration = useMemo(
-    () =>
-      differenceInDays(reservationDates.endDate, reservationDates.startDate),
-    [reservationDates]
-  );
-
-  const onSubmit: SubmitHandler<Reservation> = (data) => {
-    console.log(data);
-  };
 
   const accordionOptions: IAccordionOption[] = [
     {
@@ -111,44 +82,7 @@ export const MotorcyclePage: FC = () => {
           </p>
         </div>
 
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-3'>
-            <div className='flex gap-3'>
-              <FormField
-                control={form.control}
-                name='startDate'
-                render={({ field }) => (
-                  <FormItem className='flex flex-col flex-1'>
-                    <FormLabel>Rezerwacja od</FormLabel>
-                    <DateInput date={field.value} setDate={field.onChange} />
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name='endDate'
-                render={({ field }) => (
-                  <FormItem className='flex flex-col flex-1'>
-                    <FormLabel>Rezerwacja do</FormLabel>
-                    <DateInput date={field.value} setDate={field.onChange} />
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <p className='space-x-3 text-right'>
-              <span className='text-lg'>
-                Cena za {reservationDuration || 0} dni:
-              </span>
-              <span className='font-semibold text-xl'>
-                {reservationDuration * price || 0} zł
-              </span>
-            </p>
-            <Button className='w-full'>Dodaj do koszyka</Button>
-            <div className='flex justify-between items-center gap-3'></div>
-          </form>
-        </Form>
+        <ReservationForm pricePerDay={price} submitBtnText='Dodaj do koszyka' />
 
         <Accordion type='single' collapsible>
           {accordionOptions.map(({ value, header, content }) => (
