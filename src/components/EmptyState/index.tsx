@@ -1,17 +1,17 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import { cn } from '../../libs/utils';
 
 interface IProps {
-  children: ReactNode;
+  message: string;
   className?: string;
 }
 
-export const EmptyState: FC<IProps> = ({ children, className }) => {
+export const EmptyState: FC<IProps> = ({ message, className }) => {
   return (
     <p
       className={cn('text-gray-600 text-center my-8 font-semibold', className)}
     >
-      {children}
+      {message}
     </p>
   );
 };

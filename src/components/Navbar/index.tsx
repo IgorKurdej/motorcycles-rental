@@ -37,9 +37,9 @@ export const Navbar: FC = () => {
       isActive: pathname === '/',
     },
     {
-      href: '/offer',
+      href: '/motorcycles',
       label: 'Oferta',
-      isActive: pathname === '/offer',
+      isActive: pathname.includes('/motorcycles'),
     },
     // {
     //   href: '/contact',
@@ -49,7 +49,7 @@ export const Navbar: FC = () => {
   ];
 
   return (
-    <div className='bg-black h-16 xxl:h-20 w-full flex items-center justify-between px-5 sticky top-0 z-10'>
+    <div className='sticky top-0 z-10 flex items-center justify-between w-full h-16 px-5 bg-black xxl:h-20'>
       <nav className='space-x-6'>
         {routes.map(({ href, isActive, label }) => (
           <Link

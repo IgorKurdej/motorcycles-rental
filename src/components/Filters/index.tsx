@@ -12,8 +12,14 @@ import {
 } from '../ui/select';
 import { useFiltersStore } from '../../hooks/useFiltersStore';
 import { allBrands } from '../../pages/OfferPage';
+import { cn } from '../../libs/utils';
+import { Button } from '../ui/button';
 
-export const Filters: FC = () => {
+interface IProps {
+  className?: string;
+}
+
+export const Filters: FC<IProps> = ({ className }) => {
   const [isAllBrandsChecked, setIsAllBrandsChecked] = useState(false);
 
   const {
@@ -26,6 +32,7 @@ export const Filters: FC = () => {
     setSearchedBrandsWithBrandName,
     setIsAsc,
     setSortBy,
+    resetAll,
   } = useFiltersStore();
 
   useEffect(() => {
@@ -54,8 +61,10 @@ export const Filters: FC = () => {
   };
 
   return (
-    <div className='p-4 sticky top-16 lg:top-20 xxl:top-24 lg:space-y-8 lg:w-60 flex items-center lg:block gap-3'>
-      <div className='space-y-1 flex-1'>
+    <div
+      className={cn('p-4 space-y-6 lg:top-20 xxl:top-24 lg:block', className)}
+    >
+      <div className='flex-1 space-y-1'>
         <Label htmlFor='searchModel' className='text-base'>
           Wyszukaj motocykl
         </Label>
@@ -67,38 +76,15 @@ export const Filters: FC = () => {
             onChange={(e) => setSearchValue(e.target.value)}
           />
           <X
-            className='text-primary cursor-pointer'
+            size={18}
+            className='cursor-pointer text-primary'
             onClick={() => setSearchValue('')}
           />
         </div>
       </div>
 
-      <div className='space-y-1 hidden lg:block'>
-        <Label className='text-base mb-2'>Marka</Label>
-        <div className='flex items-center space-x-2'>
-          <Checkbox
-            id='all'
-            checked={isAllBrandsChecked}
-            onCheckedChange={handleSearchBrandsChange}
-          />
-          <Label htmlFor='all'>Zaznacz wszystkie</Label>
-        </div>
-        {allBrands.map((brand) => (
-          <div key={brand} className='flex items-center space-x-2'>
-            <Checkbox
-              id={brand}
-              onCheckedChange={(isChecked) =>
-                setSearchedBrandsWithBrandName(isChecked as boolean, brand)
-              }
-              checked={searchedBrands.includes(brand)}
-            />
-            <Label htmlFor={brand}>{brand}</Label>
-          </div>
-        ))}
-      </div>
-
-      <div className='space-y-1 flex-1'>
-        <div className='flex gap-2 items-center'>
+      <div className='flex-1 space-y-1'>
+        <div className='flex items-center gap-2'>
           <Label className='text-base'>Sortuj po</Label>
           {isAsc ? (
             <ArrowDownAZ
@@ -114,7 +100,7 @@ export const Filters: FC = () => {
             />
           )}
         </div>
-        <div className='flex items-center gap-3'>
+        <div className='flex items-center gap-2'>
           <Select value={sortBy} onValueChange={(value) => setSortBy(value)}>
             <SelectTrigger>
               <SelectValue />
@@ -128,11 +114,47 @@ export const Filters: FC = () => {
             </SelectContent>
           </Select>
           <X
-            className='text-primary cursor-pointer'
+            size={18}
+            className='cursor-pointer text-primary'
             onClick={() => setSortBy('created')}
           />
         </div>
       </div>
+
+      <div className='space-y-1'>
+        <Label className='mb-2 text-base'>Marka</Label>
+        <div className='max-h-[160px] space-y-1 py-1'>
+          <div className='flex items-center space-x-2'>
+            <Checkbox
+              id='all'
+              checked={isAllBrandsChecked}
+              onCheckedChange={handleSearchBrandsChange}
+            />
+            <Label htmlFor='all'>Zaznacz wszystkie</Label>
+          </div>
+          {allBrands.map((brand) => (
+            <div key={brand} className='flex items-center space-x-2'>
+              <Checkbox
+                id={brand}
+                onCheckedChange={(isChecked) =>
+                  setSearchedBrandsWithBrandName(isChecked as boolean, brand)
+                }
+                checked={searchedBrands.includes(brand)}
+              />
+              <Label htmlFor={brand}>{brand}</Label>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <Button
+        className='hidden w-full lg:inline-block'
+        variant='secondary'
+        size='sm'
+        onClick={resetAll}
+      >
+        Resetuj
+      </Button>
     </div>
   );
 };

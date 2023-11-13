@@ -17,7 +17,7 @@ interface IProps {
 export const Reviews: FC<IProps> = ({ reviews }) => {
   return reviews?.length === 0 ? (
     <div>
-      <EmptyState>Jeszcze nikt nie dodał opinii o tym motocyklu</EmptyState>
+      <EmptyState message='Jeszcze nikt nie dodał opinii o tym motocyklu' />
     </div>
   ) : (
     <div className='max-w-full'>

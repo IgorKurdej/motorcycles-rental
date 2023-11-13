@@ -60,23 +60,23 @@ export const MotorcyclePage: FC = () => {
   ];
 
   return (
-    <div className='flex justify-center items-center'>
+    <div className='flex items-center justify-center'>
       <Link
-        to='/offer'
-        className='text-primary flex gap-1 items-center fixed top-20 left-3 md:left-10 underline'
+        to='/motorcycles'
+        className='fixed flex items-center gap-1 underline text-primary top-20 left-3 md:left-10'
       >
         <ArrowLeft size={16} />
         <span className='font-medium'>cofnij</span>
       </Link>
 
       <div className='max-w-[600px] w-full flex flex-col gap-3'>
-        <div className='flex flex-col justify-center items-center'>
+        <div className='flex flex-col items-center justify-center'>
           <img
             src={getImgSrc(collectionName, motoId, image)}
             alt='product'
             className='h-[200px] sm:h-[300px] object-contain'
           />
-          <p className='flex items-center flex-col md:flex-row md:gap-2 justify-center my-4'>
+          <p className='flex flex-col items-center justify-center my-4 md:flex-row md:gap-2'>
             <span className='text-3xl font-semibold'>{brand}</span>
             <span className='text-2xl font-medium'>{model}</span>
           </p>

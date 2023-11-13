@@ -24,7 +24,7 @@ export const router = createBrowserRouter(
       <Route path='/' element={<RootLayout />} errorElement={<div>404</div>}>
         <Route index element={<DashboardPage />} />
         <Route
-          path='offer'
+          path='motorcycles'
           element={
             <Suspense fallback={<Spinner />}>
               <OfferPage />
@@ -32,7 +32,7 @@ export const router = createBrowserRouter(
           }
         />
         <Route
-          path='/motorcycle/:id'
+          path='/motorcycles/:id'
           element={
             <Suspense fallback={<Spinner />}>
               <MotorcyclePage />

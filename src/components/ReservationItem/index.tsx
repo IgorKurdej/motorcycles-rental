@@ -102,6 +102,7 @@ export const ReservationItem: FC<IProps> = ({
         >
           <ReservationForm
             reservationId={reservationId}
+            oldReservationPrice={price}
             pricePerDay={pricePerDay}
             dateFrom={dateFrom}
             dateTo={dateTo}

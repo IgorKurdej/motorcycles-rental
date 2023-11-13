@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { Reservation } from '../../libs/types';
-import { Dispatch, FC, SetStateAction, useMemo } from 'react';
+import { Dispatch, FC, SetStateAction, useMemo, useState } from 'react';
 import { Form, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { DateInput } from '../DateInput';
 import { Button } from '../ui/button';
@@ -14,6 +14,7 @@ interface IProps {
   pricePerDay: number;
   dateFrom?: Date;
   dateTo?: Date;
+  oldReservationPrice?: string;
   submitBtnText: string;
   setIsOpen?: Dispatch<SetStateAction<boolean>>;
 }
@@ -24,6 +25,7 @@ export const ReservationForm: FC<IProps> = ({
   dateFrom,
   dateTo,
   submitBtnText,
+  oldReservationPrice,
   setIsOpen,
 }) => {
   const { mutate: updateReservation } = useReservationUpdate(
@@ -112,12 +114,19 @@ export const ReservationForm: FC<IProps> = ({
             )}
           />
         </div>
-        <p className='space-x-3 text-right'>
-          <span className='text-lg'>
-            Cena za {reservationDuration > 0 ? reservationDuration : 0} dni:
-          </span>
-          <span className='font-semibold text-xl'>{reservationPrice} zł</span>
-        </p>
+        <div>
+          <p className='space-x-3 text-right'>
+            <span className='text-lg'>
+              Cena za {reservationDuration > 0 ? reservationDuration : 0} dni:
+            </span>
+            <span className='text-xl font-semibold'>{reservationPrice} zł</span>
+          </p>
+          {oldReservationPrice && (
+            <p className='space-x-3 text-sm text-right text-gray-500'>
+              Poprzednia cena rezerwacji {oldReservationPrice} zł
+            </p>
+          )}
+        </div>
         <Button size='sm' className='w-full'>
           {submitBtnText}
         </Button>
