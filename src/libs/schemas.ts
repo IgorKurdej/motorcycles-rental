@@ -33,12 +33,12 @@ export const signupSchema = z
 
 export const reservationSchema = z
   .object({
-    startDate: z.coerce.date().refine((data) => data > new Date(), {
+    dateFrom: z.coerce.date().refine((data) => data > new Date(), {
       message: 'Start date must be in the future',
     }),
-    endDate: z.coerce.date(),
+    dateTo: z.coerce.date(),
   })
-  .refine((data) => data.endDate > data.startDate, {
+  .refine((data) => data.dateTo > data.dateFrom, {
     message: 'End date cannot be earlier than start date.',
     path: ['endDate'],
   });

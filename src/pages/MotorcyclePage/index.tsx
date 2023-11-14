@@ -82,7 +82,11 @@ export const MotorcyclePage: FC = () => {
           </p>
         </div>
 
-        <ReservationForm pricePerDay={price} submitBtnText='Dodaj do koszyka' />
+        <ReservationForm
+          pricePerDay={price}
+          submitBtnText='Dodaj do koszyka'
+          motorcycleId={motoId}
+        />
 
         <Accordion type='single' collapsible>
           {accordionOptions.map(({ value, header, content }) => (

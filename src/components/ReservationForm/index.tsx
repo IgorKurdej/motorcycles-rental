@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
-import { Reservation } from '../../libs/types';
+import { ICart, Reservation } from '../../libs/types';
 import { Dispatch, FC, SetStateAction, useMemo, useState } from 'react';
 import { Form, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { DateInput } from '../DateInput';
@@ -8,12 +8,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { reservationSchema } from '../../libs/schemas';
 import { addDays, differenceInCalendarDays, subDays } from 'date-fns';
 import { useReservationUpdate } from '../../hooks/mutations/useReservationUpdate';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+import toast from 'react-hot-toast';
 
 interface IProps {
   reservationId?: string;
+  motorcycleId?: string;
   pricePerDay: number;
-  dateFrom?: Date;
-  dateTo?: Date;
+  prevDateFrom?: Date;
+  prevDateTo?: Date;
   oldReservationPrice?: string;
   submitBtnText: string;
   setIsOpen?: Dispatch<SetStateAction<boolean>>;
@@ -21,9 +24,10 @@ interface IProps {
 
 export const ReservationForm: FC<IProps> = ({
   reservationId,
+  motorcycleId,
   pricePerDay,
-  dateFrom,
-  dateTo,
+  prevDateFrom,
+  prevDateTo,
   submitBtnText,
   oldReservationPrice,
   setIsOpen,
@@ -36,24 +40,29 @@ export const ReservationForm: FC<IProps> = ({
   const form = useForm<Reservation>({
     resolver: zodResolver(reservationSchema),
     defaultValues: {
-      startDate: dateFrom && new Date(dateFrom),
-      endDate: dateTo && new Date(dateTo),
+      dateFrom: prevDateFrom && new Date(prevDateFrom),
+      dateTo: prevDateTo && new Date(prevDateTo),
     },
   });
 
-  const startDate = useWatch({
-    control: form.control,
-    name: 'startDate',
+  const [values, setValues] = useLocalStorage<ICart[]>('cart', [], () => {
+    toast.success('Dodano do koszyka');
+    form.reset();
   });
 
-  const endDate = useWatch({
+  const dateFrom = useWatch({
     control: form.control,
-    name: 'endDate',
+    name: 'dateFrom',
+  });
+
+  const dateTo = useWatch({
+    control: form.control,
+    name: 'dateTo',
   });
 
   const reservationDuration = useMemo(() => {
-    return differenceInCalendarDays(endDate, startDate);
-  }, [startDate, endDate]);
+    return differenceInCalendarDays(dateTo, dateFrom);
+  }, [dateFrom, dateTo]);
 
   const reservationPrice = useMemo(() => {
     return reservationDuration * +pricePerDay || 0;
@@ -65,7 +74,13 @@ export const ReservationForm: FC<IProps> = ({
       return;
     }
 
-    console.log('DODANO DO KOSZYKA');
+    const newCartItem: ICart = {
+      ...data,
+      numberOfDays: reservationDuration,
+      motorcycleId: motorcycleId || '',
+    };
+
+    setValues([...values, newCartItem]);
   };
 
   return (
@@ -74,7 +89,7 @@ export const ReservationForm: FC<IProps> = ({
         <div className='flex gap-3'>
           <FormField
             control={form.control}
-            name='startDate'
+            name='dateFrom'
             render={({ field }) => (
               <FormItem className='flex flex-col flex-1'>
                 <FormLabel>Rezerwacja od</FormLabel>
@@ -86,7 +101,7 @@ export const ReservationForm: FC<IProps> = ({
                       before: addDays(new Date(), 1),
                     },
                     {
-                      after: subDays(endDate, 1),
+                      after: subDays(dateTo, 1),
                     },
                   ]}
                 />
@@ -96,7 +111,7 @@ export const ReservationForm: FC<IProps> = ({
           />
           <FormField
             control={form.control}
-            name='endDate'
+            name='dateTo'
             render={({ field }) => (
               <FormItem className='flex flex-col flex-1'>
                 <FormLabel>Rezerwacja do</FormLabel>
@@ -105,7 +120,7 @@ export const ReservationForm: FC<IProps> = ({
                   setDate={field.onChange}
                   disabledDates={[
                     {
-                      before: addDays(startDate, 1),
+                      before: addDays(dateFrom, 1),
                     },
                   ]}
                 />

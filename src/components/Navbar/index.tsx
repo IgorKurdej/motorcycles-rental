@@ -13,6 +13,7 @@ import {
   DropdownMenuItem,
 } from '../ui/dropdown-menu';
 import { LogOut } from 'lucide-react';
+import { ShoppingCart } from './ShoppingCart';
 
 export const Navbar: FC = () => {
   const { pathname } = useLocation();
@@ -62,36 +63,39 @@ export const Navbar: FC = () => {
         ))}
       </nav>
 
-      {!pb.authStore.isValid ? (
-        <Button>
-          <Link to='/login'>Zaloguj się</Link>
-        </Button>
-      ) : (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <img
-              src={user}
-              alt='user-image'
-              className='w-8 h-8 bg-gray-100 rounded-full'
-            />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <Link to='/user'>
-              <DropdownMenuItem>Konto użytkownika</DropdownMenuItem>
-            </Link>
-            <Link to='/reservations'>
-              <DropdownMenuItem>Rezerwacje</DropdownMenuItem>
-            </Link>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={logout}>
-              Wyloguj
-              <DropdownMenuShortcut>
-                <LogOut size={16} />
-              </DropdownMenuShortcut>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )}
+      <div className='flex items-center gap-8'>
+        <ShoppingCart />
+        {!pb.authStore.isValid ? (
+          <Button>
+            <Link to='/login'>Zaloguj się</Link>
+          </Button>
+        ) : (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <img
+                src={user}
+                alt='user-image'
+                className='w-8 h-8 bg-gray-100 rounded-full'
+              />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <Link to='/user'>
+                <DropdownMenuItem>Konto użytkownika</DropdownMenuItem>
+              </Link>
+              <Link to='/reservations'>
+                <DropdownMenuItem>Rezerwacje</DropdownMenuItem>
+              </Link>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={logout}>
+                Wyloguj
+                <DropdownMenuShortcut>
+                  <LogOut size={16} />
+                </DropdownMenuShortcut>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
+      </div>
     </div>
   );
 };

@@ -56,3 +56,10 @@ export interface IAccordionOption {
   header: string;
   content: ReactNode;
 }
+
+export interface ICart {
+  dateFrom: Date;
+  dateTo: Date;
+  numberOfDays: number;
+  motorcycleId: string;
+}
