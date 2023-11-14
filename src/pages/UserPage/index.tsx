@@ -43,11 +43,11 @@ export const UserPage: FC = () => {
   };
 
   return (
-    <div className='flex flex-col justify-center items-center md:flex-1'>
+    <div className='flex flex-col items-center justify-center md:flex-1'>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className='space-y-4 max-w-lg w-full'
+          className='w-full max-w-lg space-y-4'
         >
           <div className='flex items-center justify-between'>
             <Label className='text-lg'>Dane użytkownika</Label>

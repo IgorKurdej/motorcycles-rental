@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { pb } from '../../libs/pocketbase';
 
 const getLoggedUser = () => {
@@ -7,7 +7,7 @@ const getLoggedUser = () => {
 };
 
 export const useLoggedUser = () => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ['loggedUser'],
     queryFn: getLoggedUser,
   });

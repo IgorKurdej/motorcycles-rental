@@ -1,34 +1,23 @@
-import { UseQueryOptions, useQueries } from 'react-query';
+import { useSuspenseQueries } from '@tanstack/react-query';
+import { IMotorcycle } from '../../libs/types';
+import { pb } from '../../libs/pocketbase';
 
-// export const useMotorcyclesByIds = (ids: string[]) => {
-//   let users = [{ id: 1 }, { id: 2 }, { id: 3 }];
-
-//   const fetchUserById = (
-//     id: number
-//   ): Promise<{ id: number; name: string }>
-
-//   return useQueries({
-//     queries: users.map((user) => {
-//       return {
-//         queryKey: ['user', user.id],
-//         queryFn: () => fetchUserById(user.id),
-//       };
-//     }),
-//   });
-
-type Artist = { name: string };
-
-const fetchArtist = (artistId: string): Artist[] => {
-  return [];
+const getMotorcycleById = (id: string): Promise<IMotorcycle> => {
+  return pb.collection('motorcycles').getOne(id);
 };
 
-const useArtists = (artistIds: string[]) => {
-  return useQueries<Artist[]>([
-    {
-        queryKey: ['artists', artistId],
-        queryFn: () => fetchArtist(artistId),
-        staleTime: Infinity,
+export const useMotorcyclesByIds = (ids: string[]) => {
+  return useSuspenseQueries({
+    queries: ids.map((id) => ({
+      queryKey: ['motorcycle', id],
+      queryFn: () => getMotorcycleById(id),
+      staleTime: Infinity,
+    })),
+    combine: (results) => {
+      return {
+        data: results.map((result) => result.data),
+        pending: results.some((result) => result.isPending),
       };
     },
-  ]);
+  });
 };

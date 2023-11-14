@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { pb } from '../../libs/pocketbase';
 import { Reservation } from '../../libs/types';
 import { format } from 'date-fns';

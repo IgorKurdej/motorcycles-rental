@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { pb } from '../../libs/pocketbase';
 import { User } from '../../libs/types';
 import toast from 'react-hot-toast';
