@@ -58,8 +58,5 @@ export interface IAccordionOption {
 }
 
 export interface ICart {
-  dateFrom: Date;
-  dateTo: Date;
-  numberOfDays: number;
-  motorcycleId: string;
+  cart: Reservation[];
 }

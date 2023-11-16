@@ -1,10 +1,10 @@
 import { LucideShoppingCart } from 'lucide-react';
 import { useLocalStorage } from '../../../hooks/useLocalStorage';
-import { ICart } from '../../../libs/types';
+import { Reservation } from '../../../libs/types';
 import { Link } from 'react-router-dom';
 
 export const ShoppingCart = () => {
-  const [values] = useLocalStorage<ICart[]>('cart', []);
+  const [values] = useLocalStorage<Reservation[]>('cart', []);
 
   return (
     <Link to='/cart' className='relative text-white cursor-pointer'>

@@ -37,6 +37,8 @@ export const reservationSchema = z
       message: 'Start date must be in the future',
     }),
     dateTo: z.coerce.date(),
+    numberOfDays: z.number().optional(),
+    motorcycleId: z.string().optional(),
   })
   .refine((data) => data.dateTo > data.dateFrom, {
     message: 'End date cannot be earlier than start date.',

@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
-import { ICart, Reservation } from '../../libs/types';
+import { Reservation } from '../../libs/types';
 import { Dispatch, FC, SetStateAction, useMemo } from 'react';
 import { Form, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { DateInput } from '../DateInput';
@@ -45,7 +45,7 @@ export const ReservationForm: FC<IProps> = ({
     },
   });
 
-  const [values, setValues] = useLocalStorage<ICart[]>('cart', [], () => {
+  const [values, setValues] = useLocalStorage<Reservation[]>('cart', [], () => {
     toast.success('Dodano do koszyka');
     form.reset();
   });
@@ -74,12 +74,15 @@ export const ReservationForm: FC<IProps> = ({
       return;
     }
 
-    const newCartItem: ICart = {
+    const newCartItem: Reservation = {
       ...data,
       numberOfDays: reservationDuration,
       motorcycleId: motorcycleId || '',
     };
 
+    console.log(newCartItem);
+
+    // save to localstorage
     setValues([...values, newCartItem]);
   };
 

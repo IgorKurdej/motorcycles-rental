@@ -1,55 +1,95 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { EmptyState } from '../../components/EmptyState';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { ICart } from '../../libs/types';
-import { useMotorcyclesByIds } from '../../hooks/queries/useMotorcyclesByIds';
+import { ICart, Reservation } from '../../libs/types';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
-import { CartItem } from '../../components';
+import { CartItem, CartSummary } from '../../components';
 import { Button } from '../../components/ui/button';
+import { Form } from '../../components/ui/form';
+
+export interface ITotalAmountItem {
+  idx: number;
+  price: number;
+}
 
 export const CartPage = () => {
-  const [values] = useLocalStorage<ICart[]>('cart', []);
+  const [values, setValues] = useLocalStorage<Reservation[]>('cart', []);
+  const [isLsLoaded, setIsLsLoaded] = useState(false);
+  const [total, setTotal] = useState<ITotalAmountItem[]>([]);
 
-  const { control, handleSubmit, reset } = useForm<{ cart: ICart[] }>();
+  const form = useForm<ICart>({
+    defaultValues: { cart: [] },
+  });
+  const { register, control, handleSubmit, reset, getValues, watch } = form;
 
-  useEffect(() => {
-    if (values) {
-      reset({ cart: values });
-    }
-  }, [values]);
-
-  const { fields } = useFieldArray({
+  const { fields, remove } = useFieldArray({
     control,
     name: 'cart',
   });
 
-  console.log(fields);
-
-  const motorcyclesIds = useMemo(() => {
-    return new Set(values.map((item) => item.motorcycleId));
+  useEffect(() => {
+    if (!isLsLoaded && values.length) {
+      setIsLsLoaded(true);
+      reset({ cart: values });
+    }
   }, [values]);
 
-  const { data } = useMotorcyclesByIds(Array.from(motorcyclesIds));
+  const watchedValuse = watch('cart');
 
-  const onSubmit: SubmitHandler<{ cart: ICart[] }> = (data) => {
+  useEffect(() => {
+    // console.log(watchedValuse, 'fields');
+    // setValues(watch('cart'));
+  }, [watchedValuse]);
+
+  const totalAmount = useMemo(() => {
+    if (total.length === values.length) {
+      return total.reduce((total, curr) => (total += curr.price), 0);
+    }
+
+    return 0;
+  }, [total, values]);
+
+  const handleRemove = (idx: number) => {
+    remove(idx);
+    setValues(getValues('cart'));
+  };
+
+  const onSubmit: SubmitHandler<ICart> = (data) => {
     console.log(data);
   };
 
   return (
-    <div>
-      {fields.length > 0 ? (
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {fields.map((cartItem) => (
-            <CartItem key={cartItem.id} cartItem={cartItem} />
-          ))}
-
-          <Button type='submit' size='sm'>
-            Zamawiam
-          </Button>
-        </form>
-      ) : (
-        <EmptyState message='Koszyk pusty' />
-      )}
+    <div className='flex justify-center gap-6'>
+      <div className='max-w-[800px] flex-grow'>
+        {fields.length > 0 ? (
+          <Form {...form}>
+            <form
+              id='cart-form'
+              onSubmit={handleSubmit(onSubmit)}
+              className='space-y-6'
+            >
+              {fields.map((cartItem, idx) => (
+                <CartItem
+                  key={cartItem.id}
+                  idx={idx}
+                  control={control}
+                  cartItem={cartItem}
+                  register={register}
+                  handleRemove={handleRemove}
+                  setTotal={setTotal}
+                />
+              ))}
+            </form>
+          </Form>
+        ) : (
+          <EmptyState message='Koszyk pusty' />
+        )}
+      </div>
+      <CartSummary totalAmount={totalAmount}>
+        <Button className='w-full' form='cart-form' type='submit' size='sm'>
+          Zamawiam
+        </Button>
+      </CartSummary>
     </div>
   );
 };
