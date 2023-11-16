@@ -42,11 +42,6 @@ export const Navbar: FC = () => {
       label: 'Oferta',
       isActive: pathname.includes('/motorcycles'),
     },
-    // {
-    //   href: '/contact',
-    //   label: 'Kontakt',
-    //   isActive: pathname === '/contact',
-    // },
   ];
 
   return (
@@ -66,9 +61,9 @@ export const Navbar: FC = () => {
       <div className='flex items-center gap-8'>
         <ShoppingCart />
         {!pb.authStore.isValid ? (
-          <Button>
-            <Link to='/login'>Zaloguj się</Link>
-          </Button>
+          <Link to='/login'>
+            <Button>Zaloguj się</Button>
+          </Link>
         ) : (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

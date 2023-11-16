@@ -101,6 +101,7 @@ export const ReservationItem: FC<IProps> = ({
           setIsOpen={setIsEditModalOpen}
         >
           <ReservationForm
+            motorcycleId={motorcycleId}
             reservationId={reservationId}
             oldReservationPrice={price}
             pricePerDay={pricePerDay}

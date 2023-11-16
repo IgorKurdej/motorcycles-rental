@@ -46,7 +46,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     {
       className,
       variant,
-      size,
+      size = 'sm',
       isLoading,
       asChild = false,
       children,

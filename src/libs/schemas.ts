@@ -54,3 +54,9 @@ export const userSchema = z.object({
   username: z.string().min(1, { message: 'Pole wymagene' }),
   email: z.string().min(1, { message: 'Pole wymagane' }),
 });
+
+export const cartSummarySchema = z.object({
+  discountCode: z.string().optional(),
+  paymentObligation: z.literal(true),
+  isCodeValid: z.boolean(),
+});

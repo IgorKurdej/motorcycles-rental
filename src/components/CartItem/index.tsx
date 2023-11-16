@@ -1,82 +1,64 @@
-import {
-  Dispatch,
-  FC,
-  SetStateAction,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import { ICart, Reservation } from '../../libs/types';
+import { FC, useEffect, useState } from 'react';
+import { ICart } from '../../libs/types';
 import { useGetMotorcycleById } from '../../hooks/queries/useGetMotorcycleById';
 import { Trash2 } from 'lucide-react';
-import { Control, UseFormRegister, useWatch } from 'react-hook-form';
-import { differenceInCalendarDays, parseISO } from 'date-fns';
+import {
+  addDays,
+  differenceInCalendarDays,
+  format,
+  parseISO,
+  subDays,
+} from 'date-fns';
 import { getImgSrc } from '../../libs/utils';
 import { Button } from '../ui/button';
 import { Modal } from '..';
-import { CartItemForm } from './CartItemForm';
-import { ITotalAmountItem } from '../../pages/CartPage';
+import { useCart } from 'react-use-cart';
+import { DateInput } from '../DateInput';
+import { Label } from '../ui/label';
+import { useIsMount } from '../../hooks/useIsMount';
 
 interface IProps {
-  idx: number;
-  control: Control<ICart>;
-  cartItem: Reservation;
-  register: UseFormRegister<ICart>;
-  handleRemove: (idx: number) => void;
-  setTotal: Dispatch<SetStateAction<ITotalAmountItem[]>>;
+  cartItem: ICart;
 }
 
 export const CartItem: FC<IProps> = ({
-  idx,
-  control,
-  cartItem: { motorcycleId },
-  handleRemove,
-  setTotal,
+  cartItem: { id, dateFrom: from, dateTo: to, price, numberOfDays },
 }) => {
+  const isMount = useIsMount();
+
+  const [dateFrom, setDateFrom] = useState<Date>(from);
+  const [dateTo, setDateTo] = useState<Date>(to);
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
 
-  const { data: motorcycle } = useGetMotorcycleById(motorcycleId || '');
+  const { removeItem, updateItem } = useCart();
 
-  const dateFrom = useWatch({
-    control: control,
-    name: `cart.${idx}.dateFrom`,
-  });
-
-  const dateTo = useWatch({
-    control: control,
-    name: `cart.${idx}.dateTo`,
-  });
-
-  const reservationDuration = useMemo(() => {
-    if (dateFrom && dateTo) {
-      return differenceInCalendarDays(
-        parseISO(dateTo.toString()),
-        parseISO(dateFrom.toString())
-      );
-    }
-    return 0;
-  }, [dateFrom, dateTo]);
-
-  const reservationPrice = useMemo(() => {
-    if (reservationDuration || motorcycle) {
-      return reservationDuration * motorcycle.price;
-    }
-    return 0;
-  }, [reservationDuration]);
+  const { data: motorcycle } = useGetMotorcycleById(id || '');
 
   useEffect(() => {
-    if (reservationPrice) {
-      setTotal((prev) => {
-        const isExist = prev.find((item) => item.idx === idx);
+    if (!isMount) {
+      return;
+    }
 
-        if (isExist) {
-          return prev;
-        }
+    handleCardItemChange(dateFrom, dateTo);
+  }, [dateFrom, dateTo]);
 
-        return [...prev, { idx: idx, price: reservationPrice }];
+  const handleCardItemChange = (dateFrom: Date, dateTo: Date) => {
+    if (motorcycle) {
+      const reservationDuration = differenceInCalendarDays(
+        parseISO(format(new Date(dateTo), 'yyyy-MM-dd')),
+        parseISO(format(new Date(dateFrom), 'yyyy-MM-dd'))
+      );
+
+      const newPrice = reservationDuration * motorcycle.price;
+
+      updateItem(id, {
+        dateFrom,
+        dateTo,
+        price: newPrice,
+        numberOfDays: reservationDuration,
       });
     }
-  }, [reservationPrice]);
+  };
 
   return (
     <>
@@ -103,16 +85,44 @@ export const CartItem: FC<IProps> = ({
             />
           </div>
 
-          <CartItemForm
-            idx={idx}
-            control={control}
-            dateFrom={dateFrom}
-            dateTo={dateTo}
-          />
+          <div className='flex gap-4'>
+            <div className='flex-1'>
+              <Label>Rezerwacja od</Label>
+              <DateInput
+                date={new Date(dateFrom)}
+                setDate={setDateFrom}
+                disabledDates={[
+                  {
+                    before: addDays(new Date(), 1),
+                  },
+                  {
+                    after: subDays(
+                      parseISO(format(new Date(dateTo), 'yyyy-MM-dd')),
+                      1
+                    ),
+                  },
+                ]}
+              />
+            </div>
+            <div className='flex-1'>
+              <Label>Rezerwacja do</Label>
+              <DateInput
+                date={new Date(dateTo)}
+                setDate={setDateTo}
+                disabledDates={[
+                  {
+                    before: addDays(
+                      parseISO(format(new Date(dateFrom), 'yyyy-MM-dd')),
+                      1
+                    ),
+                  },
+                ]}
+              />
+            </div>
+          </div>
 
-          <p className='space-x-3 font-medium text-right'>
-            <span>Cena za {reservationDuration} dni:</span>
-            <span>{reservationPrice} zł</span>
+          <p className='space-x-2 font-medium text-right'>
+            {`${numberOfDays} dni / ${price} zł`}
           </p>
         </div>
       </div>
@@ -125,16 +135,17 @@ export const CartItem: FC<IProps> = ({
           footer={
             <>
               <Button
-                size='sm'
                 variant='secondary'
                 onClick={() => setIsRemoveModalOpen(false)}
               >
                 Anuluj
               </Button>
               <Button
-                size='sm'
                 variant='destructive'
-                onClick={() => handleRemove(idx)}
+                onClick={() => {
+                  removeItem(id);
+                  setIsRemoveModalOpen(false);
+                }}
               >
                 Tak, usuń
               </Button>

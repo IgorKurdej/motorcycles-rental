@@ -1,16 +1,15 @@
 import { LucideShoppingCart } from 'lucide-react';
-import { useLocalStorage } from '../../../hooks/useLocalStorage';
-import { Reservation } from '../../../libs/types';
 import { Link } from 'react-router-dom';
+import { useCart } from 'react-use-cart';
 
 export const ShoppingCart = () => {
-  const [values] = useLocalStorage<Reservation[]>('cart', []);
+  const { totalItems, isEmpty } = useCart();
 
   return (
     <Link to='/cart' className='relative text-white cursor-pointer'>
-      {values.length > 0 && (
+      {!isEmpty && (
         <div className='absolute flex items-center justify-center min-w-[16px] p-1 h-4 text-[10px] rounded-full bg-primary -top-1/2 -right-1/2'>
-          {values.length}
+          {totalItems}
         </div>
       )}
       <LucideShoppingCart size={24} />

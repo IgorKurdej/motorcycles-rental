@@ -10,7 +10,7 @@ import { Matcher } from 'react-day-picker';
 interface IProps {
   date: Date | undefined;
   disabledDates?: Matcher | Matcher[];
-  setDate: Dispatch<SetStateAction<Date | undefined>>;
+  setDate: Dispatch<SetStateAction<Date>>;
 }
 
 export const DateInput: FC<IProps> = ({ date, disabledDates, setDate }) => {
@@ -26,7 +26,7 @@ export const DateInput: FC<IProps> = ({ date, disabledDates, setDate }) => {
             !date && 'text-muted-foreground'
           )}
         >
-          <CalendarIcon className='mr-2 h-4 w-4' />
+          <CalendarIcon className='w-4 h-4 mr-2' />
           {date ? format(date, 'dd-MM-yyyy') : <span>Wybierz datę</span>}
         </Button>
       </PopoverTrigger>
@@ -36,7 +36,7 @@ export const DateInput: FC<IProps> = ({ date, disabledDates, setDate }) => {
           selected={date}
           disabled={disabledDates}
           onSelect={(e) => {
-            setDate(e);
+            e && setDate(e);
             setIsCalendarOpen(false);
           }}
           initialFocus

@@ -8,12 +8,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { reservationSchema } from '../../libs/schemas';
 import { addDays, differenceInCalendarDays, subDays } from 'date-fns';
 import { useReservationUpdate } from '../../hooks/mutations/useReservationUpdate';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
 import toast from 'react-hot-toast';
+import { useCart } from 'react-use-cart';
 
 interface IProps {
   reservationId?: string;
-  motorcycleId?: string;
+  motorcycleId: string;
   pricePerDay: number;
   prevDateFrom?: Date;
   prevDateTo?: Date;
@@ -45,10 +45,11 @@ export const ReservationForm: FC<IProps> = ({
     },
   });
 
-  const [values, setValues] = useLocalStorage<Reservation[]>('cart', [], () => {
-    toast.success('Dodano do koszyka');
-    form.reset();
-  });
+  const { addItem, inCart } = useCart();
+  // const [values, setValues] = useLocalStorage<Reservation[]>('cart', [], () => {
+  //   toast.success('Dodano do koszyka');
+  //   form.reset();
+  // });
 
   const dateFrom = useWatch({
     control: form.control,
@@ -74,16 +75,20 @@ export const ReservationForm: FC<IProps> = ({
       return;
     }
 
-    const newCartItem: Reservation = {
-      ...data,
+    if (inCart(motorcycleId)) {
+      toast.error('Nie możesz dodać tego samego produktu do koszyka');
+      return;
+    }
+
+    addItem({
+      id: motorcycleId,
+      price: reservationPrice,
       numberOfDays: reservationDuration,
-      motorcycleId: motorcycleId || '',
-    };
+      ...data,
+    });
 
-    console.log(newCartItem);
-
-    // save to localstorage
-    setValues([...values, newCartItem]);
+    toast.success('Dodano do koszyka');
+    form.reset();
   };
 
   return (
