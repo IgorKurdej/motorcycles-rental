@@ -58,5 +58,5 @@ export const userSchema = z.object({
 export const cartSummarySchema = z.object({
   discountCode: z.string().optional(),
   paymentObligation: z.literal(true),
-  isCodeValid: z.boolean(),
+  isCodeValid: z.boolean().optional(),
 });
