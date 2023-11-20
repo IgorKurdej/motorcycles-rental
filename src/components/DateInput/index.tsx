@@ -10,10 +10,16 @@ import { Matcher } from 'react-day-picker';
 interface IProps {
   date: Date | undefined;
   disabledDates?: Matcher | Matcher[];
+  defaultDate?: Date;
   setDate: Dispatch<SetStateAction<Date>>;
 }
 
-export const DateInput: FC<IProps> = ({ date, disabledDates, setDate }) => {
+export const DateInput: FC<IProps> = ({
+  date,
+  disabledDates,
+  defaultDate,
+  setDate,
+}) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   return (
@@ -32,6 +38,7 @@ export const DateInput: FC<IProps> = ({ date, disabledDates, setDate }) => {
       </PopoverTrigger>
       <PopoverContent className='w-auto p-0'>
         <Calendar
+          defaultMonth={defaultDate || new Date()}
           mode='single'
           selected={date}
           disabled={disabledDates}

@@ -10,7 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../../components/ui/accordion';
-import { IAccordionOption, IMotorcycle } from '../../libs/types';
+import { IAccordionOption } from '../../libs/types';
 import { ReservationForm, Reviews } from '../../components';
 import { MotorcycleDetails } from '../../components/MotorcycleDetails';
 import { useReviews } from '../../hooks/queries/useReviews';
@@ -20,9 +20,6 @@ export const MotorcyclePage: FC = () => {
 
   const { data: motorcycle } = useGetMotorcycleById(id || '');
   const { data: reviews } = useReviews(id || '');
-
-  // const  = motorcycle as IMotorcycle;
-
   const accordionOptions: IAccordionOption[] = [
     {
       value: 'description',

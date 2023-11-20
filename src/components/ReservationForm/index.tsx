@@ -126,6 +126,7 @@ export const ReservationForm: FC<IProps> = ({
                 <DateInput
                   date={field.value}
                   setDate={field.onChange}
+                  defaultDate={dateFrom}
                   disabledDates={[
                     {
                       before: addDays(dateFrom, 1),
