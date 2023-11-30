@@ -46,10 +46,6 @@ export const ReservationForm: FC<IProps> = ({
   });
 
   const { addItem, inCart } = useCart();
-  // const [values, setValues] = useLocalStorage<Reservation[]>('cart', [], () => {
-  //   toast.success('Dodano do koszyka');
-  //   form.reset();
-  // });
 
   const dateFrom = useWatch({
     control: form.control,

@@ -47,6 +47,11 @@ export interface IReservation extends Record {
   };
 }
 
+export type NewReservationBody = Pick<
+  IReservation,
+  'motorcycleId' | 'userId' | 'dateFrom' | 'dateTo' | 'price'
+>;
+
 export interface IReview extends Record {
   message: string;
   rate: 1 | 2 | 3 | 4 | 5;

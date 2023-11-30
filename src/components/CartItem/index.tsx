@@ -62,7 +62,7 @@ export const CartItem: FC<IProps> = ({
 
   return (
     <>
-      <div className='flex items-center gap-10 p-4'>
+      <div className='flex flex-col items-center gap-4 p-4 sm:gap-10 sm:flex-row animate-[wiggle_0.5s_ease]'>
         <div className='flex items-center gap-5 mt-2'>
           <div className='h-40 my-auto w-60'>
             <img
@@ -73,8 +73,8 @@ export const CartItem: FC<IProps> = ({
           </div>
         </div>
 
-        <div className='flex-1 space-y-3'>
-          <div className='flex items-center justify-between text-xl font-semibold'>
+        <div className='w-full space-y-3 '>
+          <div className='flex items-center justify-between gap-3 text-xl font-semibold'>
             <span>
               {motorcycle.brand} {motorcycle.model}
             </span>
@@ -85,7 +85,7 @@ export const CartItem: FC<IProps> = ({
             />
           </div>
 
-          <div className='flex gap-4'>
+          <div className='flex flex-col gap-1 lg:gap-4 lg:flex-row'>
             <div className='flex-1'>
               <Label>Rezerwacja od</Label>
               <DateInput

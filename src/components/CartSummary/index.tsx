@@ -10,13 +10,20 @@ import { cartSummarySchema } from '../../libs/schemas';
 import { useCart } from 'react-use-cart';
 import toast from 'react-hot-toast';
 import { pb } from '../../libs/pocketbase';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAddNewReservation } from '../../hooks/mutations/useAddNewReservation';
+import { format, parseISO } from 'date-fns';
 
 const DISCOUNT_CODE = 'rabat';
 
 export const CartSummary: FC = () => {
-  const { cartTotal, items } = useCart();
+  const { cartTotal, items, isEmpty, emptyCart } = useCart();
+  const navigate = useNavigate();
+
   const isAuth = pb.authStore.isValid;
+  const loggedUser = pb.authStore.model?.id;
+
+  const { mutateAsync } = useAddNewReservation(() => {});
 
   const form = useForm<TCartSummary>({
     resolver: zodResolver(cartSummarySchema),
@@ -46,12 +53,23 @@ export const CartSummary: FC = () => {
     toast.success('Zastosowano kod rabatowy');
   };
 
-  const onSubmit: SubmitHandler<TCartSummary> = () => {
-    console.log(items);
+  const onSubmit: SubmitHandler<TCartSummary> = ({ isCodeValid }) => {
+    mutateAsync(
+      items.map(({ price, dateFrom, dateTo, id }) => ({
+        userId: loggedUser || '',
+        motorcycleId: id,
+        dateFrom: new Date(format(parseISO(dateFrom), 'yyyy-MM-dd HH:mm:ss')),
+        dateTo: new Date(format(parseISO(dateTo), 'yyyy-MM-dd HH:mm:ss')),
+        price: isCodeValid ? (price * 0.9).toString() : price.toString(),
+      }))
+    ).finally(() => {
+      emptyCart();
+      navigate('/reservations');
+    });
   };
 
   return (
-    <div className='flex-1 flex-col flex gap-3 shadow max-w-[350px] p-6 rounded sticky top-20 h-fit'>
+    <div className='sticky flex flex-col gap-3 p-6 rounded shadow w-80 top-20 h-fit'>
       <p className='text-xl font-semibold'>Podsumowanie</p>
       <div className='flex justify-between mb-2 font-medium'>
         <span>Kwota łączna:</span>
@@ -67,13 +85,13 @@ export const CartSummary: FC = () => {
               <Input
                 placeholder='wpisz kod rabatowy'
                 className='h-[36px]'
-                disabled={isCodeValid}
+                disabled={isCodeValid || isEmpty}
                 {...register('discountCode')}
               />
               <Button
                 variant='outline'
                 onClick={handleDiscountCodeApply}
-                disabled={isCodeValid}
+                disabled={isCodeValid || isEmpty}
                 type='button'
               >
                 Dodaj
@@ -93,6 +111,7 @@ export const CartSummary: FC = () => {
                   id='paymentObligation'
                   onCheckedChange={onChange}
                   className={errors.paymentObligation && 'border-destructive'}
+                  disabled={isEmpty}
                 />
               )}
             />
@@ -104,7 +123,7 @@ export const CartSummary: FC = () => {
             </Label>
           </div>
 
-          <Button className='w-full' type='submit'>
+          <Button className='w-full' type='submit' disabled={isEmpty}>
             Zamawiam
           </Button>
         </form>

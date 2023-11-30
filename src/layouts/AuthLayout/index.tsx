@@ -9,14 +9,14 @@ export const AuthLayout: FC = () => {
       <Navbar />
       <div className='flex h-[calc(100vh-64px)] xxl:h-[calc(100vh-80px)] justify-center p-10 flex-col items-center'>
         <div className='flex max-w-[1200px] w-full max-h-[1000px] md:shadow overflow-hidden rounded-lg'>
-          <div className='md:flex-1 hidden md:block'>
+          <div className='hidden md:flex-1 md:block'>
             <img
               src={motoAuth}
               alt='auth-motorcycle-image'
-              className='h-full object-cover w-full'
+              className='object-cover w-full h-full'
             />
           </div>
-          <div className='flex-1 flex flex-col justify-center'>
+          <div className='flex flex-col justify-center flex-1'>
             <Outlet />
           </div>
         </div>

@@ -24,7 +24,6 @@ export const Navbar: FC = () => {
       pb.authStore.clear();
     } catch (e) {
       toast.error('Coś poszło nie tak!');
-      console.log(e);
     } finally {
       toast('Do zobaczenia!');
       naviagate('/');
@@ -34,7 +33,7 @@ export const Navbar: FC = () => {
   const routes = [
     {
       href: '/',
-      label: 'Strona głowna',
+      label: 'Home',
       isActive: pathname === '/',
     },
     {
@@ -58,7 +57,7 @@ export const Navbar: FC = () => {
         ))}
       </nav>
 
-      <div className='flex items-center gap-8'>
+      <div className='flex items-center gap-4 md:gap-8'>
         <ShoppingCart />
         {!pb.authStore.isValid ? (
           <Link to='/login'>

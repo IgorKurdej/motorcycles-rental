@@ -41,12 +41,12 @@ export const SignupPage: FC = () => {
   };
 
   return (
-    <div className='flex flex-col items-center w-full py-8 overflow-auto sm:px-10 lg:px-24'>
+    <div className='flex flex-col items-center w-full p-3 overflow-auto sm:px-10 lg:px-24'>
       <p className='mb-5 text-2xl font-semibold'>Załóż konto</p>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className='flex flex-col w-full gap-4'
+          className='flex flex-col w-full gap-3'
         >
           <FormField
             control={form.control}
