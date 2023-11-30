@@ -23,7 +23,7 @@ export const MotorcycleCard: FC<IProps> = ({ motorcycle }) => {
   } = motorcycle;
 
   return (
-    <div className='md:grid border-b md:grid-cols-2 max-w-[500px] md:max-w-[1000px] lg:h-[230px] w-full py-6 md:py-2 items-center justify-center'>
+    <div className='md:grid border-b md:grid-cols-2 max-w-[500px] md:max-w-[1000px] lg:h-[230px] w-full py-6 md:py-2 items-center justify-center animate-[wiggle_0.5s_ease]'>
       <img
         className='mx-auto max-h-52'
         src={getImgSrc(collectionId, id, image)}

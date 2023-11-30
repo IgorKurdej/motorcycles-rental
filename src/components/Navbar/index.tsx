@@ -13,6 +13,7 @@ import {
   DropdownMenuItem,
 } from '../ui/dropdown-menu';
 import { LogOut } from 'lucide-react';
+import { ShoppingCart } from './ShoppingCart';
 
 export const Navbar: FC = () => {
   const { pathname } = useLocation();
@@ -23,7 +24,6 @@ export const Navbar: FC = () => {
       pb.authStore.clear();
     } catch (e) {
       toast.error('Coś poszło nie tak!');
-      console.log(e);
     } finally {
       toast('Do zobaczenia!');
       naviagate('/');
@@ -33,7 +33,7 @@ export const Navbar: FC = () => {
   const routes = [
     {
       href: '/',
-      label: 'Strona głowna',
+      label: 'Home',
       isActive: pathname === '/',
     },
     {
@@ -41,11 +41,6 @@ export const Navbar: FC = () => {
       label: 'Oferta',
       isActive: pathname.includes('/motorcycles'),
     },
-    // {
-    //   href: '/contact',
-    //   label: 'Kontakt',
-    //   isActive: pathname === '/contact',
-    // },
   ];
 
   return (
@@ -62,36 +57,39 @@ export const Navbar: FC = () => {
         ))}
       </nav>
 
-      {!pb.authStore.isValid ? (
-        <Button>
-          <Link to='/login'>Zaloguj się</Link>
-        </Button>
-      ) : (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <img
-              src={user}
-              alt='user-image'
-              className='w-8 h-8 bg-gray-100 rounded-full'
-            />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <Link to='/user'>
-              <DropdownMenuItem>Konto użytkownika</DropdownMenuItem>
-            </Link>
-            <Link to='/reservations'>
-              <DropdownMenuItem>Rezerwacje</DropdownMenuItem>
-            </Link>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={logout}>
-              Wyloguj
-              <DropdownMenuShortcut>
-                <LogOut size={16} />
-              </DropdownMenuShortcut>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )}
+      <div className='flex items-center gap-4 md:gap-8'>
+        <ShoppingCart />
+        {!pb.authStore.isValid ? (
+          <Link to='/login'>
+            <Button>Zaloguj się</Button>
+          </Link>
+        ) : (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <img
+                src={user}
+                alt='user-image'
+                className='w-8 h-8 bg-gray-100 rounded-full'
+              />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <Link to='/user'>
+                <DropdownMenuItem>Konto użytkownika</DropdownMenuItem>
+              </Link>
+              <Link to='/reservations'>
+                <DropdownMenuItem>Rezerwacje</DropdownMenuItem>
+              </Link>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={logout}>
+                Wyloguj
+                <DropdownMenuShortcut>
+                  <LogOut size={16} />
+                </DropdownMenuShortcut>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
+      </div>
     </div>
   );
 };

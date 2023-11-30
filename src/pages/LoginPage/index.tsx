@@ -19,7 +19,7 @@ import { ShowPassword } from '../../components';
 import { Login } from '../../libs/types';
 
 export const LoginPage: FC = () => {
-  const { mutate, isLoading } = useLogin();
+  const { mutate, isPending } = useLogin();
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 
   const form = useForm<Login>({
@@ -32,12 +32,12 @@ export const LoginPage: FC = () => {
   };
 
   return (
-    <div className='w-full sm:p-10 lg:p-24 flex flex-col items-center'>
-      <p className='text-2xl font-semibold mb-5'>Zaloguj się</p>
+    <div className='flex flex-col items-center w-full sm:p-10 lg:p-24'>
+      <p className='mb-5 text-2xl font-semibold'>Zaloguj się</p>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className='w-full flex flex-col gap-4'
+          className='flex flex-col w-full gap-4'
         >
           <FormField
             control={form.control}
@@ -75,7 +75,7 @@ export const LoginPage: FC = () => {
               </FormItem>
             )}
           />
-          <Button type='submit' className='flex-1' isLoading={isLoading}>
+          <Button type='submit' isLoading={isPending}>
             Zaloguj
           </Button>
         </form>
@@ -83,7 +83,7 @@ export const LoginPage: FC = () => {
       <p className='mt-4'>Nie masz jeszcze konta?</p>
       <Link
         to='/signup'
-        className='mt-1 font-semibold underline text-green-600'
+        className='mt-1 font-semibold text-green-600 underline'
       >
         Załóż konto
       </Link>

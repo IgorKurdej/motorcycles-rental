@@ -21,16 +21,19 @@ export const Reviews: FC<IProps> = ({ reviews }) => {
     </div>
   ) : (
     <div className='max-w-full'>
-      <div className='mb-5 flex items-center'>
-        <span className='font-medium text-base'>
+      <p className='text-sm font-light text-center text-gray-500 md:text-left'>
+        Opinie możesz dodać dopiero po odbytej rezerwacji
+      </p>
+      <div className='flex items-center my-5'>
+        <span className='text-base font-medium'>
           Średnia ocena {countAvgRating(reviews || [])} na {reviews?.length}{' '}
           opinii
         </span>
       </div>
-      <div className='space-y-8 max-h-80 overflow-y-auto'>
+      <div className='space-y-8 overflow-y-auto max-h-80'>
         {reviews?.map((review) => (
-          <div key={review.id} className='space-y-3 pr-5'>
-            <div className='flex justify-between items-center'>
+          <div key={review.id} className='pr-5 space-y-3'>
+            <div className='flex items-center justify-between'>
               <div className='flex items-center gap-3'>
                 <img
                   className='w-8 h-8 bg-gray-100 rounded-full'

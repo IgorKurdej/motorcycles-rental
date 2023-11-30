@@ -67,7 +67,7 @@ export const AddReview: FC<IProps> = ({ motorcycleId, isOpen, setIsOpen }) => {
             />
             <div>
               <p className='font-medium'>{motorcycle.brand}</p>
-              <p className='font-light text-sm text-gray-400'>
+              <p className='text-sm font-light text-gray-400'>
                 {motorcycle.model}
               </p>
             </div>
@@ -76,20 +76,9 @@ export const AddReview: FC<IProps> = ({ motorcycleId, isOpen, setIsOpen }) => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className='space-y-3 mt-3'
+            className='mt-3 space-y-3'
           >
             <div className='space-y-4'>
-              <FormField
-                control={form.control}
-                name='message'
-                render={({ field }) => (
-                  <FormItem className='flex flex-col flex-1'>
-                    <FormLabel>Twoja opinia</FormLabel>
-                    <Textarea {...field} />
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <FormField
                 control={form.control}
                 name='rate'
@@ -101,6 +90,17 @@ export const AddReview: FC<IProps> = ({ motorcycleId, isOpen, setIsOpen }) => {
                       value={Number(field.value)}
                       onChange={field.onChange}
                     />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='message'
+                render={({ field }) => (
+                  <FormItem className='flex flex-col flex-1'>
+                    <FormLabel>Twoja opinia</FormLabel>
+                    <Textarea {...field} />
                     <FormMessage />
                   </FormItem>
                 )}

@@ -1,6 +1,5 @@
-import { useQuery } from 'react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { pb } from '../../libs/pocketbase';
-import toast from 'react-hot-toast';
 import { IMotorcycle } from '../../libs/types';
 
 const getMotorcycles = async (): Promise<IMotorcycle[]> => {
@@ -8,9 +7,9 @@ const getMotorcycles = async (): Promise<IMotorcycle[]> => {
 };
 
 export const useGetMotorcycles = () => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ['motorcycles'],
     queryFn: getMotorcycles,
-    onError: () => toast.error('Coś poszło nie tak!'),
+    // onError: () => toast.error('Coś poszło nie tak!'),
   });
 };

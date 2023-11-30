@@ -33,12 +33,14 @@ export const signupSchema = z
 
 export const reservationSchema = z
   .object({
-    startDate: z.coerce.date().refine((data) => data > new Date(), {
+    dateFrom: z.coerce.date().refine((data) => data > new Date(), {
       message: 'Start date must be in the future',
     }),
-    endDate: z.coerce.date(),
+    dateTo: z.coerce.date(),
+    numberOfDays: z.number().optional(),
+    motorcycleId: z.string().optional(),
   })
-  .refine((data) => data.endDate > data.startDate, {
+  .refine((data) => data.dateTo > data.dateFrom, {
     message: 'End date cannot be earlier than start date.',
     path: ['endDate'],
   });
@@ -51,4 +53,10 @@ export const addNewReviewSchema = z.object({
 export const userSchema = z.object({
   username: z.string().min(1, { message: 'Pole wymagene' }),
   email: z.string().min(1, { message: 'Pole wymagane' }),
+});
+
+export const cartSummarySchema = z.object({
+  discountCode: z.string().optional(),
+  paymentObligation: z.literal(true),
+  isCodeValid: z.boolean().optional(),
 });

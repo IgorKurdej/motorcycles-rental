@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { pb } from '../../libs/pocketbase';
 import { Reservation } from '../../libs/types';
 import { format } from 'date-fns';
@@ -8,14 +8,14 @@ interface IReservationWithPrice extends Reservation {
   price: number;
 }
 
-const updateReservation = async (
+const updateReservation = (
   data: IReservationWithPrice,
   reservationId: string
 ) => {
-  const { startDate, endDate, price } = data;
+  const { dateFrom, dateTo, price } = data;
   return pb.collection('reservations').update(reservationId, {
-    dateFrom: format(startDate, 'yyyy-MM-dd 12:00:00'),
-    dateTo: format(endDate, 'yyyy-MM-dd 12:00:00'),
+    dateFrom: format(dateFrom, 'yyyy-MM-dd 12:00:00'),
+    dateTo: format(dateTo, 'yyyy-MM-dd 12:00:00'),
     price: price,
   });
 };

@@ -10,29 +10,16 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../../components/ui/accordion';
-import { IAccordionOption, IMotorcycle } from '../../libs/types';
+import { IAccordionOption } from '../../libs/types';
 import { ReservationForm, Reviews } from '../../components';
 import { MotorcycleDetails } from '../../components/MotorcycleDetails';
 import { useReviews } from '../../hooks/queries/useReviews';
 
 export const MotorcyclePage: FC = () => {
   const { id } = useParams();
+
   const { data: motorcycle } = useGetMotorcycleById(id || '');
-
   const { data: reviews } = useReviews(id || '');
-
-  const {
-    id: motoId,
-    collectionName,
-    brand,
-    model,
-    price,
-    year,
-    enginePower,
-    engineCapacity,
-    image,
-  } = motorcycle as IMotorcycle;
-
   const accordionOptions: IAccordionOption[] = [
     {
       value: 'description',
@@ -46,9 +33,9 @@ export const MotorcyclePage: FC = () => {
       content: (
         <MotorcycleDetails
           className='my-3'
-          year={year}
-          enginePower={enginePower}
-          engineCapacity={engineCapacity}
+          year={motorcycle?.year || 0}
+          enginePower={motorcycle?.enginePower || 0}
+          engineCapacity={motorcycle?.engineCapacity || 0}
         />
       ),
     },
@@ -72,17 +59,25 @@ export const MotorcyclePage: FC = () => {
       <div className='max-w-[600px] w-full flex flex-col gap-3'>
         <div className='flex flex-col items-center justify-center'>
           <img
-            src={getImgSrc(collectionName, motoId, image)}
+            src={getImgSrc(
+              'motorcycles',
+              motorcycle?.id || '',
+              motorcycle?.image || ''
+            )}
             alt='product'
             className='h-[200px] sm:h-[300px] object-contain'
           />
           <p className='flex flex-col items-center justify-center my-4 md:flex-row md:gap-2'>
-            <span className='text-3xl font-semibold'>{brand}</span>
-            <span className='text-2xl font-medium'>{model}</span>
+            <span className='text-3xl font-semibold'>{motorcycle?.brand}</span>
+            <span className='text-2xl font-medium'>{motorcycle?.model}</span>
           </p>
         </div>
 
-        <ReservationForm pricePerDay={price} submitBtnText='Dodaj do koszyka' />
+        <ReservationForm
+          pricePerDay={motorcycle?.price || 0}
+          submitBtnText='Dodaj do koszyka'
+          motorcycleId={id || ''}
+        />
 
         <Accordion type='single' collapsible>
           {accordionOptions.map(({ value, header, content }) => (

@@ -7,6 +7,7 @@ import { AddReview } from './AddReview';
 import { format } from 'date-fns';
 import { Badge } from '../ui/badge';
 import { Modal, ReservationForm } from '..';
+import { Link } from 'react-router-dom';
 
 interface IProps {
   reservationId: string;
@@ -41,19 +42,21 @@ export const ReservationItem: FC<IProps> = ({
 
   return (
     <>
-      <div className='w-72 text-center shadow border rounded-xl flex flex-col justify-between overflow-hidden relative pt-2'>
-        <Badge variant='secondary' className='w-fit absolute top-2 left-2'>
+      <div className='relative flex flex-col justify-between pt-2 overflow-hidden text-center border shadow w-72 rounded-xl animate-[wiggle_0.5s_ease]'>
+        <Badge variant='secondary' className='absolute w-fit top-2 left-2'>
           {price} zł
         </Badge>
         <BadgeStatus status={reservationStatus} />
-        <img
-          className='h-[175px] object-contain'
-          src={getImgSrc('motorcycles', motorcycleId, image)}
-          alt='reservation-image'
-        />
+        <Link to={`/motorcycles/${motorcycleId}`} relative='route'>
+          <img
+            className='h-[175px] object-contain'
+            src={getImgSrc('motorcycles', motorcycleId, image)}
+            alt='reservation-image'
+          />
+        </Link>
 
         <div className='flex flex-col gap-4 my-4'>
-          <p className='font-medium text-lg'>
+          <p className='text-lg font-medium'>
             {brand} {model}
           </p>
           <div className='flex justify-around text-gray-600'>
@@ -101,11 +104,12 @@ export const ReservationItem: FC<IProps> = ({
           setIsOpen={setIsEditModalOpen}
         >
           <ReservationForm
+            motorcycleId={motorcycleId}
             reservationId={reservationId}
             oldReservationPrice={price}
             pricePerDay={pricePerDay}
-            dateFrom={dateFrom}
-            dateTo={dateTo}
+            prevDateFrom={dateFrom}
+            prevDateTo={dateTo}
             submitBtnText='Zapisz'
             setIsOpen={setIsEditModalOpen}
           />

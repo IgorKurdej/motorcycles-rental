@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import {
   addNewReviewSchema,
+  cartSummarySchema,
   loginSchema,
   reservationSchema,
   signupSchema,
@@ -8,6 +9,7 @@ import {
 } from './schemas';
 import { Record } from 'pocketbase';
 import { ReactNode } from 'react';
+import { Item } from 'react-use-cart';
 
 export enum ReservationStatus {
   ended = 'ended',
@@ -20,6 +22,7 @@ export type Signup = z.infer<typeof signupSchema>;
 export type Reservation = z.infer<typeof reservationSchema>;
 export type AddNewReview = z.infer<typeof addNewReviewSchema>;
 export type User = z.infer<typeof userSchema>;
+export type TCartSummary = z.infer<typeof cartSummarySchema>;
 
 export interface IMotorcycle extends Record {
   brand: string;
@@ -44,6 +47,11 @@ export interface IReservation extends Record {
   };
 }
 
+export type NewReservationBody = Pick<
+  IReservation,
+  'motorcycleId' | 'userId' | 'dateFrom' | 'dateTo' | 'price'
+>;
+
 export interface IReview extends Record {
   message: string;
   rate: 1 | 2 | 3 | 4 | 5;
@@ -55,4 +63,10 @@ export interface IAccordionOption {
   value: string;
   header: string;
   content: ReactNode;
+}
+
+export interface ICart extends Item {
+  dateFrom: Date;
+  dateTo: Date;
+  numberOfDays: number;
 }

@@ -20,7 +20,7 @@ import { ShowPassword } from '../../components';
 import { Signup } from '../../libs/types';
 
 export const SignupPage: FC = () => {
-  const { mutate, isLoading } = useSignup();
+  const { mutate, isPending } = useSignup();
 
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
   const [isConfirmPasswordHidden, setIsConfirmPasswordHidden] = useState(true);
@@ -41,12 +41,12 @@ export const SignupPage: FC = () => {
   };
 
   return (
-    <div className='w-full sm:px-10 lg:px-24 py-8 flex flex-col items-center overflow-auto'>
-      <p className='text-2xl font-semibold mb-5'>Załóż konto</p>
+    <div className='flex flex-col items-center w-full p-3 overflow-auto sm:px-10 lg:px-24'>
+      <p className='mb-5 text-2xl font-semibold'>Załóż konto</p>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className='w-full flex flex-col gap-4'
+          className='flex flex-col w-full gap-3'
         >
           <FormField
             control={form.control}
@@ -124,7 +124,7 @@ export const SignupPage: FC = () => {
             control={form.control}
             name='terms'
             render={({ field }) => (
-              <FormItem className='flex items-start space-x-3 space-y-0 my-1'>
+              <FormItem className='flex items-start my-1 space-x-3 space-y-0'>
                 <FormControl>
                   <Checkbox
                     checked={field.value}
@@ -135,18 +135,13 @@ export const SignupPage: FC = () => {
               </FormItem>
             )}
           />
-          <Button
-            type='submit'
-            className='flex-1'
-            isLoading={isLoading}
-            disabled={isLoading}
-          >
+          <Button type='submit' isLoading={isPending} disabled={isPending}>
             Zarejestuj
           </Button>
         </form>
       </Form>
       <p className='mt-4'>Masz już aktywne konto?</p>
-      <Link to='/login' className='mt-1 font-semibold underline text-green-600'>
+      <Link to='/login' className='mt-1 font-semibold text-green-600 underline'>
         Zaloguj się
       </Link>
     </div>

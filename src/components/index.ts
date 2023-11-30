@@ -6,3 +6,5 @@ export { Reviews } from './Reviews';
 export { ReservationItem } from './ReservationItem';
 export { ReservationForm } from './ReservationForm';
 export { Modal } from './Modal';
+export { CartItem } from './CartItem';
+export { CartSummary } from './CartSummary';

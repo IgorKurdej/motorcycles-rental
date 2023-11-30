@@ -1,4 +1,7 @@
-import { UseQueryOptions, useQuery } from 'react-query';
+import {
+  UseSuspenseQueryOptions,
+  useSuspenseQuery,
+} from '@tanstack/react-query';
 import { pb } from '../../libs/pocketbase';
 import { IReservation } from '../../libs/types';
 
@@ -10,11 +13,11 @@ const getUserReservations = (userId?: string): Promise<IReservation[]> => {
 };
 
 export const useUserReservations = (
-  options?: UseQueryOptions<IReservation[]>
+  options?: UseSuspenseQueryOptions<IReservation[]>
 ) => {
   const loggedUserId = pb.authStore.model?.id;
 
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ['userReservations', loggedUserId],
     queryFn: () => getUserReservations(loggedUserId),
     ...options,

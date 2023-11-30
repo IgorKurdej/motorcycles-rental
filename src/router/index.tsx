@@ -12,6 +12,7 @@ import {
   MotorcyclePage,
   UserPage,
   ReservationsPage,
+  CartPage,
 } from '../pages';
 import { ProtectedIAuth } from '../layouts/ProtectedIfAuth';
 import { ProtectedIfNotAuth } from '../layouts/ProtectedIfNotAuth';
@@ -36,6 +37,14 @@ export const router = createBrowserRouter(
           element={
             <Suspense fallback={<Spinner />}>
               <MotorcyclePage />
+            </Suspense>
+          }
+        />
+        <Route
+          path='/cart'
+          element={
+            <Suspense fallback={<Spinner />}>
+              <CartPage />
             </Suspense>
           }
         />
