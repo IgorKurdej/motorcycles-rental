@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
-import { Checkbox } from '../ui/checkbox';
+import { Input } from '../../../../components/ui/input';
+import { Label } from '../../../../components/ui/label';
+import { Checkbox } from '../../../../components/ui/checkbox';
 import { ArrowDownAZ, ArrowDownZA, X } from 'lucide-react';
 import {
   Select,
@@ -9,11 +9,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../ui/select';
-import { useFiltersStore } from '../../hooks/useFiltersStore';
-import { allBrands } from '../../pages/OfferPage';
-import { cn } from '../../libs/utils';
-import { Button } from '../ui/button';
+} from '../../../../components/ui/select';
+import { useFiltersStore } from '../../../../hooks/useFiltersStore';
+import { allBrands } from '../..';
+import { cn } from '../../../../libs/utils';
+import { Button } from '../../../../components/ui/button';
 
 interface IProps {
   className?: string;

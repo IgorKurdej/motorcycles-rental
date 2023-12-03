@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
-import { ICart } from '../../libs/types';
-import { useGetMotorcycleById } from '../../hooks/queries/useGetMotorcycleById';
+import { ICart } from '../../../../libs/types';
+import { useGetMotorcycleById } from '../../../../hooks/queries/useGetMotorcycleById';
 import { Trash2 } from 'lucide-react';
 import {
   addDays,
@@ -9,13 +9,13 @@ import {
   parseISO,
   subDays,
 } from 'date-fns';
-import { getImgSrc } from '../../libs/utils';
-import { Button } from '../ui/button';
-import { Modal } from '..';
+import { getImgSrc } from '../../../../libs/utils';
+import { Button } from '../../../../components/ui/button';
+import { Modal } from '../../../../components';
 import { useCart } from 'react-use-cart';
-import { DateInput } from '../DateInput';
-import { Label } from '../ui/label';
-import { useIsMount } from '../../hooks/useIsMount';
+import { DateInput } from '../../../../components';
+import { Label } from '../../../../components/ui/label';
+import { useIsMount } from '../../../../hooks/useIsMount';
 
 interface IProps {
   cartItem: ICart;

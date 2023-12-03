@@ -1,15 +1,15 @@
 import { FC, useMemo, useState } from 'react';
-import { Filters, Modal, MotorcycleCard } from '../../components';
+import { Modal, EmptyState } from '../../components';
 import { useFiltersStore } from '../../hooks/useFiltersStore';
 import { useGetMotorcycles } from '../../hooks/queries/useGetMotorcycles';
 import { sortNumbers } from '../../libs/utils';
 import { Filter as FilterButton } from 'lucide-react';
-import { EmptyState } from '../../components/EmptyState';
 import { Button } from '../../components/ui/button';
+import { Filters, MotorcycleCard } from './components';
 
 export const allBrands = ['BMW', 'Yamaha', 'Harley Davidson'];
 
-export const OfferPage: FC = () => {
+export const AllMotorcyclesPage: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data: motorcycles } = useGetMotorcycles();
@@ -67,6 +67,7 @@ export const OfferPage: FC = () => {
         </div>
       </div>
 
+      {/* modal with filters on mobile */}
       <Modal
         title='Filtry'
         isOpen={isModalOpen}

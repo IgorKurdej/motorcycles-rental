@@ -1,13 +1,13 @@
 import { FC, useMemo, useState } from 'react';
-import { ReservationStatus } from '../../libs/types';
-import { getImgSrc, getResevationStatus } from '../../libs/utils';
-import { Button } from '../ui/button';
+import { Link } from 'react-router-dom';
+import { getImgSrc, getResevationStatus } from '../../../../libs/utils';
 import { BadgeStatus } from './BadgeStatus';
 import { AddReview } from './AddReview';
+import { Badge } from '../../../../components/ui/badge';
 import { format } from 'date-fns';
-import { Badge } from '../ui/badge';
-import { Modal, ReservationForm } from '..';
-import { Link } from 'react-router-dom';
+import { Button } from '../../../../components/ui/button';
+import { ReservationStatus } from '../../../../libs/types';
+import { Modal, ReservationForm } from '../../../../components';
 
 interface IProps {
   reservationId: string;
@@ -21,7 +21,7 @@ interface IProps {
   price: string;
 }
 
-export const ReservationItem: FC<IProps> = ({
+export const UserReservationItem: FC<IProps> = ({
   reservationId,
   motorcycleId,
   image,

@@ -18,7 +18,7 @@ import { userSchema } from '../../libs/schemas';
 import { useUserUpdate } from '../../hooks/mutations/useUserUpdate';
 import { useLoggedUser } from '../../hooks/queries/useLoggedUser';
 
-export const UserPage: FC = () => {
+export const UserDetailsPage: FC = () => {
   const [isFormEdit, setIsFormEdit] = useState(false);
 
   const { data: user, refetch } = useLoggedUser();

@@ -1,17 +1,17 @@
 import { FC } from 'react';
-import { Checkbox } from '../ui/checkbox';
-import { Label } from '../ui/label';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
+import { Checkbox } from '../../../../components/ui/checkbox';
+import { Label } from '../../../../components/ui/label';
+import { Input } from '../../../../components/ui/input';
+import { Button } from '../../../../components/ui/button';
 import { Controller, SubmitHandler, useForm, useWatch } from 'react-hook-form';
-import { TCartSummary } from '../../libs/types';
+import { TCartSummary } from '../../../../libs/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { cartSummarySchema } from '../../libs/schemas';
+import { cartSummarySchema } from '../../../../libs/schemas';
 import { useCart } from 'react-use-cart';
 import toast from 'react-hot-toast';
-import { pb } from '../../libs/pocketbase';
+import { pb } from '../../../../libs/pocketbase';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAddNewReservation } from '../../hooks/mutations/useAddNewReservation';
+import { useAddNewReservation } from '../../../../hooks/mutations/useAddNewReservation';
 import { format, parseISO } from 'date-fns';
 
 const DISCOUNT_CODE = 'rabat';
@@ -89,7 +89,7 @@ export const CartSummary: FC = () => {
                 {...register('discountCode')}
               />
               <Button
-                variant='outline'
+                variant='secondary'
                 onClick={handleDiscountCodeApply}
                 disabled={isCodeValid || isEmpty}
                 type='button'

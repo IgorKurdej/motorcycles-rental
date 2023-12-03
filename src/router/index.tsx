@@ -3,19 +3,22 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from 'react-router-dom';
-import { AuthLayout, RootLayout } from '../layouts';
+import {
+  AuthLayout,
+  RootLayout,
+  ProtectedIfAuth,
+  ProtectedIfNotAuth,
+} from '../layouts';
 import {
   SignupPage,
   LoginPage,
-  OfferPage,
+  AllMotorcyclesPage,
   DashboardPage,
   MotorcyclePage,
-  UserPage,
-  ReservationsPage,
+  UserDetailsPage,
   CartPage,
+  UserReservationsPage,
 } from '../pages';
-import { ProtectedIAuth } from '../layouts/ProtectedIfAuth';
-import { ProtectedIfNotAuth } from '../layouts/ProtectedIfNotAuth';
 import { Suspense } from 'react';
 import { Spinner } from '../components/ui';
 
@@ -28,7 +31,7 @@ export const router = createBrowserRouter(
           path='motorcycles'
           element={
             <Suspense fallback={<Spinner />}>
-              <OfferPage />
+              <AllMotorcyclesPage />
             </Suspense>
           }
         />
@@ -54,7 +57,7 @@ export const router = createBrowserRouter(
             path='/user'
             element={
               <Suspense fallback={<Spinner />}>
-                <UserPage />
+                <UserDetailsPage />
               </Suspense>
             }
           />
@@ -62,14 +65,14 @@ export const router = createBrowserRouter(
             path='/reservations'
             element={
               <Suspense fallback={<Spinner />}>
-                <ReservationsPage />
+                <UserReservationsPage />
               </Suspense>
             }
           />
         </Route>
       </Route>
 
-      <Route path='/' element={<ProtectedIAuth />}>
+      <Route path='/' element={<ProtectedIfAuth />}>
         <Route element={<AuthLayout />}>
           <Route path='login' element={<LoginPage />} />
           <Route path='signup' element={<SignupPage />} />

@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import { Button } from '../../components/ui/button';
-import { IMotorcycle } from '../../libs/types';
-import { getImgSrc } from '../../libs/utils';
+import { Button } from '../../../../components/ui/button';
+import { IMotorcycle } from '../../../../libs/types';
+import { getImgSrc } from '../../../../libs/utils';
 import { Link } from 'react-router-dom';
-import { MotorcycleDetails } from '../MotorcycleDetails';
+import { MotorcycleDetails } from '../../../../components/MotorcycleDetails';
 
 interface IProps {
   motorcycle: IMotorcycle;

@@ -1,7 +1,6 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-
 import { useGetMotorcycleById } from '../../hooks/queries/useGetMotorcycleById';
 import { getImgSrc } from '../../libs/utils';
 import {
@@ -10,41 +9,20 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../../components/ui/accordion';
-import { IAccordionOption } from '../../libs/types';
-import { ReservationForm, Reviews } from '../../components';
-import { MotorcycleDetails } from '../../components/MotorcycleDetails';
+import { ReservationForm } from '../../components';
 import { useReviews } from '../../hooks/queries/useReviews';
+import { getAccordionOptions } from './utils';
 
 export const MotorcyclePage: FC = () => {
   const { id } = useParams();
 
   const { data: motorcycle } = useGetMotorcycleById(id || '');
   const { data: reviews } = useReviews(id || '');
-  const accordionOptions: IAccordionOption[] = [
-    {
-      value: 'description',
-      header: 'Opis',
-      content:
-        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit distinctio voluptatibus laboriosam id, doloremque exercitationem? Expedita tempora vitae vero excepturi quo neque iste explicabo, nesciunt ea quasi harum earum tenetur!',
-    },
-    {
-      value: 'details',
-      header: 'Szczegóły',
-      content: (
-        <MotorcycleDetails
-          className='my-3'
-          year={motorcycle?.year || 0}
-          enginePower={motorcycle?.enginePower || 0}
-          engineCapacity={motorcycle?.engineCapacity || 0}
-        />
-      ),
-    },
-    {
-      value: 'ratings',
-      header: 'Oceny klientów',
-      content: <Reviews reviews={reviews || []} />,
-    },
-  ];
+
+  const accordionOptions = useMemo(
+    () => getAccordionOptions(motorcycle, reviews),
+    [motorcycle, reviews]
+  );
 
   return (
     <div className='flex items-center justify-center'>

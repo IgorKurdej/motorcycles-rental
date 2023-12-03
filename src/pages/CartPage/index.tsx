@@ -1,14 +1,10 @@
 import { EmptyState } from '../../components/EmptyState';
 import { ICart } from '../../libs/types';
-import { CartItem, CartSummary } from '../../components';
+import { CartItem, CartSummary } from './components';
 import { useCart } from 'react-use-cart';
+import { FC } from 'react';
 
-export interface ITotalAmountItem {
-  idx: number;
-  price: number;
-}
-
-export const CartPage = () => {
+export const CartPage: FC = () => {
   const { isEmpty, items } = useCart();
 
   return (

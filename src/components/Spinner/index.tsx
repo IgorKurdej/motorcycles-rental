@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { cn } from '../../../libs/utils';
+import { cn } from '../../libs/utils';
 
 export const Spinner: FC<{ classNames?: string }> = ({ classNames }) => {
   return (

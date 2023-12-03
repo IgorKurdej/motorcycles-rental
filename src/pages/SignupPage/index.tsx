@@ -37,7 +37,6 @@ export const SignupPage: FC = () => {
 
   const onSubmit: SubmitHandler<Signup> = async (data) => {
     mutate(data);
-    // await pb.collection('users').requestVerification(data.email);
   };
 
   return (

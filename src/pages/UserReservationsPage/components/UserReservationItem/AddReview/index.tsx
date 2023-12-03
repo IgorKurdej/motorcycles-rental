@@ -1,28 +1,28 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Button } from '../../ui/button';
+import { Button } from '../../../../../components/ui/button';
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '../../ui/dialog';
+} from '../../../../../components/ui/dialog';
 import {
   Form,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '../../ui/form';
-import { Textarea } from '../../ui/textarea';
-import { IReview } from '../../../libs/types';
+} from '../../../../../components/ui/form';
+import { Textarea } from '../../../../../components/ui/textarea';
+import { IReview } from '../../../../../libs/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { addNewReviewSchema } from '../../../libs/schemas';
+import { addNewReviewSchema } from '../../../../../libs/schemas';
 import { Dispatch, FC, SetStateAction } from 'react';
 import { Rating } from '@smastrom/react-rating';
-import { useAddNewReview } from '../../../hooks/mutations/useAddNewReview';
-import { useGetMotorcycleById } from '../../../hooks/queries/useGetMotorcycleById';
-import { getImgSrc } from '../../../libs/utils';
+import { useAddNewReview } from '../../../../../hooks/mutations/useAddNewReview';
+import { useGetMotorcycleById } from '../../../../../hooks/queries/useGetMotorcycleById';
+import { getImgSrc } from '../../../../../libs/utils';
 
 interface IProps {
   motorcycleId: string;

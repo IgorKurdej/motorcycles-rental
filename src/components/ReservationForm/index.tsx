@@ -2,7 +2,6 @@ import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { Reservation } from '../../libs/types';
 import { Dispatch, FC, SetStateAction, useMemo } from 'react';
 import { Form, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
-import { DateInput } from '../DateInput';
 import { Button } from '../ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { reservationSchema } from '../../libs/schemas';
@@ -10,6 +9,7 @@ import { addDays, differenceInCalendarDays, subDays } from 'date-fns';
 import { useReservationUpdate } from '../../hooks/mutations/useReservationUpdate';
 import toast from 'react-hot-toast';
 import { useCart } from 'react-use-cart';
+import { DateInput } from '..';
 
 interface IProps {
   reservationId?: string;
@@ -72,7 +72,7 @@ export const ReservationForm: FC<IProps> = ({
     }
 
     if (inCart(motorcycleId)) {
-      toast.error('Nie możesz dodać tego samego produktu do koszyka');
+      toast.error('Masz już ten motocykl w koszyku');
       return;
     }
 

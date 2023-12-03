@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { allBrands } from '../pages/OfferPage';
+import { allBrands } from '../pages/AllMotorcyclesPage';
 
 interface IStore {
   searchValue: string;

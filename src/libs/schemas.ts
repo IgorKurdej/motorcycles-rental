@@ -22,9 +22,6 @@ export const signupSchema = z
     terms: z.literal(true, {
       errorMap: () => ({ message: 'Pole wymagane' }),
     }),
-    // terms: z.boolean({
-    //   required_error: 'Akceptacja warunków wymagana',
-    // }),
   })
   .refine((data) => data.password === data.passwordConfirm, {
     path: ['confirmPassword'],

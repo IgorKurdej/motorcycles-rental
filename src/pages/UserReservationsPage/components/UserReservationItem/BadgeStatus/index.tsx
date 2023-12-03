@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { ReservationStatus } from '../../../libs/types';
-import { Badge } from '../../ui/badge';
+import { ReservationStatus } from '../../../../../libs/types';
+import { Badge } from '../../../../../components/ui/badge';
 
 interface IProps {
   status: ReservationStatus;
