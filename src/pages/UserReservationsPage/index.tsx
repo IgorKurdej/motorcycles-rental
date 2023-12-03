@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import { useUserReservations } from '../../hooks/queries/useUserReservations';
+import { useGetUserReservations } from '../../hooks/queries/useGetUserReservations';
 import { IMotorcycle } from '../../libs/types';
 import { UserReservationItem } from './components';
 
 export const UserReservationsPage: FC = () => {
-  const { data: reservations } = useUserReservations();
+  const { data: reservations } = useGetUserReservations();
 
   return (
     <div className='flex flex-wrap items-center justify-center gap-8 py-6'>

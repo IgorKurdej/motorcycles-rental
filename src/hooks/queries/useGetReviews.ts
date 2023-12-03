@@ -7,7 +7,7 @@ const getReviewsByMotorcycleId = (motorcycleId: string): Promise<IReview[]> =>
     .collection('reviews')
     .getFullList({ filter: `motorcycleId="${motorcycleId}"` });
 
-export const useReviews = (motorcycleId: string) => {
+export const useGetReviews = (motorcycleId: string) => {
   return useSuspenseQuery({
     queryKey: ['reviews', motorcycleId],
     queryFn: () => getReviewsByMotorcycleId(motorcycleId),

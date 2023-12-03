@@ -20,7 +20,7 @@ const updateReservation = (
   });
 };
 
-export const useReservationUpdate = (
+export const useUpdateUserReservation = (
   reservationId: string,
   handleSuccess: () => void
 ) => {

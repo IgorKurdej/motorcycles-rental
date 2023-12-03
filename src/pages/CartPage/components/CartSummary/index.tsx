@@ -12,7 +12,6 @@ import toast from 'react-hot-toast';
 import { pb } from '../../../../libs/pocketbase';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAddNewReservation } from '../../../../hooks/mutations/useAddNewReservation';
-import { format, parseISO } from 'date-fns';
 
 const DISCOUNT_CODE = 'rabat';
 
@@ -23,7 +22,10 @@ export const CartSummary: FC = () => {
   const isAuth = pb.authStore.isValid;
   const loggedUser = pb.authStore.model?.id;
 
-  const { mutateAsync } = useAddNewReservation(() => {});
+  const { mutate } = useAddNewReservation(() => {
+    emptyCart();
+    navigate('/reservations');
+  });
 
   const form = useForm<TCartSummary>({
     resolver: zodResolver(cartSummarySchema),
@@ -54,18 +56,15 @@ export const CartSummary: FC = () => {
   };
 
   const onSubmit: SubmitHandler<TCartSummary> = ({ isCodeValid }) => {
-    mutateAsync(
+    mutate(
       items.map(({ price, dateFrom, dateTo, id }) => ({
         userId: loggedUser || '',
         motorcycleId: id,
-        dateFrom: new Date(format(parseISO(dateFrom), 'yyyy-MM-dd HH:mm:ss')),
-        dateTo: new Date(format(parseISO(dateTo), 'yyyy-MM-dd HH:mm:ss')),
+        dateTo: new Date(dateTo),
+        dateFrom: new Date(dateFrom),
         price: isCodeValid ? (price * 0.9).toString() : price.toString(),
       }))
-    ).finally(() => {
-      emptyCart();
-      navigate('/reservations');
-    });
+    );
   };
 
   return (

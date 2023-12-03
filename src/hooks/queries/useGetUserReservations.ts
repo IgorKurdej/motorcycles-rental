@@ -12,7 +12,7 @@ const getUserReservations = (userId?: string): Promise<IReservation[]> => {
   });
 };
 
-export const useUserReservations = (
+export const useGetUserReservations = (
   options?: UseSuspenseQueryOptions<IReservation[]>
 ) => {
   const loggedUserId = pb.authStore.model?.id;

@@ -6,7 +6,7 @@ import { Button } from '../ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { reservationSchema } from '../../libs/schemas';
 import { addDays, differenceInCalendarDays, subDays } from 'date-fns';
-import { useReservationUpdate } from '../../hooks/mutations/useReservationUpdate';
+import { useUpdateUserReservation } from '../../hooks/mutations/useUpdateUserReservation';
 import toast from 'react-hot-toast';
 import { useCart } from 'react-use-cart';
 import { DateInput } from '..';
@@ -32,7 +32,7 @@ export const ReservationForm: FC<IProps> = ({
   oldReservationPrice,
   setIsOpen,
 }) => {
-  const { mutate: updateReservation } = useReservationUpdate(
+  const { mutate: updateReservation } = useUpdateUserReservation(
     reservationId || '',
     () => setIsOpen && setIsOpen(false)
   );

@@ -8,8 +8,6 @@ const createNewReservation = async (data: NewReservationBody[]) => {
     pb.collection('reservations').create(item, { $autoCancel: false })
   );
 
-  console.log(promises);
-
   return await Promise.all(promises);
 };
 

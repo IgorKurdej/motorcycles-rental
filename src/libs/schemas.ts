@@ -31,14 +31,14 @@ export const signupSchema = z
 export const reservationSchema = z
   .object({
     dateFrom: z.coerce.date().refine((data) => data > new Date(), {
-      message: 'Start date must be in the future',
+      message: 'Data rozpoaczęcia musi być późniejsza niż dzień dzisiejszy',
     }),
     dateTo: z.coerce.date(),
     numberOfDays: z.number().optional(),
     motorcycleId: z.string().optional(),
   })
   .refine((data) => data.dateTo > data.dateFrom, {
-    message: 'End date cannot be earlier than start date.',
+    message: 'Data zakończenia musi być późniejsza niż rozpoczęcia',
     path: ['endDate'],
   });
 

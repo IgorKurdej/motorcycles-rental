@@ -10,14 +10,14 @@ import {
   AccordionTrigger,
 } from '../../components/ui/accordion';
 import { ReservationForm } from '../../components';
-import { useReviews } from '../../hooks/queries/useReviews';
+import { useGetReviews } from '../../hooks/queries/useGetReviews';
 import { getAccordionOptions } from './utils';
 
 export const MotorcyclePage: FC = () => {
   const { id } = useParams();
 
   const { data: motorcycle } = useGetMotorcycleById(id || '');
-  const { data: reviews } = useReviews(id || '');
+  const { data: reviews } = useGetReviews(id || '');
 
   const accordionOptions = useMemo(
     () => getAccordionOptions(motorcycle, reviews),

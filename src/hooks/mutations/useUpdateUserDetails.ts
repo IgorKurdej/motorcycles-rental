@@ -8,7 +8,7 @@ const updateUser = async (data: User) => {
   return pb.collection('users').update(userId || '', data);
 };
 
-export const useUserUpdate = (handleSuccess: () => void) => {
+export const useUpdateUserDetails = (handleSuccess: () => void) => {
   return useMutation({
     mutationFn: updateUser,
     onSuccess: () => {
