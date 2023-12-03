@@ -9,6 +9,7 @@ const getUserReservations = (userId?: string): Promise<IReservation[]> => {
   return pb.collection('reservations').getFullList({
     filter: `userId="${userId}"`,
     expand: 'motorcycleId',
+    sort: '-created',
   });
 };
 

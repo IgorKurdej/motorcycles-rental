@@ -22,7 +22,7 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import { Rating } from '@smastrom/react-rating';
 import { useAddNewReview } from '../../../../../hooks/mutations/useAddNewReview';
 import { useGetMotorcycleById } from '../../../../../hooks/queries/useGetMotorcycleById';
-import { getImgSrc } from '../../../../../libs/utils';
+import { pb } from '../../../../../libs/pocketbase';
 
 interface IProps {
   motorcycleId: string;
@@ -62,7 +62,7 @@ export const AddReview: FC<IProps> = ({ motorcycleId, isOpen, setIsOpen }) => {
           <div className='flex items-center gap-5 mt-2'>
             <img
               className='h-16'
-              src={getImgSrc('motorcycles', motorcycle.id, motorcycle.image)}
+              src={pb.getFileUrl(motorcycle, motorcycle.image)}
               alt='reservation-motorcycle-image'
             />
             <div>

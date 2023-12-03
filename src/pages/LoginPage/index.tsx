@@ -24,7 +24,7 @@ export const LoginPage: FC = () => {
 
   const form = useForm<Login>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: 'adam@gmail.com', password: '123123123' },
+    defaultValues: { email: 'adam@gmail.com', password: 'adam12345' },
   });
 
   const onSubmit: SubmitHandler<Login> = async (data) => {

@@ -2,7 +2,6 @@ import { FC, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useGetMotorcycleById } from '../../hooks/queries/useGetMotorcycleById';
-import { getImgSrc } from '../../libs/utils';
 import {
   Accordion,
   AccordionContent,
@@ -12,6 +11,7 @@ import {
 import { ReservationForm } from '../../components';
 import { useGetReviews } from '../../hooks/queries/useGetReviews';
 import { getAccordionOptions } from './utils';
+import { pb } from '../../libs/pocketbase';
 
 export const MotorcyclePage: FC = () => {
   const { id } = useParams();
@@ -37,11 +37,7 @@ export const MotorcyclePage: FC = () => {
       <div className='max-w-[600px] w-full flex flex-col gap-3'>
         <div className='flex flex-col items-center justify-center'>
           <img
-            src={getImgSrc(
-              'motorcycles',
-              motorcycle?.id || '',
-              motorcycle?.image || ''
-            )}
+            src={pb.getFileUrl(motorcycle, motorcycle.image)}
             alt='product'
             className='h-[200px] sm:h-[300px] object-contain'
           />

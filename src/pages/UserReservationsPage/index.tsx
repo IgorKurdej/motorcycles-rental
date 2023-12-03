@@ -9,23 +9,11 @@ export const UserReservationsPage: FC = () => {
   return (
     <div className='flex flex-wrap items-center justify-center gap-8 py-6'>
       {reservations.map(({ expand, id, dateFrom, dateTo, price }) => {
-        const {
-          id: motorcycleId,
-          price: pricePerDay,
-          image,
-          brand,
-          model,
-        } = expand.motorcycleId as IMotorcycle;
-
         return (
           <UserReservationItem
             key={id}
             reservationId={id}
-            motorcycleId={motorcycleId}
-            image={image}
-            brand={brand}
-            model={model}
-            pricePerDay={pricePerDay}
+            motorcycle={expand.motorcycleId as IMotorcycle}
             dateFrom={dateFrom}
             dateTo={dateTo}
             price={price}

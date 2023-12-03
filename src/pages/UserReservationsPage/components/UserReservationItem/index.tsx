@@ -1,37 +1,32 @@
 import { FC, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getImgSrc, getResevationStatus } from '../../../../libs/utils';
+import { getResevationStatus } from '../../../../libs/utils';
 import { BadgeStatus } from './BadgeStatus';
 import { AddReview } from './AddReview';
 import { Badge } from '../../../../components/ui/badge';
 import { format } from 'date-fns';
 import { Button } from '../../../../components/ui/button';
-import { ReservationStatus } from '../../../../libs/types';
+import { IMotorcycle, ReservationStatus } from '../../../../libs/types';
 import { Modal, ReservationForm } from '../../../../components';
+import { pb } from '../../../../libs/pocketbase';
 
 interface IProps {
   reservationId: string;
-  motorcycleId: string;
-  image: string;
-  brand: string;
-  model: string;
-  pricePerDay: number;
   dateFrom: Date;
   dateTo: Date;
   price: string;
+  motorcycle: IMotorcycle;
 }
 
 export const UserReservationItem: FC<IProps> = ({
   reservationId,
-  motorcycleId,
-  image,
-  brand,
-  model,
-  pricePerDay,
   dateFrom,
   dateTo,
   price,
+  motorcycle,
 }) => {
+  const { id, image, brand, model, pricePerDay } = motorcycle;
+
   const [isAddReviewModalOpen, setIsAddReviewModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
@@ -47,10 +42,10 @@ export const UserReservationItem: FC<IProps> = ({
           {price} zł
         </Badge>
         <BadgeStatus status={reservationStatus} />
-        <Link to={`/motorcycles/${motorcycleId}`} relative='route'>
+        <Link to={`/motorcycles/${id}`} relative='route'>
           <img
+            src={pb.getFileUrl(motorcycle, image)}
             className='h-[175px] object-contain'
-            src={getImgSrc('motorcycles', motorcycleId, image)}
             alt='reservation-image'
           />
         </Link>
@@ -91,7 +86,7 @@ export const UserReservationItem: FC<IProps> = ({
 
       {isAddReviewModalOpen && (
         <AddReview
-          motorcycleId={motorcycleId}
+          motorcycleId={id}
           isOpen={isAddReviewModalOpen}
           setIsOpen={setIsAddReviewModalOpen}
         />
@@ -104,7 +99,7 @@ export const UserReservationItem: FC<IProps> = ({
           setIsOpen={setIsEditModalOpen}
         >
           <ReservationForm
-            motorcycleId={motorcycleId}
+            motorcycleId={id}
             reservationId={reservationId}
             oldReservationPrice={price}
             pricePerDay={pricePerDay}

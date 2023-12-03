@@ -1,32 +1,23 @@
 import { FC } from 'react';
 import { Button } from '../../../../components/ui/button';
 import { IMotorcycle } from '../../../../libs/types';
-import { getImgSrc } from '../../../../libs/utils';
 import { Link } from 'react-router-dom';
 import { MotorcycleDetails } from '../../../../components/MotorcycleDetails';
+import { pb } from '../../../../libs/pocketbase';
 
 interface IProps {
   motorcycle: IMotorcycle;
 }
 
 export const MotorcycleCard: FC<IProps> = ({ motorcycle }) => {
-  const {
-    id,
-    brand,
-    model,
-    year,
-    enginePower,
-    engineCapacity,
-    price,
-    image,
-    collectionId,
-  } = motorcycle;
+  const { id, brand, model, year, enginePower, engineCapacity, price, image } =
+    motorcycle;
 
   return (
     <div className='md:grid border-b md:grid-cols-2 max-w-[500px] md:max-w-[1000px] lg:h-[230px] w-full py-6 md:py-2 items-center justify-center animate-[wiggle_0.5s_ease]'>
       <img
         className='mx-auto max-h-52'
-        src={getImgSrc(collectionId, id, image)}
+        src={pb.getFileUrl(motorcycle, image)}
         alt='product'
       />
       <div className='flex flex-col gap-5 md:gap-8 md:px-4'>

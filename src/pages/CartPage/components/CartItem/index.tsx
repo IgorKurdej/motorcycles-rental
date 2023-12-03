@@ -9,13 +9,13 @@ import {
   parseISO,
   subDays,
 } from 'date-fns';
-import { getImgSrc } from '../../../../libs/utils';
 import { Button } from '../../../../components/ui/button';
 import { Modal } from '../../../../components';
 import { useCart } from 'react-use-cart';
 import { DateInput } from '../../../../components';
 import { Label } from '../../../../components/ui/label';
 import { useIsMount } from '../../../../hooks/useIsMount';
+import { pb } from '../../../../libs/pocketbase';
 
 interface IProps {
   cartItem: ICart;
@@ -66,8 +66,8 @@ export const CartItem: FC<IProps> = ({
         <div className='flex items-center gap-5 mt-2'>
           <div className='h-40 my-auto w-60'>
             <img
+              src={pb.getFileUrl(motorcycle, motorcycle.image)}
               className='object-fill'
-              src={getImgSrc('motorcycles', motorcycle.id, motorcycle.image)}
               alt='reservation-motorcycle-image'
             />
           </div>
