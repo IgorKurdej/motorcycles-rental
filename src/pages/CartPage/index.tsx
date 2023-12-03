@@ -9,7 +9,7 @@ export const CartPage: FC = () => {
 
   return (
     <div className='flex flex-col items-center justify-center gap-10 lg:py-6 lg:flex-row lg:items-start'>
-      <div className='max-w-[800px] flex-grow'>
+      <div className='max-w-[700px] w-full flex-grow'>
         {!isEmpty ? (
           <div className='space-y-4'>
             {items.map((cartItem) => (

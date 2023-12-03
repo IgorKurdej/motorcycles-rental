@@ -68,7 +68,7 @@ export const CartSummary: FC = () => {
   };
 
   return (
-    <div className='sticky flex flex-col gap-3 p-6 rounded shadow w-80 top-20 h-fit'>
+    <div className='sticky flex flex-col gap-3 p-6 rounded bg-slate-100 lg:shadow lg:bg-white w-80 top-20 h-fit'>
       <p className='text-xl font-semibold'>Podsumowanie</p>
       <div className='flex justify-between mb-2 font-medium'>
         <span>Kwota łączna:</span>
